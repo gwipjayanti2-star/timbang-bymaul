@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="description" content="Aplikasi Material Handling Record PWA">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Material Handling Record PWA</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { 
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a' },
+                        slate: { 850: '#172033' }
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'inner-soft': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.02)'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; background-color: #f8fafc; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.2); border-top: 4px solid #ffffff;
+            border-radius: 50%; width: 40px; height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes slideInUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .toast-enter { animation: slideInUp 0.3s ease-out forwards; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .tab-btn { position: relative; }
+        .tab-btn::after {
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 0; height: 3px; background-color: #2563eb; transition: width 0.3s ease; border-radius: 3px 3px 0 0;
+        }
+        .tab-btn.active::after { width: 100%; }
+        .tab-btn.active { color: #1d4ed8; background-color: #eff6ff; font-weight: 600; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <div id="loginScreen" class="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl flex flex-col border border-slate-700/50 transform transition-all">
+            <div class="bg-gradient-to-br from-slate-900 to-slate-800 p-8 flex flex-col items-center justify-center text-white relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-600/20 rounded-full blur-2xl"></div>
+                <div class="w-20 h-20 rounded-2xl bg-white/10 flex items-center justify-center mb-4 border border-white/20 shadow-inner backdrop-blur-md z-10">
+                    <i class="fa-solid fa-boxes-packing text-4xl text-brand-400 drop-shadow-md"></i>
+                </div>
+                <h1 class="text-2xl font-bold tracking-tight text-white z-10">Material Record</h1>
+                <p class="text-sm text-slate-400 mt-1 z-10 font-medium">PWA Cloud Edition</p>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)" class="p-8 space-y-5 bg-white">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Username</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-user"></i></div>
+                        <input type="text" id="loginUsername" required class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:bg-white focus:outline-none transition-all shadow-inner-soft" placeholder="Masukkan username">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-lock"></i></div>
+                        <input type="password" id="loginPassword" required class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 focus:bg-white focus:outline-none transition-all shadow-inner-soft" placeholder="Masukkan password">
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-3 mt-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-brand-500/30 transition-all transform hover:-translate-y-0.5">Masuk Sekarang</button>
+                <div class="text-center pt-2">
+                    <p class="text-[11px] text-slate-500">Connected to Google Sheets</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="loadingOverlay" class="hidden fixed inset-0 bg-slate-900/60 z-[120] flex flex-col items-center justify-center backdrop-blur-sm transition-opacity">
+        <div class="loader mb-4 border-brand-400 border-t-white shadow-lg"></div>
+        <p class="text-sm font-semibold text-white tracking-wide animate-pulse">Memproses Data...</p>
+    </div>
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-[130] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Edit Material Modal -->
+    <div id="editModal" class="hidden fixed inset-0 bg-slate-900/60 z-[150] flex flex-col items-center justify-center backdrop-blur-sm transition-opacity px-4">
+        <div class="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl flex flex-col border border-slate-200 transform transition-all fade-in">
+            <div class="bg-slate-850 p-5 text-white border-b border-slate-900 flex justify-between items-center">
+                <h2 class="text-lg font-bold flex items-center"><i class="fa-solid fa-pen-to-square mr-2 text-brand-400"></i>Edit Material</h2>
+                <button type="button" onclick="closeEditModal()" class="text-slate-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <form id="editForm" onsubmit="handleEditSubmit(event)" class="p-6 space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">Kode Material</label>
+                        <input type="text" id="editKode" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none font-mono uppercase shadow-inner-soft transition-all">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">Nama Material</label>
+                        <input type="text" id="editNama" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none shadow-inner-soft transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">Kemasan (Kg)</label>
+                        <input type="number" id="editKemasan" step="0.01" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none shadow-inner-soft transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">Kategori</label>
+                        <select id="editKategori" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none shadow-inner-soft transition-all">
+                            <option value="Utama">Utama</option>
+                            <option value="Pewarna">Pewarna</option>
+                            <option value="Aditif">Aditif</option>
+                            <option value="Pembantu">Pembantu</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wide" title="Pisahkan dengan koma">Opsi Tara (Kg)</label>
+                        <input type="text" id="editTara" placeholder="Cth: 0.1, 0.15" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none shadow-inner-soft transition-all">
+                        <p class="text-[9px] text-slate-500 mt-1 uppercase tracking-wide">Pisahkan koma (,) jika lebih dari 1 opsi tara kemasan</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200 mt-2">
+                    <input type="checkbox" id="editStatus" class="w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer">
+                    <label class="text-xs font-bold text-slate-700 uppercase tracking-wide cursor-pointer select-none" for="editStatus">Status Aktif</label>
+                </div>
+                <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-slate-100">
+                    <button type="button" onclick="closeEditModal()" class="px-5 py-2.5 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-xl font-bold text-sm shadow-sm transition-colors">Batal</button>
+                    <button type="submit" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-bold text-sm shadow-md shadow-brand-500/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-save"></i> Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confimation Modal -->
+    <div id="deleteModal" class="hidden fixed inset-0 bg-slate-900/60 z-[150] flex flex-col items-center justify-center backdrop-blur-sm transition-opacity px-4">
+        <div class="bg-white rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl flex flex-col border border-slate-200 transform transition-all fade-in">
+            <div class="p-6 text-center">
+                <div class="w-16 h-16 rounded-full bg-red-100 text-red-500 flex items-center justify-center text-3xl mx-auto mb-4 border-4 border-white shadow-sm">
+                    <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+                </div>
+                <h2 class="text-lg font-bold text-slate-900 mb-2">Hapus Material?</h2>
+                <p class="text-sm text-slate-500 mb-1">Anda yakin ingin menghapus data material dengan kode:</p>
+                <p id="deleteMatKode" class="font-mono font-bold text-slate-800 bg-slate-100 py-1.5 px-3 rounded-lg inline-block border border-slate-200 mt-2"></p>
+                <p class="text-xs text-red-500 mt-4 font-medium bg-red-50 p-2 rounded-lg border border-red-100">Tindakan ini tidak dapat dibatalkan.</p>
+            </div>
+            <div class="flex bg-slate-50 border-t border-slate-200 p-3 gap-3">
+                <button type="button" onclick="closeDeleteModal()" class="flex-1 px-4 py-2.5 bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 rounded-xl font-bold text-sm shadow-sm transition-colors">Batal</button>
+                <button type="button" onclick="confirmDeleteMaterial()" class="flex-1 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold text-sm shadow-md shadow-red-600/20 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-trash"></i> Hapus
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="appContainer" class="hidden flex-col min-h-screen">
+        <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16 sm:h-20">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center text-white shadow-lg shadow-brand-500/20 border border-brand-500">
+                            <i class="fa-solid font-bold text-xl sm:text-2xl fa-boxes-packing text-white drop-shadow-md"></i>
+                        </div>
+                        <div>
+                            <h1 class="font-bold text-lg sm:text-xl leading-tight text-slate-900 tracking-tight flex items-center gap-2">
+                                MatRecord 
+                                <span class="bg-emerald-100 text-emerald-700 text-[10px] px-2 py-0.5 rounded-full border border-emerald-200 uppercase tracking-widest hidden sm:inline-block">Online</span>
+                            </h1>
+                            <p class="text-[10px] sm:text-xs text-slate-500 font-medium">Handling & Realisasi Produksi</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3 sm:space-x-5">
+                        <button id="installPwaBtn" class="hidden bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm hover:bg-slate-800 transition-colors mr-2">
+                            <i class="fa-solid fa-download mr-1"></i> Install App
+                        </button>
+                        <div class="hidden sm:flex flex-col items-end mr-2">
+                            <div class="text-sm font-bold text-slate-800 leading-tight" id="displayUserName">User</div>
+                            <div class="text-[10px] font-semibold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-full border border-brand-100 mt-0.5" id="displayUserRole">Role</div>
+                        </div>
+                        <div class="w-px h-8 bg-slate-200 hidden sm:block"></div>
+                        <button onclick="refreshAllData()" class="p-2 sm:p-2.5 text-slate-500 hover:bg-slate-100 rounded-xl transition-colors shadow-sm border border-transparent hover:border-slate-200 group" title="Refresh Data">
+                            <i class="fa-solid fa-rotate-right group-hover:text-brand-600 transition-colors" id="refreshIcon"></i>
+                        </button>
+                        <button onclick="logoutUser()" class="p-2 sm:p-2.5 text-red-500 hover:bg-red-50 rounded-xl transition-colors shadow-sm border border-transparent hover:border-red-100 flex items-center gap-2 group" title="Logout">
+                            <i class="fa-solid fa-power-off group-hover:scale-110 transition-transform"></i>
+                            <span class="hidden md:inline text-sm font-bold">Keluar</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border-t border-slate-100 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.02)]">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto custom-scrollbar">
+                    <nav class="flex space-x-2 sm:space-x-6 min-w-max text-sm" aria-label="Tabs">
+                        <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn active px-3 py-3.5 font-medium text-slate-500 hover:text-brand-700 transition-colors flex items-center space-x-2">
+                            <i class="fa-solid fa-chart-pie opacity-70"></i><span>Dashboard</span>
+                        </button>
+                        <button onclick="switchTab('planning')" id="tab-planning" class="tab-btn px-3 py-3.5 font-medium text-slate-500 hover:text-brand-700 transition-colors flex items-center space-x-2">
+                            <i class="fa-solid fa-clipboard-list opacity-70"></i><span>Input Planning</span>
+                        </button>
+                        <button onclick="switchTab('input')" id="tab-input" class="tab-btn px-3 py-3.5 font-medium text-slate-500 hover:text-brand-700 transition-colors flex items-center space-x-2">
+                            <i class="fa-solid fa-file-pen opacity-70"></i><span>Input Realisasi</span>
+                        </button>
+                        <button onclick="switchTab('realisasi')" id="tab-realisasi" class="tab-btn px-3 py-3.5 font-medium text-slate-500 hover:text-brand-700 transition-colors flex items-center space-x-2">
+                            <i class="fa-solid fa-list-check opacity-70"></i><span>Data Realisasi</span>
+                        </button>
+                        <button onclick="switchTab('rekapan')" id="tab-rekapan" class="tab-btn px-3 py-3.5 font-medium text-slate-500 hover:text-brand-700 transition-colors flex items-center space-x-2">
+                            <i class="fa-solid fa-file-contract opacity-70"></i><span>Rekapan</span>
+                        </button>
+                        <button onclick="switchTab('master')" id="tab-master" class="tab-btn px-3 py-3.5 font-medium text-slate-500 hover:text-brand-700 transition-colors flex items-center space-x-2">
+                            <i class="fa-solid fa-database opacity-70"></i><span>Master Material</span>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <section id="section-dashboard" class="space-y-6 fade-in">
+                <!-- Sama persis seperti sebelumnya -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                    <div class="bg-white rounded-xl p-4 sm:p-5 shadow-soft border border-brand-100 relative overflow-hidden group flex flex-col justify-center">
+                        <div class="absolute top-1/2 -translate-y-1/2 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform duration-500 pointer-events-none">
+                            <i class="fa-solid fa-industry text-5xl sm:text-6xl text-brand-600"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></div>
+                                <h2 class="text-xs font-bold text-brand-800 uppercase tracking-wide">Progress P-1112</h2>
+                            </div>
+                            <p class="text-[10px] text-slate-500 mb-3 font-medium">Material Selesai vs Target Rencana Hari Ini</p>
+                            
+                            <div class="flex justify-between items-end mb-2">
+                                <div>
+                                    <span id="progress1112Text" class="font-black text-slate-800 text-2xl">0/0</span>
+                                    <span class="text-[10px] text-slate-500 ml-1 font-semibold uppercase">Mat</span>
+                                </div>
+                                <span id="progress1112Percent" class="font-black text-xl text-brand-600">0%</span>
+                            </div>
+                            <div class="w-full bg-brand-50 rounded-full h-2.5 border border-brand-100/50 shadow-inner overflow-hidden">
+                                <div id="progressBar1112" class="bg-gradient-to-r from-brand-500 to-brand-700 h-2.5 rounded-full transition-all duration-1000 ease-out shadow-sm relative" style="width: 0%">
+                                    <div class="absolute inset-0 bg-white/20 w-full h-full animate-[shimmer_2s_infinite]"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-4 sm:p-5 shadow-soft border border-slate-200 relative overflow-hidden group flex flex-col justify-center">
+                        <div class="absolute top-1/2 -translate-y-1/2 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform duration-500 pointer-events-none">
+                            <i class="fa-solid fa-building-user text-5xl sm:text-6xl text-slate-800"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="w-2 h-2 rounded-full bg-slate-700 animate-pulse"></div>
+                                <h2 class="text-xs font-bold text-slate-800 uppercase tracking-wide">Progress P-1113</h2>
+                            </div>
+                            <p class="text-[10px] text-slate-500 mb-3 font-medium">Material Selesai vs Target Rencana Hari Ini</p>
+
+                            <div class="flex justify-between items-end mb-2">
+                                <div>
+                                    <span id="progress1113Text" class="font-black text-slate-800 text-2xl">0/0</span>
+                                    <span class="text-[10px] text-slate-500 ml-1 font-semibold uppercase">Mat</span>
+                                </div>
+                                <span id="progress1113Percent" class="font-black text-xl text-slate-700">0%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 rounded-full h-2.5 border border-slate-200/50 shadow-inner overflow-hidden">
+                                <div id="progressBar1113" class="bg-gradient-to-r from-slate-600 to-slate-800 h-2.5 rounded-full transition-all duration-1000 ease-out shadow-sm relative" style="width: 0%">
+                                    <div class="absolute inset-0 bg-white/20 w-full h-full animate-[shimmer_2s_infinite]"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-soft border border-slate-200">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 tracking-tight">Rincian Status Pemenuhan</h2>
+                            <p class="text-xs text-slate-500 mt-1">Detail perbandingan Plan (Rencana) vs Aktual (Realisasi) harian tiap Plant.</p>
+                        </div>
+                        <div class="flex items-center gap-3 bg-slate-50 p-2 rounded-xl border border-slate-200 shadow-sm w-full sm:w-auto">
+                            <label class="text-xs font-bold text-slate-600 px-2 uppercase tracking-wide flex items-center"><i class="fa-regular fa-calendar-days mr-2 text-brand-600"></i>Tanggal</label>
+                            <input type="date" id="statusFilterDate" onchange="renderDashboard()" class="text-sm bg-white border border-slate-300 rounded-lg px-3 py-1.5 outline-none text-slate-800 focus:ring-2 focus:ring-brand-500 font-medium w-full sm:w-auto cursor-pointer transition-shadow">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="border border-brand-200 rounded-xl overflow-hidden flex flex-col shadow-sm">
+                            <div class="bg-gradient-to-r from-brand-700 to-brand-800 p-3.5 text-white flex justify-between items-center border-b border-brand-900">
+                                <h3 class="text-sm font-bold tracking-wide uppercase"><i class="fa-solid fa-industry mr-2 text-brand-300"></i>Plant 1112</h3>
+                            </div>
+                            <div class="overflow-x-auto custom-scrollbar flex-grow bg-white">
+                                <table class="w-full text-left text-xs whitespace-nowrap">
+                                    <thead class="bg-brand-50 text-brand-900 font-bold uppercase border-b border-brand-100 tracking-wide text-[10px]">
+                                        <tr><th class="p-3">Material</th><th class="p-3 text-right">Plan (Kg)</th><th class="p-3 text-right">Real (Kg)</th><th class="p-3 text-center">Status</th><th class="p-3 text-center">Selisih</th></tr>
+                                    </thead>
+                                    <tbody id="tableStatus1112Body" class="divide-y divide-slate-100 font-medium text-[13px]"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-300 rounded-xl overflow-hidden flex flex-col shadow-sm">
+                            <div class="bg-gradient-to-r from-slate-700 to-slate-800 p-3.5 text-white flex justify-between items-center border-b border-slate-900">
+                                <h3 class="text-sm font-bold tracking-wide uppercase"><i class="fa-solid fa-building-user mr-2 text-slate-300"></i>Plant 1113</h3>
+                            </div>
+                            <div class="overflow-x-auto custom-scrollbar flex-grow bg-white">
+                                <table class="w-full text-left text-xs whitespace-nowrap">
+                                    <thead class="bg-slate-50 text-slate-700 font-bold uppercase border-b border-slate-200 tracking-wide text-[10px]">
+                                        <tr><th class="p-3">Material</th><th class="p-3 text-right">Plan (Kg)</th><th class="p-3 text-right">Real (Kg)</th><th class="p-3 text-center">Status</th><th class="p-3 text-center">Selisih</th></tr>
+                                    </thead>
+                                    <tbody id="tableStatus1113Body" class="divide-y divide-slate-100 font-medium text-[13px]"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-planning" class="hidden space-y-6 fade-in">
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                    <div class="xl:col-span-1 bg-white rounded-2xl border border-slate-200 shadow-soft overflow-hidden h-fit">
+                        <div class="bg-slate-850 p-6 text-white border-b border-slate-900">
+                            <h2 class="text-lg font-bold text-white flex items-center"><i class="fa-solid fa-clipboard-list mr-2 text-brand-400"></i>Rencana Dorongan</h2>
+                            <p class="text-xs text-slate-400 mt-1">Pilih area dan target material harian</p>
+                        </div>
+                        <form id="planningForm" onsubmit="handlePlanSubmit(event)" class="p-6 space-y-5 bg-white">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Pilih Planning Area</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <label class="cursor-pointer group">
+                                        <input type="radio" name="planPlant" value="PLANT 1112" class="peer sr-only" checked>
+                                        <div class="px-3 py-2.5 border-2 border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 peer-checked:border-brand-600 peer-checked:bg-brand-50 peer-checked:text-brand-700 group-hover:border-brand-300">P-1112</div>
+                                    </label>
+                                    <label class="cursor-pointer group">
+                                        <input type="radio" name="planPlant" value="PLANT 1113" class="peer sr-only">
+                                        <div class="px-3 py-2.5 border-2 border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 peer-checked:border-slate-700 peer-checked:bg-slate-100 peer-checked:text-slate-800 group-hover:border-slate-400">P-1113</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Target Tgl</label>
+                                    <input type="date" id="planTanggal" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 outline-none focus:bg-white transition-all shadow-inner-soft cursor-pointer">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Shift</label>
+                                    <select id="planShift" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 outline-none focus:bg-white transition-all shadow-inner-soft cursor-pointer">
+                                        <option value="Shift 1">Shift 1</option>
+                                        <option value="Shift 2">Shift 2</option>
+                                        <option value="Shift 3">Shift 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="relative">
+                                <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Cari Material <span class="text-brand-500 text-[10px] ml-1 capitalize normal-case">(Auto)</span></label>
+                                <div class="relative flex items-center">
+                                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </div>
+                                    <input type="text" id="planMaterialSearch" placeholder="Ketik nama material..." autocomplete="off" onfocus="showPlanMatDropdown()" oninput="filterPlanMatDropdown()" class="w-full pl-10 pr-10 py-2.5 bg-white border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all shadow-sm font-medium">
+                                    <button type="button" id="clearPlanBtn" onclick="clearPlanMaterial()" class="hidden absolute right-2 w-7 h-7 rounded-full bg-slate-100 hover:bg-red-100 text-slate-500 hover:text-red-500 flex items-center justify-center transition-colors">
+                                        <i class="fa-solid fa-xmark text-xs"></i>
+                                    </button>
+                                </div>
+                                <input type="hidden" id="planSelectedNama">
+                                <input type="hidden" id="planSelectedKode">
+                                <div id="planDropdown" class="hidden absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl max-h-52 overflow-y-auto z-50 text-sm custom-scrollbar divide-y divide-slate-100"></div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Target Rencana (Kg)</label>
+                                <div class="relative">
+                                    <input type="number" id="planJumlah" step="0.01" min="0.01" required placeholder="0" class="w-full px-3.5 py-3 bg-brand-50 border border-brand-200 text-brand-900 font-black rounded-xl text-lg focus:bg-white focus:ring-2 focus:ring-brand-600 outline-none transition-all shadow-inner-soft">
+                                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-brand-600 text-xs font-bold uppercase">KG</div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Catatan <span class="text-[10px] normal-case font-normal text-slate-500">(Opsional)</span></label>
+                                <input type="text" id="planCatatan" placeholder="Tambahkan catatan jika perlu..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 outline-none focus:bg-white transition-all shadow-inner-soft">
+                            </div>
+
+                            <button type="submit" class="w-full py-3.5 mt-2 bg-brand-700 hover:bg-brand-800 text-white rounded-xl font-bold text-sm shadow-md transition-all transform hover:-translate-y-0.5 flex justify-center items-center gap-2">
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan Planning
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="xl:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-soft p-6 flex flex-col">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
+                            <div>
+                                <h2 class="text-lg font-bold text-slate-900 tracking-tight">Daftar Planning Berjalan</h2>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-3 py-1 rounded-full border border-slate-200 mt-1 inline-block">Filter per Tanggal</span>
+                            </div>
+                            <div class="flex items-center bg-slate-50 p-2 rounded-xl border border-slate-200 shadow-sm w-full sm:w-auto">
+                                <label class="text-xs font-bold text-slate-600 px-2 uppercase tracking-wide flex items-center"><i class="fa-regular fa-calendar-days mr-2 text-brand-600"></i>Tanggal</label>
+                                <input type="date" id="filterPlanningDate" onchange="renderPlanningTable()" class="text-sm bg-white border border-slate-300 rounded-lg px-3 py-1.5 outline-none text-slate-800 focus:ring-2 focus:ring-brand-500 font-medium w-full sm:w-auto cursor-pointer transition-shadow">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow">
+                            <div id="cardPlanning1112" class="border border-brand-200 rounded-xl flex flex-col overflow-hidden bg-white">
+                                <div class="bg-brand-50 p-3 border-b border-brand-200 flex items-center justify-between">
+                                    <h3 class="font-bold text-brand-900 text-sm flex items-center"><i class="fa-solid fa-industry mr-2 text-brand-600"></i>Plan P-1112</h3>
+                                    <button type="button" onclick="exportPlanningToPDF('1112')" class="text-[11px] bg-red-600 hover:bg-red-700 text-white px-2.5 py-1.5 rounded shadow-sm flex items-center gap-1.5 transition-colors font-bold">
+                                        <i class="fa-solid fa-file-pdf"></i> PDF
+                                    </button>
+                                </div>
+                                <div class="overflow-x-auto custom-scrollbar flex-grow min-h-[300px]">
+                                    <table class="w-full text-left text-xs whitespace-nowrap">
+                                        <thead class="bg-white text-slate-400 font-bold uppercase border-b border-slate-100 text-[10px] sticky top-0">
+                                            <tr><th class="p-3">Tgl / Shift</th><th class="p-3">Material</th><th class="p-3 text-right">Qty (Kg)</th><th class="p-3">Catatan</th></tr>
+                                        </thead>
+                                        <tbody id="tablePlanning1112Body" class="divide-y divide-slate-100 font-medium"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="cardPlanning1113" class="border border-slate-200 rounded-xl flex flex-col overflow-hidden bg-white">
+                                <div class="bg-slate-100 p-3 border-b border-slate-200 flex items-center justify-between">
+                                    <h3 class="font-bold text-slate-800 text-sm flex items-center"><i class="fa-solid fa-building-user mr-2 text-slate-600"></i>Plan P-1113</h3>
+                                    <button type="button" onclick="exportPlanningToPDF('1113')" class="text-[11px] bg-red-600 hover:bg-red-700 text-white px-2.5 py-1.5 rounded shadow-sm flex items-center gap-1.5 transition-colors font-bold">
+                                        <i class="fa-solid fa-file-pdf"></i> PDF
+                                    </button>
+                                </div>
+                                <div class="overflow-x-auto custom-scrollbar flex-grow min-h-[300px]">
+                                    <table class="w-full text-left text-xs whitespace-nowrap">
+                                        <thead class="bg-white text-slate-400 font-bold uppercase border-b border-slate-100 text-[10px] sticky top-0">
+                                            <tr><th class="p-3">Tgl / Shift</th><th class="p-3">Material</th><th class="p-3 text-right">Qty (Kg)</th><th class="p-3">Catatan</th></tr>
+                                        </thead>
+                                        <tbody id="tablePlanning1113Body" class="divide-y divide-slate-100 font-medium"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-input" class="hidden max-w-4xl mx-auto fade-in">
+                <div class="bg-white rounded-2xl shadow-soft border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-850 p-6 text-white border-b border-slate-900">
+                        <h2 class="text-xl font-bold text-white flex items-center"><i class="fa-solid fa-file-pen mr-2 text-brand-400"></i>Input Realisasi Material</h2>
+                        <p class="text-xs text-slate-400 mt-1">Catat pemakaian aktual berdasarkan timbangan (Gross) dan kemasan (Tara).</p>
+                    </div>
+                    
+                    <form id="materialInputForm" onsubmit="handleRealisasiSubmit(event)" class="p-6 sm:p-8 space-y-6">
+                        
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 shadow-inner-soft">
+                            <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide flex items-center"><i class="fa-regular fa-calendar-check mr-2 text-brand-600"></i>Tanggal Realisasi</label>
+                            <input type="date" id="inputTanggal" required class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 outline-none cursor-pointer shadow-sm font-medium">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Pilih Plant Tujuan</label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <label class="cursor-pointer group">
+                                        <input type="radio" name="plant" value="PLANT 1112" class="peer sr-only" checked>
+                                        <div class="p-3 border-2 border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-brand-600 peer-checked:bg-brand-600 peer-checked:text-white shadow-sm">P-1112</div>
+                                    </label>
+                                    <label class="cursor-pointer group">
+                                        <input type="radio" name="plant" value="PLANT 1113" class="peer sr-only">
+                                        <div class="p-3 border-2 border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-slate-800 peer-checked:bg-slate-800 peer-checked:text-white shadow-sm">P-1113</div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Pilih Shift</label>
+                                <div class="grid grid-cols-3 gap-3">
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="shift" value="Shift 1" class="peer sr-only" checked>
+                                        <div class="py-3 px-2 border-2 border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-slate-800 peer-checked:bg-slate-800 peer-checked:text-white shadow-sm">S-1</div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="shift" value="Shift 2" class="peer sr-only">
+                                        <div class="py-3 px-2 border-2 border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-slate-800 peer-checked:bg-slate-800 peer-checked:text-white shadow-sm">S-2</div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="shift" value="Shift 3" class="peer sr-only">
+                                        <div class="py-3 px-2 border-2 border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-slate-800 peer-checked:bg-slate-800 peer-checked:text-white shadow-sm">S-3</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Cari Material <span class="text-brand-500 text-[10px] ml-1 capitalize normal-case">(Pilih dari daftar)</span></label>
+                            <div class="relative flex items-center">
+                                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                                <input type="text" id="materialSearchInput" placeholder="Ketik nama atau kode material..." autocomplete="off" onfocus="showMaterialDropdown()" oninput="filterMaterialDropdown()" class="w-full pl-10 pr-10 py-3 bg-white border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 outline-none shadow-sm transition-all font-medium">
+                                <button type="button" id="clearRealisasiBtn" onclick="clearRealisasiMaterial()" class="hidden absolute right-2 w-8 h-8 rounded-full bg-slate-100 hover:bg-red-100 text-slate-500 hover:text-red-500 flex items-center justify-center transition-colors">
+                                    <i class="fa-solid fa-xmark text-sm"></i>
+                                </button>
+                            </div>
+                            <input type="hidden" id="selectedKodeMaterial">
+                            <input type="hidden" id="selectedNamaMaterial">
+                            <div id="materialDropdown" class="hidden absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl max-h-60 overflow-y-auto z-50 text-sm custom-scrollbar divide-y divide-slate-100"></div>
+                        </div>
+
+                        <div id="materialInfoBox" class="hidden bg-brand-50 border border-brand-200 p-4 rounded-xl flex justify-between items-center fade-in shadow-inner-soft">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-white border border-brand-200 flex items-center justify-center text-brand-600 shadow-sm">
+                                    <i class="fa-solid fa-box"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-brand-600 font-bold uppercase tracking-widest">Material Terpilih</p>
+                                    <p id="displaySelectedMat" class="font-bold text-slate-900 text-sm mt-0.5">-</p>
+                                    <p id="displaySelectedCode" class="text-xs text-slate-500 font-mono mt-0.5">-</p>
+                                </div>
+                            </div>
+                            <div class="text-right bg-white px-3 py-2 rounded-lg border border-brand-100 shadow-sm">
+                                <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1">Std Isi Kemasan</p>
+                                <p class="font-black text-brand-800 text-base leading-none"><span id="displayStdPack">0</span> <span class="text-xs font-bold text-slate-500 uppercase">Kg/Zak</span></p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50/50 p-5 rounded-2xl border border-slate-200 shadow-inner-soft">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-3">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Berat Kotor (Gross)</label>
+                                    <div class="relative">
+                                        <input type="number" id="inputGross" step="0.01" min="0" placeholder="0" oninput="calculateNetto()" class="w-full px-4 py-3 border border-slate-300 rounded-xl font-black text-slate-700 text-xl bg-white focus:ring-2 focus:ring-brand-500 outline-none shadow-sm transition-all">
+                                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 text-xs font-bold">KG</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide" title="Ketik manual atau pilih opsi list">Berat/Kemasan (Tara)</label>
+                                    <div class="relative">
+                                        <input type="number" id="inputTara" step="any" min="0" oninput="calculateNetto()" disabled list="taraOptionsList" placeholder="0" class="w-full pl-4 pr-10 py-3 border border-slate-300 rounded-xl font-black text-slate-700 text-xl bg-slate-50 focus:bg-white focus:ring-2 focus:ring-brand-500 outline-none shadow-sm transition-all disabled:opacity-70 disabled:cursor-not-allowed">
+                                        <datalist id="taraOptionsList"></datalist>
+                                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 font-bold text-xs">KG</div>
+                                    </div>
+                                    <p class="text-[9px] text-brand-600 mt-1 uppercase tracking-wide font-semibold">* Bisa diketik manual</p>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Jml Kemasan (Zak/Sak)</label>
+                                    <div class="relative">
+                                        <input type="number" id="inputQtyKemasan" step="1" min="0" placeholder="0" oninput="calculateNetto()" class="w-full px-4 py-3 border border-slate-300 rounded-xl font-black text-slate-700 text-xl bg-white focus:ring-2 focus:ring-brand-500 outline-none shadow-sm transition-all">
+                                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 text-xs font-bold">PCS</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-5 border-t border-slate-200 mt-2">
+                                <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide flex justify-between items-center">
+                                    <span>Berat Bersih (Netto) <span class="text-red-500">*</span></span>
+                                    <span class="lowercase text-[9px] font-semibold text-brand-700 bg-brand-100 px-2 py-1 rounded border border-brand-200">Dihitung Otomatis</span>
+                                </label>
+                                <div class="relative">
+                                    <input type="number" id="inputNetto" step="0.01" min="0.01" required placeholder="0.00" readonly class="w-full px-4 py-3 border-2 border-brand-400 bg-brand-50 rounded-xl font-black text-brand-900 text-2xl outline-none shadow-inner cursor-not-allowed">
+                                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-brand-700 text-sm font-black">KG</div>
+                                </div>
+                                <p class="text-[10px] text-slate-500 mt-2 font-medium"><i class="fa-solid fa-circle-info mr-1 text-brand-500"></i>Rumus: Netto = Gross - (Tara × Jml Kemasan)</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Keterangan / Catatan <span class="lowercase text-[10px] font-normal text-slate-500">(Opsional)</span></label>
+                            <input type="text" id="inputKeterangan" placeholder="Contoh: Tambahan order khusus shift 2..." class="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 outline-none shadow-sm transition-all">
+                        </div>
+
+                        <button type="submit" class="w-full py-4 mt-2 bg-slate-850 hover:bg-slate-900 text-white rounded-xl font-bold shadow-lg shadow-slate-900/20 transition-all transform hover:-translate-y-0.5 flex justify-center items-center gap-2 text-base">
+                            <i class="fa-solid fa-paper-plane"></i> Simpan Data Realisasi
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="section-realisasi" class="hidden space-y-6 fade-in">
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-soft p-6">
+                    <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center mb-6 gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 tracking-tight">Riwayat Realisasi</h2>
+                            <p class="text-xs text-slate-500 mt-1">Data dipisahkan otomatis berdasarkan Plant.</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3 w-full xl:w-auto">
+                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mr-2">Dari</label>
+                                <input type="date" id="realisasiDateFrom" onchange="renderRealisasiTable()" class="text-xs font-medium bg-transparent outline-none text-slate-800 cursor-pointer">
+                            </div>
+                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mr-2">Sampai</label>
+                                <input type="date" id="realisasiDateTo" onchange="renderRealisasiTable()" class="text-xs font-medium bg-transparent outline-none text-slate-800 cursor-pointer">
+                            </div>
+                            
+                            <div class="relative flex-grow sm:flex-grow-0 min-w-[200px]">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-search"></i></div>
+                                <input type="text" id="searchRealisasi" placeholder="Cari material..." onkeyup="renderRealisasiTable()" class="w-full pl-9 pr-3 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 shadow-sm transition-all">
+                            </div>
+                            <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md shadow-emerald-600/20 transition-all flex items-center gap-2 whitespace-nowrap transform hover:-translate-y-0.5">
+                                <i class="fa-solid fa-file-excel"></i> <span class="hidden sm:inline">Export CSV</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="border border-brand-200 rounded-2xl flex flex-col overflow-hidden shadow-sm">
+                            <div class="bg-brand-50 p-4 border-b border-brand-200">
+                                <h3 class="font-bold text-brand-900 text-sm uppercase tracking-wide flex items-center"><i class="fa-solid fa-industry mr-2 text-brand-600"></i>Realisasi P-1112</h3>
+                            </div>
+                            <div class="overflow-x-auto custom-scrollbar bg-white flex-grow min-h-[400px]">
+                                <table class="w-full text-left text-xs whitespace-nowrap">
+                                    <thead class="bg-white text-slate-400 font-bold uppercase border-b border-slate-100 text-[10px] sticky top-0">
+                                        <tr>
+                                            <th class="p-4">Tgl</th><th class="p-4 text-center">Shift</th><th class="p-4">Material</th><th class="p-4 text-right">Qty (Kg)</th><th class="p-4 w-1/4">Catatan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableRealisasi1112Body" class="divide-y divide-slate-100 font-medium"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-2xl flex flex-col overflow-hidden shadow-sm">
+                            <div class="bg-slate-100 p-4 border-b border-slate-200">
+                                <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wide flex items-center"><i class="fa-solid fa-building-user mr-2 text-slate-600"></i>Realisasi P-1113</h3>
+                            </div>
+                            <div class="overflow-x-auto custom-scrollbar bg-white flex-grow min-h-[400px]">
+                                <table class="w-full text-left text-xs whitespace-nowrap">
+                                    <thead class="bg-white text-slate-400 font-bold uppercase border-b border-slate-100 text-[10px] sticky top-0">
+                                        <tr>
+                                            <th class="p-4">Tgl</th><th class="p-4 text-center">Shift</th><th class="p-4">Material</th><th class="p-4 text-right">Qty (Kg)</th><th class="p-4 w-1/4">Catatan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableRealisasi1113Body" class="divide-y divide-slate-100 font-medium"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-5 flex justify-end">
+                        <div class="text-xs text-slate-500 font-bold bg-slate-50 px-4 py-2 rounded-lg border border-slate-100 inline-flex items-center">
+                            <i class="fa-solid fa-chart-simple mr-2 text-slate-400"></i>
+                            <span id="realisasiCount">Menampilkan 0 data</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-rekapan" class="hidden space-y-6 fade-in">
+                <div class="bg-white rounded-2xl shadow-soft border border-slate-200 p-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-slate-900 tracking-tight">Rekapan Plan vs Realisasi</h2>
+                            <p class="text-xs text-slate-500 mt-1">Ringkasan akumulasi berdasarkan rentang waktu yang dipilih.</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mr-2">Dari</label>
+                                <input type="date" id="rekapanDateFrom" class="text-xs font-medium bg-transparent outline-none text-slate-800 cursor-pointer">
+                            </div>
+                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 shadow-sm">
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mr-2">Sampai</label>
+                                <input type="date" id="rekapanDateTo" class="text-xs font-medium bg-transparent outline-none text-slate-800 cursor-pointer">
+                            </div>
+                            <button onclick="renderRekapan()" class="bg-slate-850 hover:bg-slate-900 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md transition-all flex items-center">
+                                <i class="fa-solid fa-filter mr-1.5"></i> Terapkan
+                            </button>
+                            <button onclick="exportRekapanToExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md shadow-emerald-600/20 transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-file-excel"></i> Export Rekap
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-6">
+                        <div class="border border-brand-200 rounded-2xl flex flex-col overflow-hidden shadow-sm">
+                            <div class="bg-gradient-to-r from-brand-700 to-brand-800 p-4 flex justify-between items-center border-b border-brand-900 text-white">
+                                <h3 class="font-bold text-sm tracking-wide uppercase"><i class="fa-solid fa-industry mr-2 text-brand-300"></i>Total Akumulasi P-1112</h3>
+                            </div>
+                            <div class="overflow-x-auto custom-scrollbar bg-white">
+                                <table class="w-full text-left text-xs whitespace-nowrap">
+                                    <thead class="bg-brand-50 text-brand-900 font-bold uppercase border-b border-brand-100 text-[10px] tracking-wide">
+                                        <tr>
+                                            <th class="p-4">Material</th>
+                                            <th class="p-4 text-right">Total Plan (Kg)</th>
+                                            <th class="p-4 text-right">Total Real (Kg)</th>
+                                            <th class="p-4 text-center">Selisih</th>
+                                            <th class="p-4 w-1/3">Kumpulan Catatan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableRekapan1112Body" class="divide-y divide-slate-100 font-medium text-[13px]"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-300 rounded-2xl flex flex-col overflow-hidden shadow-sm">
+                            <div class="bg-gradient-to-r from-slate-700 to-slate-800 p-4 flex justify-between items-center border-b border-slate-900 text-white">
+                                <h3 class="font-bold text-sm tracking-wide uppercase"><i class="fa-solid fa-building-user mr-2 text-slate-300"></i>Total Akumulasi P-1113</h3>
+                            </div>
+                            <div class="overflow-x-auto custom-scrollbar bg-white">
+                                <table class="w-full text-left text-xs whitespace-nowrap">
+                                    <thead class="bg-slate-50 text-slate-700 font-bold uppercase border-b border-slate-200 text-[10px] tracking-wide">
+                                        <tr>
+                                            <th class="p-4">Material</th>
+                                            <th class="p-4 text-right">Total Plan (Kg)</th>
+                                            <th class="p-4 text-right">Total Real (Kg)</th>
+                                            <th class="p-4 text-center">Selisih</th>
+                                            <th class="p-4 w-1/3">Kumpulan Catatan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableRekapan1113Body" class="divide-y divide-slate-100 font-medium text-[13px]"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-master" class="hidden space-y-6 fade-in">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-1 bg-white rounded-2xl border border-slate-200 shadow-soft overflow-hidden h-fit">
+                        <div class="bg-slate-850 p-6 text-white border-b border-slate-900">
+                            <h2 class="text-lg font-bold text-white flex items-center"><i class="fa-solid fa-database mr-2 text-brand-400"></i>Data Master</h2>
+                            <p class="text-xs text-slate-400 mt-1">Tambah referensi material baru</p>
+                        </div>
+                        <form id="masterForm" onsubmit="handleMasterSubmit(event)" class="p-6 space-y-5 bg-white">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Kode Material</label>
+                                <input type="text" id="masterKode" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none uppercase shadow-inner-soft transition-all font-mono">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Nama Material</label>
+                                <input type="text" id="masterNama" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none shadow-inner-soft transition-all">
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Kemasan (Kg)</label>
+                                    <input type="number" id="masterKemasan" step="0.01" required class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none shadow-inner-soft transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Kategori</label>
+                                    <select id="masterKategori" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none shadow-inner-soft transition-all">
+                                        <option value="Utama">Utama</option>
+                                        <option value="Pewarna">Pewarna</option>
+                                        <option value="Aditif">Aditif</option>
+                                        <option value="Pembantu">Pembantu</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wide" title="Pisahkan dengan koma jika lebih dari satu opsi. Contoh: 0.1, 0.15">Opsi Tara (Kg)</label>
+                                    <input type="text" id="masterTara" placeholder="Cth: 0.1, 0.15" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none shadow-inner-soft transition-all">
+                                    <p class="text-[9px] text-slate-500 mt-1 uppercase tracking-wide leading-tight">Pisahkan koma (,)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 pt-2 p-3 bg-slate-50 rounded-xl border border-slate-200 mt-2">
+                                <input type="checkbox" id="masterStatus" checked class="w-4 h-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer">
+                                <label class="text-xs font-bold text-slate-700 uppercase tracking-wide cursor-pointer select-none" for="masterStatus">Status Aktif</label>
+                            </div>
+                            <button type="submit" class="w-full py-3.5 mt-2 bg-slate-850 hover:bg-brand-700 text-white rounded-xl font-bold text-sm shadow-md transition-all transform hover:-translate-y-0.5 flex justify-center items-center gap-2">
+                                <i class="fa-solid fa-save"></i> Simpan Material
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-soft p-6 flex flex-col h-[600px]">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5 gap-3">
+                            <h2 class="text-lg font-bold text-slate-900 tracking-tight">Database Material</h2>
+                            <div class="relative w-full sm:w-64">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-search"></i></div>
+                                <input type="text" id="searchMaster" placeholder="Cari kode/nama..." onkeyup="renderMasterTable()" class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition-all shadow-sm">
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto custom-scrollbar border border-slate-200 rounded-xl flex-grow relative">
+                            <table class="w-full text-left text-xs whitespace-nowrap">
+                                <thead class="bg-slate-50 text-slate-500 font-bold uppercase tracking-wide text-[10px] sticky top-0 z-10 shadow-sm border-b border-slate-200">
+                                    <tr>
+                                        <th class="p-4">Kode</th>
+                                        <th class="p-4">Nama Material</th>
+                                        <th class="p-4 text-right">Kemasan</th>
+                                        <th class="p-4">Kategori</th>
+                                        <th class="p-4">Opsi Tara (Kg)</th>
+                                        <th class="p-4 text-center">Status</th>
+                                        <th class="p-4 text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableMasterBody" class="divide-y divide-slate-100 font-medium text-[13px] bg-white"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // PWA Setup: Membuat manifest.json dan sw.js secara dinamis dalam 1 file
+        const setupPWA = () => {
+            const manifest = {
+                name: "Material Handling Record",
+                short_name: "MatRecord",
+                description: "Aplikasi pencatat realisasi material terintegrasi Cloud",
+                start_url: "./",
+                display: "standalone",
+                background_color: "#f8fafc",
+                theme_color: "#2563eb",
+                icons: [
+                    { src: "https://cdn-icons-png.flaticon.com/512/2875/2875394.png", sizes: "512x512", type: "image/png" },
+                    { src: "https://cdn-icons-png.flaticon.com/512/2875/2875394.png", sizes: "192x192", type: "image/png" }
+                ]
+            };
+            const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+            const manifestUrl = URL.createObjectURL(manifestBlob);
+            document.head.insertAdjacentHTML('beforeend', `<link rel="manifest" href="${manifestUrl}">`);
+
+            // [PERBAIKAN ERROR BLOB PROTOCOL]
+            // Browser modern secara ketat menolak pendaftaran Service Worker 
+            // menggunakan 'blob:' atau 'data:' URL karena alasan keamanan (cross-origin scope).
+            // Jika Anda meng-hosting file ini di server sungguhan (Vercel, Hosting Cpanel, GitHub Pages),
+            // Anda harus membuat file 'sw.js' terpisah dan menggunakan: navigator.serviceWorker.register('./sw.js')
+            console.info('Mode 1-File: Service Worker dilewati karena limitasi keamanan browser terhadap Blob URL.');
+
+            // Handle Install Prompt
+            let deferredPrompt;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                const installBtn = document.getElementById('installPwaBtn');
+                if(installBtn) {
+                    installBtn.classList.remove('hidden');
+                    installBtn.addEventListener('click', async () => {
+                        installBtn.classList.add('hidden');
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        deferredPrompt = null;
+                    });
+                }
+            });
+        };
+        setupPWA();
+
+        // -------------------------------------------------------------
+        // KONFIGURASI GOOGLE APPS SCRIPT (GAS) WEB APP URL
+        // Ganti URL ini dengan hasil "Deploy as Web App" dari Google Apps Script Anda.
+        // Jika dikosongkan, aplikasi akan berjalan menggunakan Mock Data (Simulasi)
+        // -------------------------------------------------------------
+        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyQjWc45_XBmjjtaKcE_gqPDMfgO_4D8Ib4iSjUhK5X3ZVeSSXIxReJXr5kjby0C8o5/exec';
+
+        // Helper untuk memanggil API
+        async function apiCall(action, payload = {}) {
+            // Mode simulasi jika URL tidak diatur
+            if (!GAS_WEB_APP_URL || GAS_WEB_APP_URL.trim() === '') {
+                return new Promise(resolve => setTimeout(() => resolve({ success: true, isMock: true, data: null }), 500));
+            }
+
+            try {
+                const response = await fetch(GAS_WEB_APP_URL, {
+                    method: 'POST',
+                    // Menggunakan text/plain untuk menghindari CORS Preflight (OPTIONS) dari browser
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ action: action, data: payload })
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('API Call Error:', error);
+                return { success: false, message: 'Gagal terhubung ke Cloud Spreadsheet' };
+            }
+        }
+
+        const getFormattedDate = (offsetDays = 0) => {
+            const d = new Date(); d.setDate(d.getDate() + offsetDays);
+            return d.toISOString().split('T')[0];
+        };
+        const todayStr = getFormattedDate(0);
+
+        let appState = { currentUser: null, materials: [], realizations: [], plannings: [] };
+        let activeEditKode = null; let activeDeleteKode = null;
+
+        const MOCK_MATERIALS = [
+            {"Kode Material": "1101100049", "Nama Material": "TERIGU MEDIUM", "Standar Kemasan (Kg)": 25, "Kategori": "Utama", "Status": "Aktif", "Tara": "0.15, 0.2"},
+            {"Kode Material": "1103100018", "Nama Material": "GULA PASIR NON KITE", "Standar Kemasan (Kg)": 50, "Kategori": "Utama", "Status": "Aktif", "Tara": "0.12"},
+            {"Kode Material": "1103100020", "Nama Material": "GULA PASIR KITE", "Standar Kemasan (Kg)": 50, "Kategori": "Utama", "Status": "Aktif", "Tara": "0.12"},
+            {"Kode Material": "1203100039", "Nama Material": "MODIFIED STARCH", "Standar Kemasan (Kg)": 25, "Kategori": "Utama", "Status": "Aktif", "Tara": "0.15, 0.18"},
+            {"Kode Material": "1109100001", "Nama Material": "GARAM MEJA", "Standar Kemasan (Kg)": 50, "Kategori": "Utama", "Status": "Aktif", "Tara": "0.2"}
+        ];
+
+        window.onload = () => {
+            document.getElementById('inputTanggal').valueAsDate = new Date();
+            document.getElementById('planTanggal').valueAsDate = new Date();
+            document.getElementById('statusFilterDate').valueAsDate = new Date();
+            document.getElementById('filterPlanningDate').value = todayStr;
+            document.getElementById('rekapanDateFrom').value = getFormattedDate(-7);
+            document.getElementById('rekapanDateTo').value = todayStr;
+            document.getElementById('realisasiDateFrom').value = getFormattedDate(-7);
+            document.getElementById('realisasiDateTo').value = todayStr;
+            
+            const savedUser = sessionStorage.getItem('matRecordUser');
+            if(savedUser) { appState.currentUser = JSON.parse(savedUser); completeLoginUI(); }
+        };
+
+        function showLoading(show) { 
+            const overlay = document.getElementById('loadingOverlay');
+            if (show) { overlay.classList.remove('hidden'); overlay.style.opacity = '1'; } 
+            else { overlay.style.opacity = '0'; setTimeout(() => overlay.classList.add('hidden'), 300); }
+        }
+        
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer'); const toast = document.createElement('div');
+            const colorClass = type === 'success' ? 'bg-emerald-600' : (type === 'error' ? 'bg-red-600' : 'bg-slate-800');
+            toast.className = `${colorClass} text-white px-5 py-3.5 rounded-xl shadow-xl shadow-slate-900/20 text-sm font-semibold flex items-center gap-3 toast-enter border border-white/10`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check text-lg' : 'fa-circle-exclamation text-lg'}"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(10px)'; setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(el => { el.classList.remove('active', 'text-brand-700', 'bg-brand-50'); el.classList.add('text-slate-500'); });
+            let btn = document.getElementById(`tab-${tabId}`); btn.classList.add('active', 'text-brand-700', 'bg-brand-50'); btn.classList.remove('text-slate-500');
+            document.querySelectorAll('main > section').forEach(el => el.classList.add('hidden')); document.getElementById(`section-${tabId}`).classList.remove('hidden');
+            if(tabId === 'dashboard') renderDashboard(); if(tabId === 'rekapan') renderRekapan(); if(tabId === 'realisasi') renderRealisasiTable(); if(tabId === 'planning') renderPlanningTable();
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('loginUsername').value;
+            const pass = document.getElementById('loginPassword').value;
+            
+            showLoading(true);
+            const res = await apiCall('loginUser', { username: user, password: pass });
+            showLoading(false);
+
+            if (res.isMock) {
+                if(user === 'admin' && pass === 'admin123') {
+                    appState.currentUser = { username: user, nama: 'Administrator', role: 'Super Admin' };
+                    sessionStorage.setItem('matRecordUser', JSON.stringify(appState.currentUser));
+                    showToast("Login berhasil (Mode Offline/Simulasi)", 'success'); completeLoginUI();
+                } else showToast("Gunakan admin / admin123 untuk simulasi", 'error');
+            } else {
+                if(res.success) {
+                    appState.currentUser = res.data; 
+                    sessionStorage.setItem('matRecordUser', JSON.stringify(res.data));
+                    showToast("Login Cloud berhasil!", 'success'); completeLoginUI();
+                } else {
+                    showToast(res.message || "Login gagal", 'error');
+                }
+            }
+        }
+
+        function logoutUser() {
+            sessionStorage.removeItem('matRecordUser'); appState.currentUser = null;
+            document.getElementById('appContainer').classList.add('hidden'); document.getElementById('appContainer').classList.remove('flex');
+            document.getElementById('loginScreen').classList.remove('hidden'); document.getElementById('loginForm').reset();
+        }
+
+        function completeLoginUI() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('appContainer').classList.remove('hidden'); document.getElementById('appContainer').classList.add('flex');
+            document.getElementById('displayUserName').innerText = appState.currentUser.nama;
+            document.getElementById('displayUserRole').innerText = appState.currentUser.role;
+            refreshAllData(); 
+        }
+
+        async function refreshAllData() {
+            if(!appState.currentUser) return;
+            showLoading(true);
+            const icon = document.getElementById('refreshIcon');
+            icon.classList.add('animate-spin');
+
+            const [resMat, resPlan, resReal] = await Promise.all([
+                apiCall('getMasterMaterials'),
+                apiCall('getPlanningData'),
+                apiCall('getRealisasiData')
+            ]);
+
+            if (resMat.isMock) {
+                appState.materials = [...MOCK_MATERIALS]; 
+                appState.plannings = [
+                    {'Target Tanggal': todayStr, 'Plant': 'PLANT 1112', 'Shift': 'Shift 1', 'Nama Material': 'TERIGU MEDIUM', 'Kode Material': '1101100049', 'Rencana (Kg)': 1000, 'Catatan': 'Segera siapkan'},
+                    {'Target Tanggal': todayStr, 'Plant': 'PLANT 1113', 'Shift': 'Shift 2', 'Nama Material': 'GULA PASIR KITE', 'Kode Material': '1103100020', 'Rencana (Kg)': 500, 'Catatan': ''}
+                ]; 
+                appState.realizations = [
+                    {'Tanggal': todayStr, 'Plant': 'PLANT 1112', 'Shift': 'Shift 1', 'Nama Material': 'TERIGU MEDIUM', 'Kode Material': '1101100049', 'Jumlah (Kg)': 995, 'Keterangan': 'Kurang 5kg toleransi'},
+                    {'Tanggal': todayStr, 'Plant': 'PLANT 1113', 'Shift': 'Shift 2', 'Nama Material': 'GULA PASIR KITE', 'Kode Material': '1103100020', 'Jumlah (Kg)': 450, 'Keterangan': 'Warning stok'}
+                ];
+            } else {
+                if(resMat.success) appState.materials = resMat.data || [];
+                if(resPlan.success) appState.plannings = resPlan.data || [];
+                if(resReal.success) appState.realizations = resReal.data || [];
+            }
+
+            renderMasterTable(); renderPlanningTable(); renderRealisasiTable(); renderDashboard(); renderRekapan();
+            icon.classList.remove('animate-spin'); showLoading(false);
+        }
+
+        function openEditModal(kode) {
+            const mat = appState.materials.find(m => m['Kode Material'] === kode);
+            if (!mat) return;
+            activeEditKode = kode;
+            document.getElementById('editKode').value = mat['Kode Material']; document.getElementById('editNama').value = mat['Nama Material'];
+            document.getElementById('editKemasan').value = mat['Standar Kemasan (Kg)']; document.getElementById('editKategori').value = mat['Kategori'];
+            document.getElementById('editTara').value = mat['Tara'] || ''; document.getElementById('editStatus').checked = mat['Status'] === 'Aktif';
+            document.getElementById('editModal').classList.remove('hidden');
+        }
+
+        function closeEditModal() { document.getElementById('editModal').classList.add('hidden'); activeEditKode = null; }
+
+        async function handleEditSubmit(e) {
+            e.preventDefault();
+            if (!activeEditKode) return;
+
+            const newKode = document.getElementById('editKode').value.toUpperCase();
+            if (newKode !== activeEditKode && appState.materials.some(m => m['Kode Material'] === newKode)) {
+                showToast("Kode Material yang baru dimasukkan sudah ada!", "error"); return;
+            }
+
+            const data = { 
+                oldKode: activeEditKode, kode: newKode, nama: document.getElementById('editNama').value, 
+                stdKemasan: document.getElementById('editKemasan').value, kategori: document.getElementById('editKategori').value, 
+                tara: document.getElementById('editTara').value, status: document.getElementById('editStatus').checked ? 'Aktif' : 'Nonaktif' 
+            };
+
+            showLoading(true);
+            const res = await apiCall('updateMasterMaterial', data);
+            showLoading(false);
+
+            if (res.isMock) {
+                const index = appState.materials.findIndex(m => m['Kode Material'] === activeEditKode);
+                if (index !== -1) {
+                    const oldNama = appState.materials[index]['Nama Material'];
+                    appState.materials[index] = { 'Kode Material': data.kode, 'Nama Material': data.nama, 'Standar Kemasan (Kg)': data.stdKemasan, 'Kategori': data.kategori, 'Tara': data.tara, 'Status': data.status };
+                    
+                    if (data.kode !== activeEditKode || data.nama !== oldNama) {
+                        appState.plannings.forEach(p => { if (p['Kode Material'] === activeEditKode || p['Nama Material'] === oldNama) { if (p['Kode Material']) p['Kode Material'] = data.kode; p['Nama Material'] = data.nama; }});
+                        appState.realizations.forEach(r => { if (r['Kode Material'] === activeEditKode || r['Nama Material'] === oldNama) { if (r['Kode Material']) r['Kode Material'] = data.kode; r['Nama Material'] = data.nama; }});
+                    }
+                    showToast("Material berhasil diupdate (Simulasi)", "success");
+                    renderMasterTable(); renderPlanningTable(); renderRealisasiTable(); renderDashboard(); renderRekapan();
+                }
+                closeEditModal();
+            } else {
+                if(res.success) { showToast("Material Cloud diupdate"); refreshAllData(); closeEditModal(); } else showToast(res.message, 'error');
+            }
+        }
+
+        function openDeleteModal(kode) {
+            activeDeleteKode = kode; document.getElementById('deleteMatKode').innerText = kode; document.getElementById('deleteModal').classList.remove('hidden');
+        }
+        function closeDeleteModal() { document.getElementById('deleteModal').classList.add('hidden'); activeDeleteKode = null; }
+
+        async function confirmDeleteMaterial() {
+            if (!activeDeleteKode) return;
+            showLoading(true);
+            const res = await apiCall('deleteMasterMaterial', { kode: activeDeleteKode });
+            showLoading(false);
+
+            if (res.isMock) {
+                appState.materials = appState.materials.filter(m => m['Kode Material'] !== activeDeleteKode);
+                showToast("Material dihapus (Simulasi)", "success");
+                renderMasterTable(); closeDeleteModal();
+            } else {
+                if(res.success) { showToast("Material Cloud dihapus"); refreshAllData(); closeDeleteModal(); } else showToast(res.message, 'error');
+            }
+        }
+
+        async function handleMasterSubmit(e) {
+            e.preventDefault();
+            const kode = document.getElementById('masterKode').value.toUpperCase();
+            if (appState.materials.some(m => m['Kode Material'] === kode)) { showToast("Kode Material sudah terdaftar!", "error"); return; }
+
+            const data = { 
+                kode: kode, nama: document.getElementById('masterNama').value, stdKemasan: document.getElementById('masterKemasan').value, 
+                kategori: document.getElementById('masterKategori').value, tara: document.getElementById('masterTara').value, 
+                status: document.getElementById('masterStatus').checked ? 'Aktif' : 'Nonaktif' 
+            };
+            
+            showLoading(true);
+            const res = await apiCall('saveMasterMaterial', data);
+            showLoading(false);
+
+            if(res.isMock) {
+                showToast("Data Master Disimpan (Simulasi)", 'success'); 
+                appState.materials.unshift({ 'Kode Material': data.kode, 'Nama Material': data.nama, 'Standar Kemasan (Kg)': data.stdKemasan, 'Kategori': data.kategori, 'Tara': data.tara, 'Status': data.status }); 
+                renderMasterTable(); document.getElementById('masterForm').reset();
+            } else {
+                if(res.success) { showToast("Master Cloud Tersimpan"); document.getElementById('masterForm').reset(); refreshAllData(); } else showToast(res.message, 'error');
+            }
+        }
+
+        async function handlePlanSubmit(e) {
+            e.preventDefault();
+            const namaMat = document.getElementById('planSelectedNama').value;
+            if(!namaMat) { showToast("Pilih material dari rekomendasi pencarian!", "error"); return; }
+            
+            const data = {
+                tanggal: document.getElementById('planTanggal').value, plant: document.querySelector('input[name="planPlant"]:checked').value,
+                shift: document.getElementById('planShift').value, kodeMaterial: document.getElementById('planSelectedKode').value,
+                namaMaterial: namaMat, jumlahKg: document.getElementById('planJumlah').value, catatan: document.getElementById('planCatatan').value, username: appState.currentUser.username
+            };
+
+            showLoading(true);
+            const res = await apiCall('savePlanning', data);
+            showLoading(false);
+
+            if(res.isMock) {
+                showToast(`Planning Disimpan (Simulasi)`, 'success');
+                appState.plannings.unshift({...data, 'Target Tanggal': data.tanggal, 'Plant': data.plant, 'Shift': data.shift, 'Nama Material': data.namaMaterial, 'Rencana (Kg)': data.jumlahKg, 'Catatan': data.catatan, 'Status': 'Pending', 'User': data.username});
+                document.getElementById('planJumlah').value = ''; document.getElementById('planCatatan').value = ''; clearPlanMaterial();
+                document.getElementById('filterPlanningDate').value = data.tanggal;
+                renderPlanningTable(); renderDashboard(); renderRekapan();
+            } else {
+                if(res.success) { 
+                    showToast("Planning Cloud Tersimpan"); document.getElementById('planningForm').reset(); 
+                    document.getElementById('planTanggal').valueAsDate = new Date(); clearPlanMaterial(); refreshAllData(); 
+                } else showToast(res.message, 'error');
+            }
+        }
+
+        async function handleRealisasiSubmit(e) {
+            e.preventDefault();
+            const namaMat = document.getElementById('selectedNamaMaterial').value;
+            const totalKg = parseFloat(document.getElementById('inputNetto').value);
+            
+            if(!namaMat) { showToast("Pilih material dari rekomendasi pencarian!", "error"); return; }
+            if(isNaN(totalKg) || totalKg <= 0) { showToast("Netto tidak valid atau kosong!", "error"); return; }
+            
+            const formData = {
+                tanggal: document.getElementById('inputTanggal').value, plant: document.querySelector('input[name="plant"]:checked').value,
+                shift: document.querySelector('input[name="shift"]:checked').value, kodeMaterial: document.getElementById('selectedKodeMaterial').value,
+                namaMaterial: namaMat, jumlahKg: totalKg, keterangan: document.getElementById('inputKeterangan').value, username: appState.currentUser.username
+            };
+
+            showLoading(true);
+            const res = await apiCall('saveRealisasi', formData);
+            showLoading(false);
+
+            if(res.isMock) {
+                showToast("Realisasi Tersimpan (Simulasi)", 'success');
+                appState.realizations.unshift({...formData, Tanggal: formData.tanggal, 'Plant': formData.plant, 'Shift': formData.shift, 'Nama Material': formData.namaMaterial, 'Jumlah (Kg)': formData.jumlahKg, 'Keterangan': formData.keterangan, 'User': formData.username});
+                document.getElementById('materialInputForm').reset(); document.getElementById('inputTanggal').valueAsDate = new Date(); clearRealisasiMaterial();
+                renderRealisasiTable(); renderDashboard(); renderRekapan();
+            } else {
+                if(res.success) {
+                    showToast("Realisasi Cloud Tersimpan"); document.getElementById('materialInputForm').reset();
+                    document.getElementById('inputTanggal').valueAsDate = new Date(); clearRealisasiMaterial(); refreshAllData();
+                } else showToast(res.message, 'error');
+            }
+        }
+
+        function showPlanMatDropdown() { document.getElementById('planDropdown').classList.remove('hidden'); filterPlanMatDropdown(); }
+        function hidePlanMatDropdown() { setTimeout(() => document.getElementById('planDropdown').classList.add('hidden'), 200); }
+        
+        function filterPlanMatDropdown() {
+            const query = document.getElementById('planMaterialSearch').value.toLowerCase().trim();
+            const dropdown = document.getElementById('planDropdown'); const clearBtn = document.getElementById('clearPlanBtn');
+            dropdown.innerHTML = '';
+            
+            if(query.length > 0 || document.getElementById('planSelectedNama').value !== '') { clearBtn.classList.remove('hidden'); } else { clearBtn.classList.add('hidden'); }
+            
+            const filtered = appState.materials.filter(m => {
+                if (m.Status !== 'Aktif') return false; 
+                const n = m['Nama Material'] ? String(m['Nama Material']).toLowerCase() : '';
+                const k = m['Kode Material'] ? String(m['Kode Material']).toLowerCase() : '';
+                return n.includes(query) || k.includes(query);
+            });
+            
+            if(filtered.length === 0) { dropdown.innerHTML = '<div class="p-4 text-slate-500 text-center text-xs italic">Tidak ditemukan di Data Master</div>'; return; }
+            
+            filtered.forEach(m => {
+                const div = document.createElement('div');
+                div.className = 'p-3 hover:bg-brand-50 cursor-pointer flex justify-between items-center transition-colors border-b border-slate-50 last:border-0';
+                div.innerHTML = `<div><div class="font-bold text-slate-800">${m['Nama Material']}</div><div class="text-[10px] text-slate-500 font-mono mt-0.5">${m['Kode Material']}</div></div>`;
+                div.onclick = () => {
+                    document.getElementById('planMaterialSearch').value = m['Nama Material']; document.getElementById('planSelectedNama').value = m['Nama Material']; document.getElementById('planSelectedKode').value = m['Kode Material'];
+                    document.getElementById('clearPlanBtn').classList.remove('hidden'); hidePlanMatDropdown();
+                };
+                dropdown.appendChild(div);
+            });
+        }
+
+        function clearPlanMaterial() {
+            document.getElementById('planMaterialSearch').value = ''; document.getElementById('planSelectedNama').value = ''; document.getElementById('planSelectedKode').value = '';
+            document.getElementById('clearPlanBtn').classList.add('hidden'); document.getElementById('planMaterialSearch').focus(); filterPlanMatDropdown();
+        }
+
+        function showMaterialDropdown() { document.getElementById('materialDropdown').classList.remove('hidden'); filterMaterialDropdown(); }
+        function hideMaterialDropdown() { setTimeout(() => document.getElementById('materialDropdown').classList.add('hidden'), 200); }
+        
+        function filterMaterialDropdown() {
+            const query = document.getElementById('materialSearchInput').value.toLowerCase().trim();
+            const dropdown = document.getElementById('materialDropdown'); const clearBtn = document.getElementById('clearRealisasiBtn');
+            dropdown.innerHTML = '';
+
+            if(query.length > 0 || document.getElementById('selectedNamaMaterial').value !== '') { clearBtn.classList.remove('hidden'); } else { clearBtn.classList.add('hidden'); }
+            
+            const filtered = appState.materials.filter(m => {
+                if (m.Status !== 'Aktif') return false; 
+                const n = m['Nama Material'] ? String(m['Nama Material']).toLowerCase() : '';
+                const k = m['Kode Material'] ? String(m['Kode Material']).toLowerCase() : '';
+                return n.includes(query) || k.includes(query);
+            });
+            
+            if(filtered.length === 0) { dropdown.innerHTML = '<div class="p-4 text-slate-500 text-center text-xs italic">Tidak ditemukan di Data Master</div>'; return; }
+
+            filtered.forEach(m => {
+                const div = document.createElement('div');
+                div.className = 'p-3 hover:bg-brand-50 cursor-pointer flex justify-between items-center transition-colors border-b border-slate-50 last:border-0';
+                div.innerHTML = `<div><div class="font-bold text-slate-800">${m['Nama Material']}</div><div class="text-[10px] text-slate-500 font-mono mt-0.5">${m['Kode Material']}</div></div><div class="text-[11px] text-brand-700 font-bold bg-brand-100 px-2.5 py-1 rounded-md border border-brand-200">${m['Standar Kemasan (Kg)']} Kg</div>`;
+                div.onclick = () => {
+                    document.getElementById('materialSearchInput').value = m['Nama Material']; document.getElementById('selectedNamaMaterial').value = m['Nama Material']; document.getElementById('selectedKodeMaterial').value = m['Kode Material'];
+                    document.getElementById('displaySelectedMat').innerText = m['Nama Material']; document.getElementById('displaySelectedCode').innerText = m['Kode Material']; document.getElementById('displayStdPack').innerText = m['Standar Kemasan (Kg)'];
+                    
+                    const taraInput = document.getElementById('inputTara'); const taraDatalist = document.getElementById('taraOptionsList');
+                    taraDatalist.innerHTML = ''; taraInput.disabled = false; taraInput.classList.remove('bg-slate-50'); taraInput.classList.add('bg-white');
+
+                    let taraOptions = []; if (m.Tara) { taraOptions = m.Tara.split(',').map(t => t.trim()).filter(t => t !== ''); }
+                    if (taraOptions.length > 0) { taraOptions.forEach(t => { taraDatalist.innerHTML += `<option value="${t}">`; }); taraInput.value = taraOptions[0]; } else { taraInput.value = "0"; }
+
+                    document.getElementById('materialInfoBox').classList.remove('hidden'); document.getElementById('clearRealisasiBtn').classList.remove('hidden');
+                    calculateNetto(); hideMaterialDropdown();
+                };
+                dropdown.appendChild(div);
+            });
+        }
+
+        function clearRealisasiMaterial() {
+            document.getElementById('materialSearchInput').value = ''; document.getElementById('selectedNamaMaterial').value = ''; document.getElementById('selectedKodeMaterial').value = '';
+            document.getElementById('materialInfoBox').classList.add('hidden'); document.getElementById('clearRealisasiBtn').classList.add('hidden');
+            document.getElementById('inputGross').value = ''; document.getElementById('inputQtyKemasan').value = ''; document.getElementById('inputNetto').value = '';
+            const taraInput = document.getElementById('inputTara'); taraInput.value = ''; taraInput.disabled = true; taraInput.classList.add('bg-slate-50'); taraInput.classList.remove('bg-white');
+            document.getElementById('taraOptionsList').innerHTML = ''; document.getElementById('materialSearchInput').focus(); filterMaterialDropdown();
+        }
+
+        function calculateNetto() {
+            const gross = parseFloat(document.getElementById('inputGross').value);
+            const tara = parseFloat(document.getElementById('inputTara').value); 
+            const qty = parseFloat(document.getElementById('inputQtyKemasan').value);
+
+            if (!isNaN(gross) && !isNaN(tara) && !isNaN(qty)) {
+                const netto = gross - (tara * qty);
+                document.getElementById('inputNetto').value = netto > 0 ? netto.toFixed(2) : '';
+            } else { document.getElementById('inputNetto').value = ''; }
+        }
+
+        function renderPlanningTable() {
+            const filterDate = document.getElementById('filterPlanningDate').value;
+            const tbody1112 = document.getElementById('tablePlanning1112Body'); const tbody1113 = document.getElementById('tablePlanning1113Body');
+            tbody1112.innerHTML = ''; tbody1113.innerHTML = '';
+            let count1112 = 0; let count1113 = 0;
+
+            const filteredPlannings = appState.plannings.filter(p => p['Target Tanggal'] === filterDate);
+
+            filteredPlannings.forEach(p => {
+                const tr = `
+                    <tr class="hover:bg-slate-50 transition-colors border-b border-slate-50 last:border-0">
+                        <td class="p-3"><div class="font-semibold text-slate-700">${p['Target Tanggal']}</div><div class="text-[10px] text-slate-400 mt-0.5">${p['Shift'] || '-'}</div></td>
+                        <td class="p-3 font-bold text-slate-800 whitespace-normal min-w-[120px] leading-tight">${p['Nama Material']}</td>
+                        <td class="p-3 text-right font-black text-brand-700">${parseFloat(p['Rencana (Kg)']).toLocaleString('id-ID')}</td>
+                        <td class="p-3 text-slate-500 text-[11px] whitespace-normal min-w-[100px] italic leading-snug">${p['Catatan'] && p['Catatan'].trim() !== '' ? p['Catatan'] : '-'}</td>
+                    </tr>
+                `;
+                if(p.Plant && p.Plant.includes('1112')) { tbody1112.innerHTML += tr; count1112++; } else if (p.Plant && p.Plant.includes('1113')) { tbody1113.innerHTML += tr; count1113++; }
+            });
+
+            if(count1112 === 0) tbody1112.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-slate-400 italic text-xs bg-slate-50/50">Belum ada planning P-1112 pada tanggal ${filterDate}</td></tr>`;
+            if(count1113 === 0) tbody1113.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-slate-400 italic text-xs bg-slate-50/50">Belum ada planning P-1113 pada tanggal ${filterDate}</td></tr>`;
+        }
+
+        function renderRealisasiTable() {
+            const query = document.getElementById('searchRealisasi').value.toLowerCase();
+            const fromDate = document.getElementById('realisasiDateFrom').value;
+            const toDate = document.getElementById('realisasiDateTo').value;
+            
+            const tbody1112 = document.getElementById('tableRealisasi1112Body'); const tbody1113 = document.getElementById('tableRealisasi1113Body');
+            tbody1112.innerHTML = ''; tbody1113.innerHTML = '';
+            
+            let filtered = appState.realizations.filter(r => {
+                const matchQuery = (r['Nama Material']||'').toLowerCase().includes(query);
+                let matchDate = true;
+                if (fromDate && toDate) { matchDate = r['Tanggal'] >= fromDate && r['Tanggal'] <= toDate; }
+                else if (fromDate) { matchDate = r['Tanggal'] >= fromDate; }
+                else if (toDate) { matchDate = r['Tanggal'] <= toDate; }
+                return matchQuery && matchDate;
+            });
+
+            let count1112 = 0, count1113 = 0;
+            filtered.forEach(r => { 
+                const tr = `
+                    <tr class="hover:bg-slate-50 transition-colors border-b border-slate-50 last:border-0">
+                        <td class="p-4 text-slate-600 font-medium">${r.Tanggal}</td>
+                        <td class="p-4 text-center"><span class="px-2.5 py-1 rounded-md text-[10px] font-black bg-slate-100 border border-slate-200 text-slate-700 shadow-sm uppercase">${r.Shift}</span></td>
+                        <td class="p-4 font-bold text-slate-800 truncate max-w-[150px]" title="${r['Nama Material']}">${r['Nama Material']}</td>
+                        <td class="p-4 text-right font-black text-slate-900">${parseFloat(r['Jumlah (Kg)']).toLocaleString('id-ID')}</td>
+                        <td class="p-4 text-slate-500 text-[11px] whitespace-normal min-w-[120px] leading-snug italic">${r.Keterangan || '-'}</td>
+                    </tr>
+                `;
+                if (r.Plant && r.Plant.includes('1112')) { tbody1112.innerHTML += tr; count1112++; } else if (r.Plant && r.Plant.includes('1113')) { tbody1113.innerHTML += tr; count1113++; }
+            });
+
+            if(count1112 === 0) tbody1112.innerHTML = '<tr><td colspan="5" class="p-8 text-center text-slate-400 text-xs italic bg-slate-50/50">Tidak ada riwayat P-1112 pada rentang ini</td></tr>';
+            if(count1113 === 0) tbody1113.innerHTML = '<tr><td colspan="5" class="p-8 text-center text-slate-400 text-xs italic bg-slate-50/50">Tidak ada riwayat P-1113 pada rentang ini</td></tr>';
+            document.getElementById('realisasiCount').innerHTML = `Menampilkan <strong class="text-slate-800 mx-1">${filtered.length}</strong> data`;
+        }
+
+        let aggregatedData1112 = []; let aggregatedData1113 = [];
+
+        function renderRekapan() {
+            const fromDate = document.getElementById('rekapanDateFrom').value; const toDate = document.getElementById('rekapanDateTo').value;
+            if(!fromDate || !toDate || fromDate > toDate) { showToast("Rentang tanggal tidak valid", "error"); return; }
+
+            let agg1112 = {}; let agg1113 = {};
+            const getEntry = (map, mat) => { if (!map[mat]) map[mat] = { material: mat, plan: 0, real: 0, notes: new Set() }; return map[mat]; };
+
+            appState.plannings.forEach(p => {
+                if (p['Target Tanggal'] >= fromDate && p['Target Tanggal'] <= toDate) {
+                    const map = p['Plant'] && p['Plant'].includes('1112') ? agg1112 : (p['Plant'] && p['Plant'].includes('1113') ? agg1113 : null);
+                    if (map) getEntry(map, p['Nama Material']).plan += parseFloat(p['Rencana (Kg)']) || 0;
+                }
+            });
+
+            appState.realizations.forEach(r => {
+                if (r['Tanggal'] >= fromDate && r['Tanggal'] <= toDate) {
+                    const map = r['Plant'] && r['Plant'].includes('1112') ? agg1112 : (r['Plant'] && r['Plant'].includes('1113') ? agg1113 : null);
+                    if (map) {
+                        let entry = getEntry(map, r['Nama Material']); entry.real += parseFloat(r['Jumlah (Kg)']) || 0;
+                        if (r.Keterangan && r.Keterangan.trim() !== '' && r.Keterangan !== '-') entry.notes.add(r.Keterangan.trim());
+                    }
+                }
+            });
+
+            aggregatedData1112 = Object.values(agg1112).sort((a, b) => a.material.localeCompare(b.material));
+            aggregatedData1113 = Object.values(agg1113).sort((a, b) => a.material.localeCompare(b.material));
+
+            const buildTable = (dataArr, tbodyId) => {
+                const tbody = document.getElementById(tbodyId); tbody.innerHTML = '';
+                if (dataArr.length === 0) { tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-400 italic text-xs">Tidak ada data akumulasi</td></tr>`; return; }
+
+                dataArr.forEach(item => {
+                    const diff = item.real - item.plan; let diffBadge = '';
+                    if (item.plan === 0 && item.real > 0) diffBadge = `<span class="text-[10px] bg-slate-100 text-slate-600 px-2.5 py-1 rounded font-bold border border-slate-200 uppercase tracking-wide">Tanpa Plan</span>`;
+                    else if (diff > 0) diffBadge = `<span class="text-[10px] bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded font-bold border border-emerald-200">+ ${diff.toLocaleString('id-ID')}</span>`;
+                    else if (diff < 0) diffBadge = `<span class="text-[10px] bg-red-100 text-red-800 px-2.5 py-1 rounded font-bold border border-red-200">- ${Math.abs(diff).toLocaleString('id-ID')}</span>`;
+                    else diffBadge = `<span class="text-[10px] bg-brand-100 text-brand-800 px-2.5 py-1 rounded font-bold border border-brand-200 uppercase tracking-wide">Sesuai (0)</span>`;
+
+                    const notesArr = Array.from(item.notes);
+                    const notesHtml = notesArr.length > 0 ? `<ul class="list-disc pl-4 space-y-1">${notesArr.map(n => `<li>${n}</li>`).join('')}</ul>` : `<span class="text-slate-400 italic">Tidak ada</span>`;
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-50 border-b border-slate-100 last:border-0 transition-colors">
+                            <td class="p-4 font-bold text-slate-800">${item.material}</td>
+                            <td class="p-4 text-right text-slate-500 font-semibold">${item.plan > 0 ? item.plan.toLocaleString('id-ID') : '-'}</td>
+                            <td class="p-4 text-right text-slate-900 font-black">${item.real > 0 ? item.real.toLocaleString('id-ID') : '-'}</td>
+                            <td class="p-4 text-center">${diffBadge}</td>
+                            <td class="p-4 text-[11px] text-slate-600 whitespace-normal min-w-[200px] leading-snug">${notesHtml}</td>
+                        </tr>
+                    `;
+                });
+            };
+
+            buildTable(aggregatedData1112, 'tableRekapan1112Body'); buildTable(aggregatedData1113, 'tableRekapan1113Body');
+        }
+
+        function renderStatusTable() {
+            const filterDate = document.getElementById('statusFilterDate').value;
+            const tbody1112 = document.getElementById('tableStatus1112Body'); const tbody1113 = document.getElementById('tableStatus1113Body');
+            tbody1112.innerHTML = ''; tbody1113.innerHTML = '';
+
+            let statusMap1112 = {}; let statusMap1113 = {};
+
+            appState.plannings.forEach(p => {
+                if(p['Target Tanggal'] === filterDate) {
+                    let map = p['Plant'] && p['Plant'].includes('1112') ? statusMap1112 : (p['Plant'] && p['Plant'].includes('1113') ? statusMap1113 : null);
+                    if(map) { if(!map[p['Nama Material']]) map[p['Nama Material']] = { mat: p['Nama Material'], plan: 0, real: 0 }; map[p['Nama Material']].plan += parseFloat(p['Rencana (Kg)']) || 0; }
+                }
+            });
+
+            appState.realizations.forEach(r => {
+                if(r.Tanggal === filterDate) {
+                    let map = r['Plant'] && r['Plant'].includes('1112') ? statusMap1112 : (r['Plant'] && r['Plant'].includes('1113') ? statusMap1113 : null);
+                    if(map) { if(!map[r['Nama Material']]) map[r['Nama Material']] = { mat: r['Nama Material'], plan: 0, real: 0 }; map[r['Nama Material']].real += parseFloat(r['Jumlah (Kg)']) || 0; }
+                }
+            });
+
+            let p1112C = 0, c1112C = 0; let p1113C = 0, c1113C = 0;
+
+            const populateTable = (map, tbody, is1112) => {
+                const keys = Object.keys(map).sort();
+                if(keys.length === 0) { tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-xs text-slate-400 italic bg-slate-50/50">Belum ada aktivitas di tanggal ini</td></tr>`; return; }
+                
+                keys.forEach(key => {
+                    let data = map[key]; let statusBadge = ''; let diff = data.real - data.plan; let shortfall = data.plan - data.real; 
+
+                    if (data.plan > 0) {
+                        const isSelesai = data.real >= data.plan || shortfall <= 10;
+                        if (is1112) { p1112C++; if (isSelesai) c1112C++; } else { p1113C++; if (isSelesai) c1113C++; }
+                    }
+                    
+                    let diffFormatted = diff > 0 ? `+${diff.toLocaleString('id-ID')}` : diff.toLocaleString('id-ID');
+                    let diffColor = diff > 0 ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : (diff < 0 ? 'text-red-600 bg-red-50 border-red-200' : 'text-slate-600 bg-slate-100 border-slate-200');
+                    let selisihInfo = `<span class="px-2.5 py-1 rounded-md text-[10px] font-bold border shadow-sm ${diffColor} whitespace-nowrap">${diffFormatted} Kg</span>`;
+
+                    if (data.plan === 0 && data.real > 0) statusBadge = `<span class="bg-amber-100 text-amber-800 border border-amber-200 px-2.5 py-1 rounded text-[10px] font-bold shadow-sm whitespace-nowrap"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Extra</span>`; 
+                    else if (data.real >= data.plan) statusBadge = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-200 px-2.5 py-1 rounded text-[10px] font-bold shadow-sm whitespace-nowrap"><i class="fa-solid fa-check mr-1"></i>Selesai</span>`; 
+                    else if (shortfall > 0 && shortfall <= 10) statusBadge = `<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded text-[10px] font-bold shadow-sm whitespace-nowrap"><i class="fa-solid fa-check-double mr-1"></i>Selesai (Tol.)</span>`; 
+                    else statusBadge = `<span class="bg-red-50 text-red-600 border border-red-200 px-2.5 py-1 rounded text-[10px] font-bold shadow-sm whitespace-nowrap"><i class="fa-solid fa-circle-exclamation mr-1 opacity-70"></i>Kurang</span>`; 
+
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-slate-50 border-b border-slate-50 last:border-0 transition-colors">
+                            <td class="p-3 font-bold text-slate-800 text-xs whitespace-normal min-w-[120px] leading-tight">${data.mat}</td>
+                            <td class="p-3 text-right text-slate-500 font-semibold">${data.plan.toLocaleString('id-ID')}</td>
+                            <td class="p-3 text-right text-slate-900 font-black">${data.real.toLocaleString('id-ID')}</td>
+                            <td class="p-3 text-center align-middle">${statusBadge}</td>
+                            <td class="p-3 text-center align-middle">${selisihInfo}</td>
+                        </tr>
+                    `;
+                });
+            };
+
+            populateTable(statusMap1112, tbody1112, true); populateTable(statusMap1113, tbody1113, false);
+
+            let pct1112 = p1112C > 0 ? Math.round((c1112C / p1112C) * 100) : 0; let pct1113 = p1113C > 0 ? Math.round((c1113C / p1113C) * 100) : 0;
+            document.getElementById('progress1112Text').innerText = `${c1112C}/${p1112C}`; document.getElementById('progress1112Percent').innerText = `${pct1112}%`;
+            document.getElementById('progress1113Text').innerText = `${c1113C}/${p1113C}`; document.getElementById('progress1113Percent').innerText = `${pct1113}%`;
+            
+            setTimeout(() => { document.getElementById('progressBar1112').style.width = `${pct1112}%`; document.getElementById('progressBar1113').style.width = `${pct1113}%`; }, 100);
+        }
+        function renderDashboard() { renderStatusTable(); }
+
+        function renderMasterTable() {
+            const query = document.getElementById('searchMaster').value.toLowerCase();
+            const tbody = document.getElementById('tableMasterBody'); tbody.innerHTML = '';
+            let filtered = appState.materials.filter(m => {
+                const nama = m['Nama Material'] ? String(m['Nama Material']).toLowerCase() : '';
+                const kode = m['Kode Material'] ? String(m['Kode Material']).toLowerCase() : '';
+                return nama.includes(query) || kode.includes(query);
+            });
+            
+            if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="7" class="p-8 text-center text-slate-400 text-xs italic bg-slate-50/50">Data material tidak ditemukan</td></tr>'; return; }
+
+            filtered.forEach(m => {
+                const isAktif = m.Status === 'Aktif';
+                tbody.innerHTML += `
+                <tr class="hover:bg-slate-50 transition-colors border-b border-slate-50">
+                    <td class="p-4 text-[11px] text-slate-500 font-mono font-medium">${m['Kode Material']}</td>
+                    <td class="p-4 font-bold text-slate-800">${m['Nama Material']}</td>
+                    <td class="p-4 text-slate-800 font-semibold text-right">${m['Standar Kemasan (Kg)']} <span class="text-[10px] text-slate-400 font-normal">Kg</span></td>
+                    <td class="p-4"><span class="px-2.5 py-1 rounded bg-slate-100 text-slate-600 text-[10px] font-bold border border-slate-200">${m.Kategori}</span></td>
+                    <td class="p-4 text-xs font-mono text-slate-600 font-semibold bg-slate-50/50">${m.Tara || '-'}</td>
+                    <td class="p-4 text-center"><span class="px-3 py-1 rounded-full text-[10px] font-bold border shadow-sm ${isAktif ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-slate-100 text-slate-500 border-slate-200'}">${m.Status}</span></td>
+                    <td class="p-4 text-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <button onclick="openEditModal('${m['Kode Material']}')" class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-700 flex items-center justify-center transition-colors border border-blue-200 shadow-sm"><i class="fa-solid fa-pen-to-square text-xs"></i></button>
+                            <button onclick="openDeleteModal('${m['Kode Material']}')" class="w-8 h-8 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 flex items-center justify-center transition-colors border border-red-200 shadow-sm"><i class="fa-solid fa-trash text-xs"></i></button>
+                        </div>
+                    </td>
+                </tr>`;
+            });
+        }
+
+        function exportToExcel() {
+            if(appState.realizations.length === 0) { showToast("Tidak ada data untuk dieksport", "error"); return; }
+            const fromDate = document.getElementById('realisasiDateFrom').value; const toDate = document.getElementById('realisasiDateTo').value;
+            const dataToExport = appState.realizations.filter(r => {
+                if (fromDate && toDate) return r.Tanggal >= fromDate && r.Tanggal <= toDate;
+                if (fromDate) return r.Tanggal >= fromDate;
+                if (toDate) return r.Tanggal <= toDate;
+                return true;
+            }).map(r => ({'Tanggal': r.Tanggal, 'Plant Tujuan': r.Plant, 'Shift': r.Shift, 'Kode Material': r['Kode Material'], 'Nama Material': r['Nama Material'], 'Jumlah (Kg)': r['Jumlah (Kg)'], 'Keterangan': r.Keterangan, 'User Input': r.User }));
+
+            if (dataToExport.length === 0) { showToast("Tidak ada data dalam rentang tanggal tersebut", "error"); return; }
+            const ws = XLSX.utils.json_to_sheet(dataToExport); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Realisasi"); XLSX.writeFile(wb, `Data_Realisasi_${fromDate||'all'}_sd_${toDate||'all'}.xlsx`); showToast("File Excel diunduh");
+        }
+
+        function exportRekapanToExcel() {
+            if (aggregatedData1112.length === 0 && aggregatedData1113.length === 0) { showToast("Tidak ada data rekapan", "error"); return; }
+            const fromDate = document.getElementById('rekapanDateFrom').value; const toDate = document.getElementById('rekapanDateTo').value;
+            const formatData = (dataArr, plant) => dataArr.map(item => ({ 'Plant': plant, 'Material': item.material, 'Total Rencana (Kg)': item.plan, 'Total Realisasi (Kg)': item.real, 'Selisih (Kg)': item.real - item.plan, 'Catatan': Array.from(item.notes).join(' | ') }));
+            const wb = XLSX.utils.book_new();
+            if (aggregatedData1112.length > 0) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(formatData(aggregatedData1112, 'P-1112')), "Rekapan P-1112");
+            if (aggregatedData1113.length > 0) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(formatData(aggregatedData1113, 'P-1113')), "Rekapan P-1113");
+            XLSX.writeFile(wb, `Rekapan_Material_${fromDate}_sd_${toDate}.xlsx`); showToast("File Rekap Excel diunduh");
+        }
+
+        function exportPlanningToPDF(plant) {
+            const filterDate = document.getElementById('filterPlanningDate').value;
+            const dataToExport = appState.plannings.filter(p => p['Target Tanggal'] === filterDate && p.Plant && p.Plant.includes(plant));
+            if (dataToExport.length === 0) { showToast(`Tidak ada Planning P-${plant}`, "error"); return; }
+            showLoading(true);
+            setTimeout(() => {
+                try {
+                    const doc = new window.jspdf.jsPDF('p', 'mm', 'a4');
+                    doc.setFontSize(16); doc.setFont("helvetica", "bold"); doc.text(`Daftar Planning Berjalan P-${plant}`, 14, 20);
+                    doc.setFontSize(10); doc.setFont("helvetica", "normal"); doc.text(`Tanggal Target: ${filterDate}`, 14, 28); doc.text(`Dicetak pada: ${new Date().toLocaleString('id-ID')}`, 14, 34);
+
+                    const tableRows = dataToExport.map(p => [p['Shift'] || '-', p['Nama Material'], parseFloat(p['Rencana (Kg)']).toLocaleString('id-ID'), p['Catatan'] && p['Catatan'].trim() !== '' ? p['Catatan'] : '-']);
+
+                    doc.autoTable({
+                        head: [["Shift", "Material", "Qty (Kg)", "Catatan"]], body: tableRows, startY: 40, theme: 'grid',
+                        styles: { font: 'helvetica', fontSize: 9, cellPadding: 3, textColor: [40, 40, 40] },
+                        headStyles: { fillColor: [37, 99, 235], textColor: 255, fontStyle: 'bold', halign: 'center' },
+                        columnStyles: { 0: { cellWidth: 25, halign: 'center' }, 1: { cellWidth: 'auto' }, 2: { cellWidth: 25, halign: 'right' }, 3: { cellWidth: 45 } },
+                        alternateRowStyles: { fillColor: [248, 250, 252] }, margin: { top: 40, left: 14, right: 14 }
+                    });
+                    doc.save(`Planning_P${plant}_${filterDate}.pdf`); showToast("PDF berhasil diunduh", "success");
+                } catch (error) { console.error(error); showToast("Gagal membuat PDF", "error"); } finally { showLoading(false); }
+            }, 300);
+        }
+
+        document.addEventListener('click', (e) => {
+            if(!e.target.closest('#materialSearchInput') && !e.target.closest('#materialDropdown') && !e.target.closest('#clearRealisasiBtn')) hideMaterialDropdown();
+            if(!e.target.closest('#planMaterialSearch') && !e.target.closest('#planDropdown') && !e.target.closest('#clearPlanBtn')) hidePlanMatDropdown();
+        });
+    </script>
+</body>
+</html>

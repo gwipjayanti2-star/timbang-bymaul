@@ -79,74 +79,74 @@
 
     <div id="loginScreen" class="fixed inset-0 bg-slate-100 z-[100] flex items-center justify-center p-4 relative overflow-hidden">
         <!-- Background Ornaments -->
-        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-brand-400 rounded-full mix-blend-multiply filter blur-[80px] opacity-30 animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-emerald-300 rounded-full mix-blend-multiply filter blur-[80px] opacity-30 animate-blob animation-delay-2000"></div>
-        <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-[80px] opacity-30 animate-blob animation-delay-4000"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-64 h-64 sm:w-96 sm:h-96 bg-brand-400 rounded-full mix-blend-multiply filter blur-[60px] sm:blur-[80px] opacity-30 animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-64 h-64 sm:w-96 sm:h-96 bg-emerald-300 rounded-full mix-blend-multiply filter blur-[60px] sm:blur-[80px] opacity-30 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-64 h-64 sm:w-96 sm:h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-[60px] sm:blur-[80px] opacity-30 animate-blob animation-delay-4000"></div>
 
-        <div class="bg-white/80 backdrop-blur-xl rounded-[2rem] w-full max-w-[380px] overflow-hidden shadow-glass border border-white flex flex-col transform transition-all relative z-10">
-            <div class="p-8 flex flex-col items-center justify-center pt-10">
-                <div class="w-24 h-24 mb-4 relative drop-shadow-xl">
+        <div class="bg-white/80 backdrop-blur-xl rounded-2xl sm:rounded-[2rem] w-full max-w-[380px] overflow-hidden shadow-glass border border-white flex flex-col transform transition-all relative z-10">
+            <div class="p-6 sm:p-8 flex flex-col items-center justify-center pt-8 sm:pt-10">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mb-3 sm:mb-4 relative drop-shadow-xl">
                     <img src="https://www.image2url.com/r2/default/files/1789446552363-56719279-933a-4e4e-b52b-40e55d8058f7.png" alt="Logo" class="w-full h-full object-contain">
                 </div>
-                <h1 class="text-2xl font-extrabold tracking-tight text-slate-800 text-center">MatRecord<span class="text-brand-600">.</span></h1>
-                <p class="text-sm text-slate-500 mt-1 font-medium text-center">Sistem Pengelolaan Material Digital</p>
+                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-800 text-center">MatRecord<span class="text-brand-600">.</span></h1>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1 font-medium text-center">Sistem Pengelolaan Material Digital</p>
             </div>
             
-            <form id="loginForm" onsubmit="handleLogin(event)" class="px-8 pb-10 space-y-5">
+            <form id="loginForm" onsubmit="handleLogin(event)" class="px-6 sm:px-8 pb-8 sm:pb-10 space-y-4 sm:space-y-5">
                 <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider ml-1">Username</label>
+                    <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1 sm:mb-1.5 uppercase tracking-wider ml-1">Username</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-user text-sm"></i></div>
-                        <input type="text" id="loginUsername" required class="w-full pl-11 pr-4 py-3 bg-white/50 border border-slate-200 rounded-2xl text-sm text-slate-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all shadow-input" placeholder="Masukkan username">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 sm:pl-4 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-user text-xs sm:text-sm"></i></div>
+                        <input type="text" id="loginUsername" required class="w-full pl-10 sm:pl-11 pr-4 py-2.5 sm:py-3 bg-white/50 border border-slate-200 rounded-xl sm:rounded-2xl text-xs sm:text-sm text-slate-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all shadow-input" placeholder="Masukkan username">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider ml-1">Password</label>
+                    <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1 sm:mb-1.5 uppercase tracking-wider ml-1">Password</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-lock text-sm"></i></div>
-                        <input type="password" id="loginPassword" required class="w-full pl-11 pr-4 py-3 bg-white/50 border border-slate-200 rounded-2xl text-sm text-slate-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all shadow-input" placeholder="Masukkan password">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 sm:pl-4 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-lock text-xs sm:text-sm"></i></div>
+                        <input type="password" id="loginPassword" required class="w-full pl-10 sm:pl-11 pr-4 py-2.5 sm:py-3 bg-white/50 border border-slate-200 rounded-xl sm:rounded-2xl text-xs sm:text-sm text-slate-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all shadow-input" placeholder="Masukkan password">
                     </div>
                 </div>
-                <button type="submit" class="w-full py-3.5 mt-4 bg-slate-900 hover:bg-brand-600 text-white rounded-2xl font-bold text-sm shadow-xl shadow-slate-900/20 transition-all duration-300 transform hover:-translate-y-1">Masuk Sistem</button>
-                <div class="text-center pt-4">
-                    <p class="text-[10px] text-slate-400 font-medium uppercase tracking-widest"><i class="fa-solid fa-cloud mr-1"></i> Connected to Cloud</p>
+                <button type="submit" class="w-full py-3 sm:py-3.5 mt-3 sm:mt-4 bg-slate-900 hover:bg-brand-600 text-white rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm shadow-xl shadow-slate-900/20 transition-all duration-300 transform hover:-translate-y-1">Masuk Sistem</button>
+                <div class="text-center pt-3 sm:pt-4">
+                    <p class="text-[9px] sm:text-[10px] text-slate-400 font-medium uppercase tracking-widest"><i class="fa-solid fa-cloud mr-1"></i> Connected to Cloud</p>
                 </div>
             </form>
         </div>
     </div>
 
     <div id="loadingOverlay" class="hidden fixed inset-0 glass-dark z-[120] flex flex-col items-center justify-center transition-opacity duration-300 opacity-0">
-        <div class="loader mb-4"></div>
-        <p class="text-sm font-semibold text-white tracking-wide">Memproses Data...</p>
+        <div class="loader mb-3 sm:mb-4"></div>
+        <p class="text-xs sm:text-sm font-semibold text-white tracking-wide">Memproses Data...</p>
     </div>
-    <div id="toastContainer" class="fixed bottom-6 right-6 z-[130] flex flex-col gap-3 pointer-events-none"></div>
+    <div id="toastContainer" class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 left-4 sm:left-auto z-[130] flex flex-col gap-2 sm:gap-3 pointer-events-none"></div>
 
     <!-- Edit Material Modal -->
-    <div id="editModal" class="hidden fixed inset-0 bg-slate-900/40 z-[150] flex flex-col items-center justify-center backdrop-blur-sm transition-opacity px-4">
-        <div class="bg-white rounded-[2rem] w-full max-w-lg overflow-hidden shadow-2xl flex flex-col transform transition-all fade-in">
-            <div class="bg-slate-50 p-6 border-b border-slate-100 flex justify-between items-center">
-                <h2 class="text-lg font-extrabold text-slate-800 flex items-center"><div class="w-8 h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center mr-3"><i class="fa-solid fa-pen-to-square text-sm"></i></div>Edit Material</h2>
-                <button type="button" onclick="closeEditModal()" class="w-8 h-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors">
-                    <i class="fa-solid fa-xmark text-lg"></i>
+    <div id="editModal" class="hidden fixed inset-0 bg-slate-900/40 z-[150] flex flex-col items-center justify-center backdrop-blur-sm transition-opacity px-4 py-6">
+        <div class="bg-white rounded-2xl sm:rounded-[2rem] w-full max-w-lg overflow-y-auto max-h-[90vh] custom-scrollbar shadow-2xl flex flex-col transform transition-all fade-in">
+            <div class="bg-slate-50 p-4 sm:p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 z-10">
+                <h2 class="text-base sm:text-lg font-extrabold text-slate-800 flex items-center"><div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center mr-2 sm:mr-3"><i class="fa-solid fa-pen-to-square text-[10px] sm:text-sm"></i></div>Edit Material</h2>
+                <button type="button" onclick="closeEditModal()" class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors">
+                    <i class="fa-solid fa-xmark text-base sm:text-lg"></i>
                 </button>
             </div>
-            <form id="editForm" onsubmit="handleEditSubmit(event)" class="p-6 space-y-5">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <form id="editForm" onsubmit="handleEditSubmit(event)" class="p-4 sm:p-6 space-y-4 sm:space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                     <div class="sm:col-span-2">
-                        <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider ml-1">Kode Material</label>
-                        <input type="text" id="editKode" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none font-mono uppercase transition-all">
+                        <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1 sm:mb-1.5 uppercase tracking-wider ml-1">Kode Material</label>
+                        <input type="text" id="editKode" required class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none font-mono uppercase transition-all">
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider ml-1">Nama Material</label>
-                        <input type="text" id="editNama" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all">
+                        <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1 sm:mb-1.5 uppercase tracking-wider ml-1">Nama Material</label>
+                        <input type="text" id="editNama" required class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider ml-1">Kemasan (Kg)</label>
-                        <input type="number" id="editKemasan" step="0.01" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all">
+                        <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1 sm:mb-1.5 uppercase tracking-wider ml-1">Kemasan (Kg)</label>
+                        <input type="number" id="editKemasan" step="0.01" required class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider ml-1">Kategori</label>
-                        <select id="editKategori" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all">
+                        <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1 sm:mb-1.5 uppercase tracking-wider ml-1">Kategori</label>
+                        <select id="editKategori" class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all">
                             <option value="Utama">Utama</option>
                             <option value="Pewarna">Pewarna</option>
                             <option value="Aditif">Aditif</option>
@@ -154,18 +154,18 @@
                         </select>
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block text-xs font-bold text-slate-500 mb-1 uppercase tracking-wider ml-1">Opsi Tara (Kg)</label>
-                        <input type="text" id="editTara" placeholder="Cth: 0.1, 0.15" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all">
-                        <p class="text-[10px] text-slate-400 mt-1 ml-1 font-medium">Pisahkan dengan koma (,) jika lebih dari 1 opsi tara kemasan</p>
+                        <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1 uppercase tracking-wider ml-1">Opsi Tara (Kg)</label>
+                        <input type="text" id="editTara" placeholder="Cth: 0.1, 0.15" class="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all">
+                        <p class="text-[9px] sm:text-[10px] text-slate-400 mt-1 ml-1 font-medium">Pisahkan dengan koma (,) jika lebih dari 1 opsi tara kemasan</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100 mt-2">
-                    <input type="checkbox" id="editStatus" class="w-5 h-5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer">
-                    <label class="text-sm font-bold text-slate-700 cursor-pointer select-none" for="editStatus">Status Material Aktif</label>
+                <div class="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-slate-50 rounded-lg sm:rounded-xl border border-slate-100 mt-1 sm:mt-2">
+                    <input type="checkbox" id="editStatus" class="w-4 h-4 sm:w-5 sm:h-5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer">
+                    <label class="text-xs sm:text-sm font-bold text-slate-700 cursor-pointer select-none" for="editStatus">Status Material Aktif</label>
                 </div>
-                <div class="flex justify-end gap-3 mt-6 pt-6 border-t border-slate-100">
-                    <button type="button" onclick="closeEditModal()" class="px-5 py-2.5 bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 rounded-xl font-bold text-sm transition-colors">Batal</button>
-                    <button type="submit" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-brand-500/30 transition-all flex items-center gap-2">
+                <div class="flex justify-end gap-2 sm:gap-3 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-slate-100">
+                    <button type="button" onclick="closeEditModal()" class="px-4 sm:px-5 py-2 sm:py-2.5 bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm transition-colors">Batal</button>
+                    <button type="submit" class="px-4 sm:px-6 py-2 sm:py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm shadow-lg shadow-brand-500/30 transition-all flex items-center gap-2">
                         Simpan Perubahan
                     </button>
                 </div>
@@ -174,17 +174,17 @@
     </div>
 
     <!-- Delete Confimation Modal -->
-    <div id="deleteModal" class="hidden fixed inset-0 bg-slate-900/40 z-[150] flex flex-col items-center justify-center backdrop-blur-sm transition-opacity px-4">
-        <div class="bg-white rounded-[2rem] w-full max-w-sm overflow-hidden shadow-2xl flex flex-col transform transition-all fade-in text-center p-8">
-            <div class="w-20 h-20 rounded-full bg-red-50 text-red-500 flex items-center justify-center text-4xl mx-auto mb-5 border-8 border-white shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+    <div id="deleteModal" class="hidden fixed inset-0 bg-slate-900/40 z-[150] flex flex-col items-center justify-center backdrop-blur-sm transition-opacity px-4 py-6">
+        <div class="bg-white rounded-2xl sm:rounded-[2rem] w-full max-w-sm overflow-hidden shadow-2xl flex flex-col transform transition-all fade-in text-center p-6 sm:p-8">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-50 text-red-500 flex items-center justify-center text-3xl sm:text-4xl mx-auto mb-4 sm:mb-5 border-4 sm:border-8 border-white shadow-[0_0_15px_rgba(239,68,68,0.2)]">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h2 class="text-xl font-extrabold text-slate-800 mb-2">Hapus Material?</h2>
-            <p class="text-sm text-slate-500 mb-2 leading-relaxed">Anda yakin ingin menghapus data material dengan kode:</p>
-            <p id="deleteMatKode" class="font-mono font-bold text-slate-700 bg-slate-100 py-2 px-4 rounded-xl inline-block border border-slate-200 mt-1 mb-6"></p>
-            <div class="flex gap-3">
-                <button type="button" onclick="closeDeleteModal()" class="flex-1 px-4 py-3 bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 rounded-xl font-bold text-sm transition-colors">Batal</button>
-                <button type="button" onclick="confirmDeleteMaterial()" class="flex-1 px-4 py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-red-500/30 transition-all">
+            <h2 class="text-lg sm:text-xl font-extrabold text-slate-800 mb-1 sm:mb-2">Hapus Material?</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mb-2 leading-relaxed">Anda yakin ingin menghapus data material dengan kode:</p>
+            <p id="deleteMatKode" class="font-mono font-bold text-slate-700 text-sm bg-slate-100 py-1.5 sm:py-2 px-3 sm:px-4 rounded-lg sm:rounded-xl inline-block border border-slate-200 mt-1 mb-5 sm:mb-6"></p>
+            <div class="flex gap-2 sm:gap-3">
+                <button type="button" onclick="closeDeleteModal()" class="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm transition-colors">Batal</button>
+                <button type="button" onclick="confirmDeleteMaterial()" class="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm shadow-lg shadow-red-500/30 transition-all">
                     Ya, Hapus
                 </button>
             </div>
@@ -193,143 +193,144 @@
 
     <div id="appContainer" class="hidden flex-col min-h-screen">
         <header class="bg-white/80 backdrop-blur-lg border-b border-slate-200/60 sticky top-0 z-30 shadow-sm">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-16 sm:h-20">
-                    <div class="flex items-center space-x-3">
-                        <img src="https://www.image2url.com/r2/default/files/1789446552363-56719279-933a-4e4e-b52b-40e55d8058f7.png" alt="Logo" class="w-10 h-10 sm:w-12 sm:h-12 object-contain filter drop-shadow-md">
+            <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-14 sm:h-20">
+                    <div class="flex items-center space-x-2 sm:space-x-3">
+                        <img src="https://www.image2url.com/r2/default/files/1789446552363-56719279-933a-4e4e-b52b-40e55d8058f7.png" alt="Logo" class="w-8 h-8 sm:w-12 sm:h-12 object-contain filter drop-shadow-md">
                         <div>
-                            <h1 class="font-extrabold text-lg sm:text-xl leading-tight text-slate-800 tracking-tight flex items-center gap-2">
+                            <h1 class="font-extrabold text-base sm:text-xl leading-tight text-slate-800 tracking-tight flex items-center gap-1.5 sm:gap-2">
                                 MatRecord 
-                                <span class="bg-brand-50 text-brand-600 text-[10px] px-2 py-0.5 rounded-md font-bold uppercase tracking-widest border border-brand-100 hidden sm:inline-block">Pro</span>
+                                <span class="bg-brand-50 text-brand-600 text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-md font-bold uppercase tracking-widest border border-brand-100">Pro</span>
                             </h1>
-                            <p class="text-[10px] sm:text-xs text-slate-500 font-medium">Handling & Realisasi Produksi</p>
+                            <p class="text-[9px] sm:text-xs text-slate-500 font-medium hidden xs:block">Handling & Realisasi</p>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-3 sm:space-x-5">
-                        <button id="installPwaBtn" class="hidden bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-md hover:bg-slate-800 transition-colors mr-1">
-                            <i class="fa-solid fa-download mr-1.5"></i> Install
+                    <div class="flex items-center space-x-1.5 sm:space-x-5">
+                        <button id="installPwaBtn" class="hidden bg-slate-900 text-white text-[10px] sm:text-xs font-bold px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-md sm:rounded-lg shadow-md hover:bg-slate-800 transition-colors">
+                            <i class="fa-solid fa-download mr-1 sm:mr-1.5"></i> <span class="hidden sm:inline">Install</span>
                         </button>
                         <div class="hidden sm:flex flex-col items-end mr-1">
                             <div class="text-sm font-bold text-slate-800 leading-tight" id="displayUserName">User</div>
                             <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5" id="displayUserRole">Role</div>
                         </div>
-                        <div class="w-px h-8 bg-slate-200 hidden sm:block"></div>
-                        <button onclick="refreshAllData()" class="w-10 h-10 flex items-center justify-center text-slate-500 hover:bg-slate-100 hover:text-brand-600 rounded-xl transition-colors group" title="Refresh Data">
-                            <i class="fa-solid fa-rotate-right" id="refreshIcon"></i>
+                        <div class="w-px h-6 sm:h-8 bg-slate-200 hidden sm:block"></div>
+                        <button onclick="refreshAllData()" class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-slate-500 hover:bg-slate-100 hover:text-brand-600 rounded-lg sm:rounded-xl transition-colors group" title="Refresh Data">
+                            <i class="fa-solid fa-rotate-right text-sm sm:text-base" id="refreshIcon"></i>
                         </button>
-                        <button onclick="logoutUser()" class="w-10 h-10 flex items-center justify-center text-slate-500 hover:bg-red-50 hover:text-red-600 rounded-xl transition-colors group" title="Logout">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <button onclick="logoutUser()" class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-slate-500 hover:bg-red-50 hover:text-red-600 rounded-lg sm:rounded-xl transition-colors group" title="Logout">
+                            <i class="fa-solid fa-arrow-right-from-bracket text-sm sm:text-base"></i>
                         </button>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white/50 border-t border-slate-100/50">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto custom-scrollbar">
-                    <nav class="flex space-x-1 sm:space-x-4 min-w-max text-sm px-1 py-2" aria-label="Tabs">
-                        <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn active px-4 py-3 font-medium text-slate-500 hover:text-slate-800 flex items-center space-x-2 rounded-xl hover:bg-slate-50">
+                <!-- Navigation scrollable on mobile -->
+                <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 overflow-x-auto custom-scrollbar">
+                    <nav class="flex space-x-1 sm:space-x-4 min-w-max text-[11px] sm:text-sm px-1 py-1.5 sm:py-2" aria-label="Tabs">
+                        <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn active px-3 py-2 sm:px-4 sm:py-3 font-medium text-slate-500 hover:text-slate-800 flex items-center space-x-1.5 sm:space-x-2 rounded-lg sm:rounded-xl hover:bg-slate-50">
                             <i class="fa-solid fa-chart-pie opacity-70"></i><span>Dashboard</span>
                         </button>
-                        <button onclick="switchTab('planning')" id="tab-planning" class="tab-btn px-4 py-3 font-medium text-slate-500 hover:text-slate-800 flex items-center space-x-2 rounded-xl hover:bg-slate-50">
-                            <i class="fa-solid fa-clipboard-list opacity-70"></i><span>Input Planning</span>
+                        <button onclick="switchTab('planning')" id="tab-planning" class="tab-btn px-3 py-2 sm:px-4 sm:py-3 font-medium text-slate-500 hover:text-slate-800 flex items-center space-x-1.5 sm:space-x-2 rounded-lg sm:rounded-xl hover:bg-slate-50">
+                            <i class="fa-solid fa-clipboard-list opacity-70"></i><span>Planning</span>
                         </button>
-                        <button onclick="switchTab('input')" id="tab-input" class="tab-btn px-4 py-3 font-medium text-slate-500 hover:text-slate-800 flex items-center space-x-2 rounded-xl hover:bg-slate-50">
-                            <i class="fa-solid fa-pen-ruler opacity-70"></i><span>Input Realisasi</span>
+                        <button onclick="switchTab('input')" id="tab-input" class="tab-btn px-3 py-2 sm:px-4 sm:py-3 font-medium text-slate-500 hover:text-slate-800 flex items-center space-x-1.5 sm:space-x-2 rounded-lg sm:rounded-xl hover:bg-slate-50">
+                            <i class="fa-solid fa-pen-ruler opacity-70"></i><span>Realisasi</span>
                         </button>
-                        <button onclick="switchTab('realisasi')" id="tab-realisasi" class="tab-btn px-4 py-3 font-medium text-slate-500 hover:text-slate-800 flex items-center space-x-2 rounded-xl hover:bg-slate-50">
-                            <i class="fa-solid fa-list-check opacity-70"></i><span>Data Realisasi</span>
+                        <button onclick="switchTab('realisasi')" id="tab-realisasi" class="tab-btn px-3 py-2 sm:px-4 sm:py-3 font-medium text-slate-500 hover:text-slate-800 flex items-center space-x-1.5 sm:space-x-2 rounded-lg sm:rounded-xl hover:bg-slate-50">
+                            <i class="fa-solid fa-list-check opacity-70"></i><span>Histori</span>
                         </button>
-                        <button onclick="switchTab('rekapan')" id="tab-rekapan" class="tab-btn px-4 py-3 font-medium text-slate-500 hover:text-slate-800 flex items-center space-x-2 rounded-xl hover:bg-slate-50">
+                        <button onclick="switchTab('rekapan')" id="tab-rekapan" class="tab-btn px-3 py-2 sm:px-4 sm:py-3 font-medium text-slate-500 hover:text-slate-800 flex items-center space-x-1.5 sm:space-x-2 rounded-lg sm:rounded-xl hover:bg-slate-50">
                             <i class="fa-solid fa-folder-open opacity-70"></i><span>Rekapan</span>
                         </button>
-                        <button onclick="switchTab('master')" id="tab-master" class="tab-btn px-4 py-3 font-medium text-slate-500 hover:text-slate-800 flex items-center space-x-2 rounded-xl hover:bg-slate-50">
-                            <i class="fa-solid fa-database opacity-70"></i><span>Master Material</span>
+                        <button onclick="switchTab('master')" id="tab-master" class="tab-btn px-3 py-2 sm:px-4 sm:py-3 font-medium text-slate-500 hover:text-slate-800 flex items-center space-x-1.5 sm:space-x-2 rounded-lg sm:rounded-xl hover:bg-slate-50">
+                            <i class="fa-solid fa-database opacity-70"></i><span>Master</span>
                         </button>
                     </nav>
                 </div>
             </div>
         </header>
 
-        <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
 
-            <section id="section-dashboard" class="space-y-6 fade-in">
+            <section id="section-dashboard" class="space-y-4 sm:space-y-6 fade-in">
                 <!-- Progress Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                    <div class="bg-white rounded-[2rem] p-6 shadow-card border border-slate-100 relative overflow-hidden group">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6">
+                    <div class="bg-white rounded-2xl sm:rounded-[2rem] p-4 sm:p-6 shadow-card border border-slate-100 relative overflow-hidden group">
                         <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-500 pointer-events-none text-brand-600">
-                            <i class="fa-solid fa-industry text-8xl"></i>
+                            <i class="fa-solid fa-industry text-6xl sm:text-8xl"></i>
                         </div>
                         <div class="relative z-10">
                             <div class="flex items-center gap-2 mb-2">
-                                <div class="w-8 h-8 rounded-full bg-brand-50 flex items-center justify-center text-brand-600"><i class="fa-solid fa-industry text-sm"></i></div>
+                                <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-brand-50 flex items-center justify-center text-brand-600"><i class="fa-solid fa-industry text-[10px] sm:text-sm"></i></div>
                                 <div>
-                                    <h2 class="text-xs font-bold text-slate-800 uppercase tracking-widest">Progress P-1112</h2>
-                                    <p class="text-[10px] text-slate-400 font-medium">Penyelesaian target hari ini</p>
+                                    <h2 class="text-[10px] sm:text-xs font-bold text-slate-800 uppercase tracking-widest">Progress P-1112</h2>
+                                    <p class="text-[9px] sm:text-[10px] text-slate-400 font-medium">Target hari ini</p>
                                 </div>
                             </div>
                             
-                            <div class="flex justify-between items-end mt-4 mb-3">
+                            <div class="flex justify-between items-end mt-3 sm:mt-4 mb-2 sm:mb-3">
                                 <div>
-                                    <span id="progress1112Text" class="font-extrabold text-slate-800 text-3xl">0/0</span>
-                                    <span class="text-xs text-slate-400 font-semibold uppercase ml-1">Mat</span>
+                                    <span id="progress1112Text" class="font-extrabold text-slate-800 text-2xl sm:text-3xl">0/0</span>
+                                    <span class="text-[10px] sm:text-xs text-slate-400 font-semibold uppercase ml-1">Mat</span>
                                 </div>
-                                <span id="progress1112Percent" class="font-extrabold text-2xl text-brand-500">0%</span>
+                                <span id="progress1112Percent" class="font-extrabold text-xl sm:text-2xl text-brand-500">0%</span>
                             </div>
-                            <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden shadow-inner">
-                                <div id="progressBar1112" class="bg-gradient-to-r from-brand-400 to-brand-600 h-3 rounded-full transition-all duration-1000 ease-out relative" style="width: 0%"></div>
+                            <div class="w-full bg-slate-100 rounded-full h-2.5 sm:h-3 overflow-hidden shadow-inner">
+                                <div id="progressBar1112" class="bg-gradient-to-r from-brand-400 to-brand-600 h-2.5 sm:h-3 rounded-full transition-all duration-1000 ease-out relative" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="bg-white rounded-[2rem] p-6 shadow-card border border-slate-100 relative overflow-hidden group">
+                    <div class="bg-white rounded-2xl sm:rounded-[2rem] p-4 sm:p-6 shadow-card border border-slate-100 relative overflow-hidden group">
                         <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-500 pointer-events-none text-indigo-600">
-                            <i class="fa-solid fa-building-user text-8xl"></i>
+                            <i class="fa-solid fa-building-user text-6xl sm:text-8xl"></i>
                         </div>
                         <div class="relative z-10">
                             <div class="flex items-center gap-2 mb-2">
-                                <div class="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600"><i class="fa-solid fa-building-user text-sm"></i></div>
+                                <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600"><i class="fa-solid fa-building-user text-[10px] sm:text-sm"></i></div>
                                 <div>
-                                    <h2 class="text-xs font-bold text-slate-800 uppercase tracking-widest">Progress P-1113</h2>
-                                    <p class="text-[10px] text-slate-400 font-medium">Penyelesaian target hari ini</p>
+                                    <h2 class="text-[10px] sm:text-xs font-bold text-slate-800 uppercase tracking-widest">Progress P-1113</h2>
+                                    <p class="text-[9px] sm:text-[10px] text-slate-400 font-medium">Target hari ini</p>
                                 </div>
                             </div>
 
-                            <div class="flex justify-between items-end mt-4 mb-3">
+                            <div class="flex justify-between items-end mt-3 sm:mt-4 mb-2 sm:mb-3">
                                 <div>
-                                    <span id="progress1113Text" class="font-extrabold text-slate-800 text-3xl">0/0</span>
-                                    <span class="text-xs text-slate-400 font-semibold uppercase ml-1">Mat</span>
+                                    <span id="progress1113Text" class="font-extrabold text-slate-800 text-2xl sm:text-3xl">0/0</span>
+                                    <span class="text-[10px] sm:text-xs text-slate-400 font-semibold uppercase ml-1">Mat</span>
                                 </div>
-                                <span id="progress1113Percent" class="font-extrabold text-2xl text-indigo-500">0%</span>
+                                <span id="progress1113Percent" class="font-extrabold text-xl sm:text-2xl text-indigo-500">0%</span>
                             </div>
-                            <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden shadow-inner">
-                                <div id="progressBar1113" class="bg-gradient-to-r from-indigo-400 to-indigo-600 h-3 rounded-full transition-all duration-1000 ease-out relative" style="width: 0%"></div>
+                            <div class="w-full bg-slate-100 rounded-full h-2.5 sm:h-3 overflow-hidden shadow-inner">
+                                <div id="progressBar1113" class="bg-gradient-to-r from-indigo-400 to-indigo-600 h-2.5 sm:h-3 rounded-full transition-all duration-1000 ease-out relative" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white p-6 sm:p-8 rounded-[2rem] shadow-card border border-slate-100">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                <div class="bg-white p-4 sm:p-8 rounded-2xl sm:rounded-[2rem] shadow-card border border-slate-100">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3">
                         <div>
-                            <h2 class="text-xl font-extrabold text-slate-800 tracking-tight">Status Pemenuhan Material</h2>
-                            <p class="text-sm text-slate-500 mt-1">Perbandingan Plan (Rencana) vs Aktual (Realisasi) harian.</p>
+                            <h2 class="text-lg sm:text-xl font-extrabold text-slate-800 tracking-tight">Status Pemenuhan</h2>
+                            <p class="text-xs sm:text-sm text-slate-500 mt-0.5 sm:mt-1">Plan vs Realisasi harian.</p>
                         </div>
-                        <div class="flex items-center gap-3 bg-slate-50 p-2 rounded-2xl border border-slate-100 w-full sm:w-auto">
-                            <label class="text-xs font-bold text-slate-500 px-2 uppercase tracking-wider flex items-center"><i class="fa-regular fa-calendar-days mr-2 text-brand-500"></i>Tanggal</label>
-                            <input type="date" id="statusFilterDate" onchange="renderDashboard()" class="text-sm bg-white border border-slate-200 rounded-xl px-3 py-2 outline-none text-slate-700 focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 font-semibold w-full sm:w-auto cursor-pointer shadow-sm">
+                        <div class="flex items-center gap-2 sm:gap-3 bg-slate-50 p-1.5 sm:p-2 rounded-xl sm:rounded-2xl border border-slate-100 w-full sm:w-auto">
+                            <label class="text-[10px] sm:text-xs font-bold text-slate-500 px-1 sm:px-2 uppercase tracking-wider flex items-center"><i class="fa-regular fa-calendar-days mr-1.5 sm:mr-2 text-brand-500"></i>Tanggal</label>
+                            <input type="date" id="statusFilterDate" onchange="renderDashboard()" class="text-xs sm:text-sm bg-white border border-slate-200 rounded-lg sm:rounded-xl px-2 py-1.5 sm:px-3 sm:py-2 outline-none text-slate-700 focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 font-semibold w-full sm:w-auto cursor-pointer shadow-sm">
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
                         <!-- Table 1112 -->
-                        <div class="border border-slate-100 rounded-2xl overflow-hidden shadow-sm flex flex-col bg-white">
-                            <div class="bg-slate-50/80 p-4 border-b border-slate-100">
-                                <h3 class="text-sm font-extrabold text-slate-700 uppercase tracking-widest flex items-center"><div class="w-2 h-2 rounded-full bg-brand-500 mr-2"></div> Plant 1112</h3>
+                        <div class="border border-slate-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-sm flex flex-col bg-white">
+                            <div class="bg-slate-50/80 p-3 sm:p-4 border-b border-slate-100">
+                                <h3 class="text-xs sm:text-sm font-extrabold text-slate-700 uppercase tracking-widest flex items-center"><div class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-brand-500 mr-2"></div> Plant 1112</h3>
                             </div>
                             <div class="overflow-x-auto custom-scrollbar flex-grow">
-                                <table class="w-full text-left text-xs whitespace-nowrap">
-                                    <thead class="bg-white text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-100">
-                                        <tr><th class="p-4">Material</th><th class="p-4 text-right">Plan (Kg)</th><th class="p-4 text-right">Real (Kg)</th><th class="p-4 text-center">Status</th><th class="p-4 text-center">Selisih</th></tr>
+                                <table class="w-full text-left text-[10px] sm:text-xs whitespace-nowrap">
+                                    <thead class="bg-white text-slate-400 font-bold uppercase tracking-wider text-[9px] sm:text-[10px] border-b border-slate-100">
+                                        <tr><th class="px-2 py-3 sm:p-4">Material</th><th class="px-2 py-3 sm:p-4 text-right">Plan</th><th class="px-2 py-3 sm:p-4 text-right">Real</th><th class="px-2 py-3 sm:p-4 text-center">Status</th><th class="px-2 py-3 sm:p-4 text-center">Selisih</th></tr>
                                     </thead>
                                     <tbody id="tableStatus1112Body" class="divide-y divide-slate-50 font-medium"></tbody>
                                 </table>
@@ -337,14 +338,14 @@
                         </div>
 
                         <!-- Table 1113 -->
-                        <div class="border border-slate-100 rounded-2xl overflow-hidden shadow-sm flex flex-col bg-white">
-                            <div class="bg-slate-50/80 p-4 border-b border-slate-100">
-                                <h3 class="text-sm font-extrabold text-slate-700 uppercase tracking-widest flex items-center"><div class="w-2 h-2 rounded-full bg-indigo-500 mr-2"></div> Plant 1113</h3>
+                        <div class="border border-slate-100 rounded-xl sm:rounded-2xl overflow-hidden shadow-sm flex flex-col bg-white">
+                            <div class="bg-slate-50/80 p-3 sm:p-4 border-b border-slate-100">
+                                <h3 class="text-xs sm:text-sm font-extrabold text-slate-700 uppercase tracking-widest flex items-center"><div class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-indigo-500 mr-2"></div> Plant 1113</h3>
                             </div>
                             <div class="overflow-x-auto custom-scrollbar flex-grow">
-                                <table class="w-full text-left text-xs whitespace-nowrap">
-                                    <thead class="bg-white text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-100">
-                                        <tr><th class="p-4">Material</th><th class="p-4 text-right">Plan (Kg)</th><th class="p-4 text-right">Real (Kg)</th><th class="p-4 text-center">Status</th><th class="p-4 text-center">Selisih</th></tr>
+                                <table class="w-full text-left text-[10px] sm:text-xs whitespace-nowrap">
+                                    <thead class="bg-white text-slate-400 font-bold uppercase tracking-wider text-[9px] sm:text-[10px] border-b border-slate-100">
+                                        <tr><th class="px-2 py-3 sm:p-4">Material</th><th class="px-2 py-3 sm:p-4 text-right">Plan</th><th class="px-2 py-3 sm:p-4 text-right">Real</th><th class="px-2 py-3 sm:p-4 text-center">Status</th><th class="px-2 py-3 sm:p-4 text-center">Selisih</th></tr>
                                     </thead>
                                     <tbody id="tableStatus1113Body" class="divide-y divide-slate-50 font-medium"></tbody>
                                 </table>
@@ -354,40 +355,40 @@
                 </div>
             </section>
 
-            <section id="section-planning" class="hidden space-y-6 fade-in">
-                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            <section id="section-planning" class="hidden space-y-4 sm:space-y-6 fade-in">
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
                     <!-- Form Input Planning -->
-                    <div class="xl:col-span-1 bg-white rounded-[2rem] border border-slate-100 shadow-card overflow-hidden h-fit">
-                        <div class="p-6 border-b border-slate-100 flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center"><i class="fa-solid fa-clipboard-list"></i></div>
+                    <div class="xl:col-span-1 bg-white rounded-2xl sm:rounded-[2rem] border border-slate-100 shadow-card overflow-hidden h-fit">
+                        <div class="p-4 sm:p-6 border-b border-slate-100 flex items-center gap-2 sm:gap-3">
+                            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center"><i class="fa-solid fa-clipboard-list text-sm sm:text-base"></i></div>
                             <div>
-                                <h2 class="text-lg font-extrabold text-slate-800">Rencana Dorongan</h2>
-                                <p class="text-xs text-slate-500 font-medium">Set target material harian</p>
+                                <h2 class="text-base sm:text-lg font-extrabold text-slate-800">Rencana Dorongan</h2>
+                                <p class="text-[10px] sm:text-xs text-slate-500 font-medium">Set target material harian</p>
                             </div>
                         </div>
-                        <form id="planningForm" onsubmit="handlePlanSubmit(event)" class="p-6 space-y-5">
+                        <form id="planningForm" onsubmit="handlePlanSubmit(event)" class="p-4 sm:p-6 space-y-4 sm:space-y-5">
                             <div>
-                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Area Planning</label>
-                                <div class="grid grid-cols-2 gap-3">
+                                <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Area Planning</label>
+                                <div class="grid grid-cols-2 gap-2 sm:gap-3">
                                     <label class="cursor-pointer group">
                                         <input type="radio" name="planPlant" value="PLANT 1112" class="peer sr-only" checked>
-                                        <div class="px-4 py-3 border border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 peer-checked:border-brand-500 peer-checked:bg-brand-50 peer-checked:text-brand-700 hover:bg-slate-50">P-1112</div>
+                                        <div class="px-3 py-2.5 sm:px-4 sm:py-3 border border-slate-200 rounded-lg sm:rounded-xl text-center transition-all text-xs sm:text-sm font-bold text-slate-500 peer-checked:border-brand-500 peer-checked:bg-brand-50 peer-checked:text-brand-700 hover:bg-slate-50">P-1112</div>
                                     </label>
                                     <label class="cursor-pointer group">
                                         <input type="radio" name="planPlant" value="PLANT 1113" class="peer sr-only">
-                                        <div class="px-4 py-3 border border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 peer-checked:border-indigo-500 peer-checked:bg-indigo-50 peer-checked:text-indigo-700 hover:bg-slate-50">P-1113</div>
+                                        <div class="px-3 py-2.5 sm:px-4 sm:py-3 border border-slate-200 rounded-lg sm:rounded-xl text-center transition-all text-xs sm:text-sm font-bold text-slate-500 peer-checked:border-indigo-500 peer-checked:bg-indigo-50 peer-checked:text-indigo-700 hover:bg-slate-50">P-1113</div>
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-2 gap-3 sm:gap-4">
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Target Tgl</label>
-                                    <input type="date" id="planTanggal" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all cursor-pointer">
+                                    <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Target Tgl</label>
+                                    <input type="date" id="planTanggal" required class="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all cursor-pointer">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Shift</label>
-                                    <select id="planShift" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all cursor-pointer">
+                                    <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Shift</label>
+                                    <select id="planShift" class="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white outline-none transition-all cursor-pointer">
                                         <option value="Shift 1">Shift 1</option>
                                         <option value="Shift 2">Shift 2</option>
                                         <option value="Shift 3">Shift 3</option>
@@ -396,82 +397,82 @@
                             </div>
                             
                             <div class="relative">
-                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Cari Material</label>
+                                <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Cari Material</label>
                                 <div class="relative flex items-center">
-                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                                    <div class="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none text-slate-400">
+                                        <i class="fa-solid fa-magnifying-glass text-xs sm:text-sm"></i>
                                     </div>
-                                    <input type="text" id="planMaterialSearch" placeholder="Ketik nama material..." autocomplete="off" onfocus="showPlanMatDropdown()" oninput="filterPlanMatDropdown()" class="w-full pl-10 pr-10 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all shadow-input font-semibold text-slate-700">
-                                    <button type="button" id="clearPlanBtn" onclick="clearPlanMaterial()" class="hidden absolute right-3 w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors">
-                                        <i class="fa-solid fa-xmark text-xs"></i>
+                                    <input type="text" id="planMaterialSearch" placeholder="Ketik nama material..." autocomplete="off" onfocus="showPlanMatDropdown()" oninput="filterPlanMatDropdown()" class="w-full pl-9 pr-9 py-2.5 sm:pl-10 sm:pr-10 sm:py-3 bg-white border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all shadow-input font-semibold text-slate-700">
+                                    <button type="button" id="clearPlanBtn" onclick="clearPlanMaterial()" class="hidden absolute right-2.5 sm:right-3 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors">
+                                        <i class="fa-solid fa-xmark text-[10px] sm:text-xs"></i>
                                     </button>
                                 </div>
                                 <input type="hidden" id="planSelectedNama">
                                 <input type="hidden" id="planSelectedKode">
-                                <div id="planDropdown" class="hidden absolute left-0 right-0 top-full mt-2 bg-white border border-slate-100 rounded-xl shadow-xl max-h-52 overflow-y-auto z-50 text-sm custom-scrollbar"></div>
+                                <div id="planDropdown" class="hidden absolute left-0 right-0 top-full mt-1 sm:mt-2 bg-white border border-slate-100 rounded-lg sm:rounded-xl shadow-xl max-h-40 sm:max-h-52 overflow-y-auto z-50 text-xs sm:text-sm custom-scrollbar"></div>
                             </div>
 
                             <div>
-                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Target Rencana (Kg)</label>
+                                <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Target Rencana (Kg)</label>
                                 <div class="relative">
-                                    <input type="number" id="planJumlah" step="0.01" min="0.01" required placeholder="0" class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 text-slate-800 font-extrabold rounded-xl text-lg focus:bg-white focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all">
-                                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 text-xs font-bold uppercase">KG</div>
+                                    <input type="number" id="planJumlah" step="0.01" min="0.01" required placeholder="0" class="w-full px-3 py-3 sm:px-4 sm:py-3.5 bg-slate-50 border border-slate-200 text-slate-800 font-extrabold rounded-lg sm:rounded-xl text-base sm:text-lg focus:bg-white focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all">
+                                    <div class="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center pointer-events-none text-slate-400 text-[10px] sm:text-xs font-bold uppercase">KG</div>
                                 </div>
                             </div>
                             
                             <div>
-                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Catatan <span class="normal-case font-medium lowercase">(opsional)</span></label>
-                                <input type="text" id="planCatatan" placeholder="Tambahkan catatan jika perlu..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none focus:bg-white transition-all">
+                                <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Catatan <span class="normal-case font-medium lowercase">(opsional)</span></label>
+                                <input type="text" id="planCatatan" placeholder="Tambahkan catatan jika perlu..." class="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none focus:bg-white transition-all">
                             </div>
 
-                            <button type="submit" class="w-full py-3.5 mt-4 bg-slate-800 hover:bg-slate-900 text-white rounded-xl font-bold text-sm shadow-lg shadow-slate-800/20 transition-all flex justify-center items-center gap-2">
+                            <button type="submit" class="w-full py-3 sm:py-3.5 mt-3 sm:mt-4 bg-slate-800 hover:bg-slate-900 text-white rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm shadow-lg shadow-slate-800/20 transition-all flex justify-center items-center gap-2">
                                 Simpan Planning
                             </button>
                         </form>
                     </div>
 
                     <!-- Tabel Data Planning -->
-                    <div class="xl:col-span-2 bg-white rounded-[2rem] border border-slate-100 shadow-card p-6 flex flex-col">
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
+                    <div class="xl:col-span-2 bg-white rounded-2xl sm:rounded-[2rem] border border-slate-100 shadow-card p-4 sm:p-6 flex flex-col">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-2 sm:gap-3">
                             <div>
-                                <h2 class="text-lg font-extrabold text-slate-800 tracking-tight">Daftar Planning Aktif</h2>
-                                <p class="text-xs text-slate-500 mt-1 font-medium">Berdasarkan filter tanggal</p>
+                                <h2 class="text-base sm:text-lg font-extrabold text-slate-800 tracking-tight">Daftar Planning Aktif</h2>
+                                <p class="text-[10px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 font-medium">Berdasarkan filter tanggal</p>
                             </div>
-                            <div class="flex items-center bg-slate-50 p-2 rounded-2xl border border-slate-100 w-full sm:w-auto">
-                                <label class="text-xs font-bold text-slate-500 px-2 uppercase tracking-wider flex items-center"><i class="fa-regular fa-calendar-days mr-2 text-brand-500"></i>Tanggal</label>
-                                <input type="date" id="filterPlanningDate" onchange="renderPlanningTable()" class="text-sm bg-white border border-slate-200 rounded-xl px-3 py-2 outline-none text-slate-700 focus:ring-2 focus:ring-brand-500/20 font-semibold w-full sm:w-auto cursor-pointer shadow-sm">
+                            <div class="flex items-center bg-slate-50 p-1.5 sm:p-2 rounded-xl sm:rounded-2xl border border-slate-100 w-full sm:w-auto">
+                                <label class="text-[10px] sm:text-xs font-bold text-slate-500 px-1.5 sm:px-2 uppercase tracking-wider flex items-center"><i class="fa-regular fa-calendar-days mr-1.5 sm:mr-2 text-brand-500"></i>Tanggal</label>
+                                <input type="date" id="filterPlanningDate" onchange="renderPlanningTable()" class="text-xs sm:text-sm bg-white border border-slate-200 rounded-lg sm:rounded-xl px-2 py-1.5 sm:px-3 sm:py-2 outline-none text-slate-700 focus:ring-2 focus:ring-brand-500/20 font-semibold w-full sm:w-auto cursor-pointer shadow-sm">
                             </div>
                         </div>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow">
-                            <div class="border border-slate-100 rounded-2xl flex flex-col overflow-hidden bg-white shadow-sm">
-                                <div class="bg-slate-50/80 p-3.5 border-b border-slate-100 flex items-center justify-between">
-                                    <h3 class="font-extrabold text-slate-700 text-xs tracking-widest uppercase flex items-center"><div class="w-2 h-2 rounded-full bg-brand-500 mr-2"></div>Plan P-1112</h3>
-                                    <button type="button" onclick="exportPlanningToPDF('1112')" class="text-[10px] bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1.5 rounded-lg border border-red-100 transition-colors font-bold uppercase tracking-wide flex items-center gap-1.5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 flex-grow">
+                            <div class="border border-slate-100 rounded-xl sm:rounded-2xl flex flex-col overflow-hidden bg-white shadow-sm">
+                                <div class="bg-slate-50/80 p-2.5 sm:p-3.5 border-b border-slate-100 flex items-center justify-between">
+                                    <h3 class="font-extrabold text-slate-700 text-[10px] sm:text-xs tracking-widest uppercase flex items-center"><div class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-brand-500 mr-1.5 sm:mr-2"></div>Plan P-1112</h3>
+                                    <button type="button" onclick="exportPlanningToPDF('1112')" class="text-[9px] sm:text-[10px] bg-red-50 text-red-600 hover:bg-red-100 px-2 py-1 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg border border-red-100 transition-colors font-bold uppercase tracking-wide flex items-center gap-1 sm:gap-1.5">
                                         <i class="fa-regular fa-file-pdf"></i> PDF
                                     </button>
                                 </div>
-                                <div class="overflow-x-auto custom-scrollbar flex-grow min-h-[300px]">
-                                    <table class="w-full text-left text-xs whitespace-nowrap">
-                                        <thead class="bg-white text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-100 sticky top-0">
-                                            <tr><th class="p-4">Shift</th><th class="p-4">Material</th><th class="p-4 text-right">Qty (Kg)</th><th class="p-4">Catatan</th></tr>
+                                <div class="overflow-x-auto custom-scrollbar flex-grow min-h-[200px] sm:min-h-[300px]">
+                                    <table class="w-full text-left text-[10px] sm:text-xs whitespace-nowrap">
+                                        <thead class="bg-white text-slate-400 font-bold uppercase tracking-wider text-[9px] sm:text-[10px] border-b border-slate-100 sticky top-0">
+                                            <tr><th class="px-2 py-3 sm:p-4">Shift</th><th class="px-2 py-3 sm:p-4">Material</th><th class="px-2 py-3 sm:p-4 text-right">Qty (Kg)</th><th class="px-2 py-3 sm:p-4">Catatan</th></tr>
                                         </thead>
                                         <tbody id="tablePlanning1112Body" class="divide-y divide-slate-50 font-medium"></tbody>
                                     </table>
                                 </div>
                             </div>
 
-                            <div class="border border-slate-100 rounded-2xl flex flex-col overflow-hidden bg-white shadow-sm">
-                                <div class="bg-slate-50/80 p-3.5 border-b border-slate-100 flex items-center justify-between">
-                                    <h3 class="font-extrabold text-slate-700 text-xs tracking-widest uppercase flex items-center"><div class="w-2 h-2 rounded-full bg-indigo-500 mr-2"></div>Plan P-1113</h3>
-                                    <button type="button" onclick="exportPlanningToPDF('1113')" class="text-[10px] bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1.5 rounded-lg border border-red-100 transition-colors font-bold uppercase tracking-wide flex items-center gap-1.5">
+                            <div class="border border-slate-100 rounded-xl sm:rounded-2xl flex flex-col overflow-hidden bg-white shadow-sm">
+                                <div class="bg-slate-50/80 p-2.5 sm:p-3.5 border-b border-slate-100 flex items-center justify-between">
+                                    <h3 class="font-extrabold text-slate-700 text-[10px] sm:text-xs tracking-widest uppercase flex items-center"><div class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-indigo-500 mr-1.5 sm:mr-2"></div>Plan P-1113</h3>
+                                    <button type="button" onclick="exportPlanningToPDF('1113')" class="text-[9px] sm:text-[10px] bg-red-50 text-red-600 hover:bg-red-100 px-2 py-1 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg border border-red-100 transition-colors font-bold uppercase tracking-wide flex items-center gap-1 sm:gap-1.5">
                                         <i class="fa-regular fa-file-pdf"></i> PDF
                                     </button>
                                 </div>
-                                <div class="overflow-x-auto custom-scrollbar flex-grow min-h-[300px]">
-                                    <table class="w-full text-left text-xs whitespace-nowrap">
-                                        <thead class="bg-white text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-100 sticky top-0">
-                                            <tr><th class="p-4">Shift</th><th class="p-4">Material</th><th class="p-4 text-right">Qty (Kg)</th><th class="p-4">Catatan</th></tr>
+                                <div class="overflow-x-auto custom-scrollbar flex-grow min-h-[200px] sm:min-h-[300px]">
+                                    <table class="w-full text-left text-[10px] sm:text-xs whitespace-nowrap">
+                                        <thead class="bg-white text-slate-400 font-bold uppercase tracking-wider text-[9px] sm:text-[10px] border-b border-slate-100 sticky top-0">
+                                            <tr><th class="px-2 py-3 sm:p-4">Shift</th><th class="px-2 py-3 sm:p-4">Material</th><th class="px-2 py-3 sm:p-4 text-right">Qty (Kg)</th><th class="px-2 py-3 sm:p-4">Catatan</th></tr>
                                         </thead>
                                         <tbody id="tablePlanning1113Body" class="divide-y divide-slate-50 font-medium"></tbody>
                                     </table>
@@ -483,180 +484,178 @@
             </section>
 
             <section id="section-input" class="hidden max-w-4xl mx-auto fade-in">
-                <div class="bg-white rounded-[2.5rem] shadow-card border border-slate-100 overflow-hidden">
-                    <div class="p-8 border-b border-slate-100 flex items-center gap-4 bg-slate-50/50">
-                        <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center text-xl shadow-sm"><i class="fa-solid fa-pen-ruler"></i></div>
+                <div class="bg-white rounded-2xl sm:rounded-[2.5rem] shadow-card border border-slate-100 overflow-hidden">
+                    <div class="p-4 sm:p-8 border-b border-slate-100 flex items-center gap-3 sm:gap-4 bg-slate-50/50">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center text-lg sm:text-xl shadow-sm"><i class="fa-solid fa-pen-ruler"></i></div>
                         <div>
-                            <h2 class="text-2xl font-extrabold text-slate-800">Input Realisasi Material</h2>
-                            <p class="text-sm text-slate-500 mt-1 font-medium">Catat pemakaian aktual (Gross & Tara) untuk mendapatkan Netto.</p>
+                            <h2 class="text-lg sm:text-2xl font-extrabold text-slate-800">Input Realisasi</h2>
+                            <p class="text-[10px] sm:text-sm text-slate-500 mt-0.5 sm:mt-1 font-medium">Catat pemakaian aktual.</p>
                         </div>
                     </div>
                     
-                    <form id="materialInputForm" onsubmit="handleRealisasiSubmit(event)" class="p-8 space-y-6">
+                    <form id="materialInputForm" onsubmit="handleRealisasiSubmit(event)" class="p-4 sm:p-8 space-y-4 sm:space-y-6">
                         
-                        <div class="bg-slate-50/50 p-5 rounded-2xl border border-slate-100 flex flex-col sm:flex-row gap-4 items-center">
-                            <label class="text-sm font-bold text-slate-600 uppercase tracking-wider flex items-center min-w-max"><i class="fa-regular fa-calendar-check mr-2 text-brand-500"></i>Tanggal Realisasi</label>
-                            <input type="date" id="inputTanggal" required class="w-full sm:w-auto flex-grow px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 outline-none cursor-pointer shadow-input font-bold text-slate-700">
+                        <div class="bg-slate-50/50 p-3 sm:p-5 rounded-xl sm:rounded-2xl border border-slate-100 flex flex-col sm:flex-row gap-2 sm:gap-4 items-center">
+                            <label class="text-xs sm:text-sm font-bold text-slate-600 uppercase tracking-wider flex items-center w-full sm:w-auto min-w-max"><i class="fa-regular fa-calendar-check mr-2 text-brand-500"></i>Tgl Realisasi</label>
+                            <input type="date" id="inputTanggal" required class="w-full flex-grow px-3 py-2 sm:px-4 sm:py-2.5 bg-white border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 outline-none cursor-pointer shadow-input font-bold text-slate-700">
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
                             <div>
-                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Plant Tujuan</label>
-                                <div class="grid grid-cols-2 gap-3">
+                                <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Plant Tujuan</label>
+                                <div class="grid grid-cols-2 gap-2 sm:gap-3">
                                     <label class="cursor-pointer group">
                                         <input type="radio" name="plant" value="PLANT 1112" class="peer sr-only" checked>
-                                        <div class="p-3.5 border border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-brand-500 peer-checked:bg-brand-50 peer-checked:text-brand-700 shadow-sm">P-1112</div>
+                                        <div class="p-2.5 sm:p-3.5 border border-slate-200 rounded-lg sm:rounded-xl text-center transition-all text-xs sm:text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-brand-500 peer-checked:bg-brand-50 peer-checked:text-brand-700 shadow-sm">P-1112</div>
                                     </label>
                                     <label class="cursor-pointer group">
                                         <input type="radio" name="plant" value="PLANT 1113" class="peer sr-only">
-                                        <div class="p-3.5 border border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-indigo-500 peer-checked:bg-indigo-50 peer-checked:text-indigo-700 shadow-sm">P-1113</div>
+                                        <div class="p-2.5 sm:p-3.5 border border-slate-200 rounded-lg sm:rounded-xl text-center transition-all text-xs sm:text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-indigo-500 peer-checked:bg-indigo-50 peer-checked:text-indigo-700 shadow-sm">P-1113</div>
                                     </label>
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Pilih Shift</label>
-                                <div class="grid grid-cols-3 gap-3">
+                                <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Pilih Shift</label>
+                                <div class="grid grid-cols-3 gap-2 sm:gap-3">
                                     <label class="cursor-pointer">
                                         <input type="radio" name="shift" value="Shift 1" class="peer sr-only" checked>
-                                        <div class="py-3.5 px-2 border border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-slate-800 peer-checked:bg-slate-800 peer-checked:text-white shadow-sm">Shift 1</div>
+                                        <div class="py-2.5 sm:py-3.5 px-1 sm:px-2 border border-slate-200 rounded-lg sm:rounded-xl text-center transition-all text-[11px] sm:text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-slate-800 peer-checked:bg-slate-800 peer-checked:text-white shadow-sm">Shift 1</div>
                                     </label>
                                     <label class="cursor-pointer">
                                         <input type="radio" name="shift" value="Shift 2" class="peer sr-only">
-                                        <div class="py-3.5 px-2 border border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-slate-800 peer-checked:bg-slate-800 peer-checked:text-white shadow-sm">Shift 2</div>
+                                        <div class="py-2.5 sm:py-3.5 px-1 sm:px-2 border border-slate-200 rounded-lg sm:rounded-xl text-center transition-all text-[11px] sm:text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-slate-800 peer-checked:bg-slate-800 peer-checked:text-white shadow-sm">Shift 2</div>
                                     </label>
                                     <label class="cursor-pointer">
                                         <input type="radio" name="shift" value="Shift 3" class="peer sr-only">
-                                        <div class="py-3.5 px-2 border border-slate-200 rounded-xl text-center transition-all text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-slate-800 peer-checked:bg-slate-800 peer-checked:text-white shadow-sm">Shift 3</div>
+                                        <div class="py-2.5 sm:py-3.5 px-1 sm:px-2 border border-slate-200 rounded-lg sm:rounded-xl text-center transition-all text-[11px] sm:text-sm font-bold text-slate-500 hover:bg-slate-50 peer-checked:border-slate-800 peer-checked:bg-slate-800 peer-checked:text-white shadow-sm">Shift 3</div>
                                     </label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="relative">
-                            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Cari Material <span class="normal-case font-medium lowercase text-brand-500">(wajib pilih dari list)</span></label>
+                            <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Cari Material <span class="normal-case font-medium lowercase text-brand-500">(wajib)</span></label>
                             <div class="relative flex items-center">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                <div class="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-magnifying-glass text-xs sm:text-base"></i>
                                 </div>
-                                <input type="text" id="materialSearchInput" placeholder="Ketik nama atau kode material..." autocomplete="off" onfocus="showMaterialDropdown()" oninput="filterMaterialDropdown()" class="w-full pl-11 pr-10 py-4 bg-white border border-slate-200 rounded-2xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none shadow-input transition-all font-bold text-slate-700">
-                                <button type="button" id="clearRealisasiBtn" onclick="clearRealisasiMaterial()" class="hidden absolute right-3 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors">
-                                    <i class="fa-solid fa-xmark text-sm"></i>
+                                <input type="text" id="materialSearchInput" placeholder="Ketik nama / kode..." autocomplete="off" onfocus="showMaterialDropdown()" oninput="filterMaterialDropdown()" class="w-full pl-9 pr-9 py-3 sm:pl-11 sm:pr-10 sm:py-4 bg-white border border-slate-200 rounded-xl sm:rounded-2xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none shadow-input transition-all font-bold text-slate-700">
+                                <button type="button" id="clearRealisasiBtn" onclick="clearRealisasiMaterial()" class="hidden absolute right-2 sm:right-3 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-colors">
+                                    <i class="fa-solid fa-xmark text-xs sm:text-sm"></i>
                                 </button>
                             </div>
                             <input type="hidden" id="selectedKodeMaterial">
                             <input type="hidden" id="selectedNamaMaterial">
-                            <div id="materialDropdown" class="hidden absolute left-0 right-0 top-full mt-2 bg-white border border-slate-100 rounded-xl shadow-xl max-h-60 overflow-y-auto z-50 text-sm custom-scrollbar divide-y divide-slate-50"></div>
+                            <div id="materialDropdown" class="hidden absolute left-0 right-0 top-full mt-1 sm:mt-2 bg-white border border-slate-100 rounded-xl shadow-xl max-h-48 sm:max-h-60 overflow-y-auto z-50 text-xs sm:text-sm custom-scrollbar divide-y divide-slate-50"></div>
                         </div>
 
                         <!-- Info Box Material Terpilih -->
-                        <div id="materialInfoBox" class="hidden bg-slate-800 p-5 rounded-2xl flex justify-between items-center fade-in shadow-lg">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center text-white border border-slate-600">
-                                    <i class="fa-solid fa-box text-xl"></i>
+                        <div id="materialInfoBox" class="hidden bg-slate-800 p-4 sm:p-5 rounded-xl sm:rounded-2xl flex justify-between items-center fade-in shadow-lg">
+                            <div class="flex items-center gap-3 sm:gap-4">
+                                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-slate-700 flex items-center justify-center text-white border border-slate-600 hidden xs:flex">
+                                    <i class="fa-solid fa-box text-sm sm:text-xl"></i>
                                 </div>
                                 <div>
-                                    <p class="text-[10px] text-brand-400 font-bold uppercase tracking-widest mb-1">Material Terpilih</p>
-                                    <p id="displaySelectedMat" class="font-extrabold text-white text-base leading-tight">-</p>
-                                    <p id="displaySelectedCode" class="text-xs text-slate-400 font-mono mt-0.5">-</p>
+                                    <p class="text-[9px] sm:text-[10px] text-brand-400 font-bold uppercase tracking-widest mb-0.5 sm:mb-1">Mat. Terpilih</p>
+                                    <p id="displaySelectedMat" class="font-extrabold text-white text-sm sm:text-base leading-tight max-w-[150px] sm:max-w-xs truncate">-</p>
+                                    <p id="displaySelectedCode" class="text-[10px] sm:text-xs text-slate-400 font-mono mt-0.5">-</p>
                                 </div>
                             </div>
-                            <div class="text-right bg-slate-700 px-4 py-2.5 rounded-xl border border-slate-600">
-                                <p class="text-[10px] text-slate-300 font-bold uppercase tracking-wider mb-1">Std Kemasan</p>
-                                <p class="font-black text-white text-lg leading-none"><span id="displayStdPack">0</span> <span class="text-xs font-bold text-slate-400 uppercase">Kg/Zak</span></p>
+                            <div class="text-right bg-slate-700 px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl border border-slate-600 min-w-max">
+                                <p class="text-[9px] sm:text-[10px] text-slate-300 font-bold uppercase tracking-wider mb-0.5 sm:mb-1">Std Kemasan</p>
+                                <p class="font-black text-white text-sm sm:text-lg leading-none"><span id="displayStdPack">0</span> <span class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase">Kg</span></p>
                             </div>
                         </div>
 
-                        <!-- Kalkulator Input -->
-                        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <!-- Kalkulator Input Shrink on Mobile -->
+                        <div class="bg-slate-50 p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-100">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-6">
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Berat Kotor (Gross)</label>
+                                    <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Berat Kotor (Gross)</label>
                                     <div class="relative">
-                                        <input type="number" id="inputGross" step="0.01" min="0" placeholder="0" oninput="calculateNetto()" class="w-full px-4 py-4 border border-slate-200 rounded-2xl font-black text-slate-800 text-2xl bg-white focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none shadow-sm transition-all text-center">
-                                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 text-xs font-bold">KG</div>
+                                        <input type="number" id="inputGross" step="0.01" min="0" placeholder="0" oninput="calculateNetto()" class="w-full px-3 py-3 sm:px-4 sm:py-4 border border-slate-200 rounded-xl sm:rounded-2xl font-black text-slate-800 text-xl sm:text-2xl bg-white focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none shadow-sm transition-all text-center">
+                                        <div class="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center pointer-events-none text-slate-400 text-[10px] sm:text-xs font-bold">KG</div>
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1" title="Ketik manual atau pilih opsi list">Berat/Kemasan (Tara)</label>
+                                    <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1" title="Ketik manual atau pilih opsi list">Berat/Kemasan (Tara)</label>
                                     <div class="relative">
-                                        <input type="number" id="inputTara" step="any" min="0" oninput="calculateNetto()" disabled list="taraOptionsList" placeholder="0" class="w-full pl-4 pr-10 py-4 border border-slate-200 rounded-2xl font-black text-slate-800 text-2xl bg-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none shadow-sm transition-all text-center disabled:opacity-60 disabled:cursor-not-allowed">
+                                        <input type="number" id="inputTara" step="any" min="0" oninput="calculateNetto()" disabled list="taraOptionsList" placeholder="0" class="w-full pl-3 pr-8 py-3 sm:pl-4 sm:pr-10 sm:py-4 border border-slate-200 rounded-xl sm:rounded-2xl font-black text-slate-800 text-xl sm:text-2xl bg-slate-100 focus:bg-white focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none shadow-sm transition-all text-center disabled:opacity-60 disabled:cursor-not-allowed">
                                         <datalist id="taraOptionsList"></datalist>
-                                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 font-bold text-xs">KG</div>
+                                        <div class="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center pointer-events-none text-slate-400 font-bold text-[10px] sm:text-xs">KG</div>
                                     </div>
-                                    <p class="text-[10px] text-slate-400 mt-1.5 ml-1 font-medium">* Bisa input manual</p>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Jml Kemasan (Zak/Pcs)</label>
+                                    <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Jml Kemasan (Zak/Pcs)</label>
                                     <div class="relative">
-                                        <input type="number" id="inputQtyKemasan" step="1" min="0" placeholder="0" oninput="calculateNetto()" class="w-full px-4 py-4 border border-slate-200 rounded-2xl font-black text-slate-800 text-2xl bg-white focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none shadow-sm transition-all text-center">
-                                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400 text-xs font-bold">PCS</div>
+                                        <input type="number" id="inputQtyKemasan" step="1" min="0" placeholder="0" oninput="calculateNetto()" class="w-full px-3 py-3 sm:px-4 sm:py-4 border border-slate-200 rounded-xl sm:rounded-2xl font-black text-slate-800 text-xl sm:text-2xl bg-white focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none shadow-sm transition-all text-center">
+                                        <div class="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center pointer-events-none text-slate-400 text-[10px] sm:text-xs font-bold">PCS</div>
                                     </div>
                                 </div>
                             </div>
                             
                             <!-- Hasil Netto -->
-                            <div class="pt-6 border-t border-slate-200/60">
-                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1 flex justify-between items-center">
+                            <div class="pt-4 sm:pt-6 border-t border-slate-200/60">
+                                <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1 flex justify-between items-center">
                                     <span>Berat Bersih (Netto)</span>
-                                    <span class="text-[10px] bg-brand-100 text-brand-700 px-2 py-0.5 rounded font-bold uppercase tracking-widest border border-brand-200">Auto Hitung</span>
+                                    <span class="text-[9px] sm:text-[10px] bg-brand-100 text-brand-700 px-1.5 py-0.5 rounded font-bold uppercase tracking-widest border border-brand-200">Auto</span>
                                 </label>
                                 <div class="relative">
-                                    <input type="number" id="inputNetto" step="0.01" min="0.01" required placeholder="0.00" readonly class="w-full px-6 py-5 border-2 border-brand-300 bg-brand-50 rounded-2xl font-extrabold text-brand-600 text-4xl outline-none text-center shadow-inner cursor-not-allowed">
-                                    <div class="absolute inset-y-0 right-0 pr-6 flex items-center pointer-events-none text-brand-400 text-lg font-bold">KG</div>
+                                    <input type="number" id="inputNetto" step="0.01" min="0.01" required placeholder="0.00" readonly class="w-full px-4 py-3 sm:px-6 sm:py-5 border-2 border-brand-300 bg-brand-50 rounded-xl sm:rounded-2xl font-extrabold text-brand-600 text-2xl sm:text-4xl outline-none text-center shadow-inner cursor-not-allowed">
+                                    <div class="absolute inset-y-0 right-0 pr-4 sm:pr-6 flex items-center pointer-events-none text-brand-400 text-sm sm:text-lg font-bold">KG</div>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Catatan Tambahan <span class="normal-case font-medium lowercase">(opsional)</span></label>
-                            <input type="text" id="inputKeterangan" placeholder="Contoh: Pemakaian lebih karena trial..." class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all shadow-input">
+                            <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Catatan Tambahan <span class="normal-case font-medium lowercase">(opsional)</span></label>
+                            <input type="text" id="inputKeterangan" placeholder="Contoh: Pemakaian lebih karena trial..." class="w-full px-3 py-2.5 sm:px-4 sm:py-3.5 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all shadow-input">
                         </div>
 
-                        <button type="submit" class="w-full py-4 mt-2 bg-brand-600 hover:bg-brand-700 text-white rounded-2xl font-extrabold shadow-xl shadow-brand-500/20 transition-all transform hover:-translate-y-1 flex justify-center items-center gap-2 text-base">
-                            Simpan Data Realisasi
+                        <button type="submit" class="w-full py-3 sm:py-4 mt-1 sm:mt-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl sm:rounded-2xl font-extrabold shadow-xl shadow-brand-500/20 transition-all transform hover:-translate-y-1 flex justify-center items-center gap-2 text-sm sm:text-base">
+                            Simpan Realisasi
                         </button>
                     </form>
                 </div>
             </section>
 
-            <section id="section-realisasi" class="hidden space-y-6 fade-in">
-                <div class="bg-white rounded-[2rem] border border-slate-100 shadow-card p-6 sm:p-8">
-                    <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center mb-8 gap-5">
+            <section id="section-realisasi" class="hidden space-y-4 sm:space-y-6 fade-in">
+                <div class="bg-white rounded-2xl sm:rounded-[2rem] border border-slate-100 shadow-card p-4 sm:p-8">
+                    <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center mb-4 sm:mb-8 gap-3 sm:gap-5">
                         <div>
-                            <h2 class="text-2xl font-extrabold text-slate-800 tracking-tight">Riwayat Realisasi</h2>
-                            <p class="text-sm text-slate-500 mt-1 font-medium">Data pemakaian aktual dipisahkan per Plant.</p>
+                            <h2 class="text-lg sm:text-2xl font-extrabold text-slate-800 tracking-tight">Riwayat Realisasi</h2>
                         </div>
-                        <div class="flex flex-wrap items-center gap-3 w-full xl:w-auto">
-                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 shadow-sm">
-                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mr-2">Dari</label>
-                                <input type="date" id="realisasiDateFrom" onchange="renderRealisasiTable()" class="text-sm font-semibold bg-transparent outline-none text-slate-700 cursor-pointer">
+                        <div class="flex flex-wrap items-center gap-2 sm:gap-3 w-full xl:w-auto">
+                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl px-2 py-1.5 sm:px-3 sm:py-2 shadow-sm flex-1 sm:flex-none">
+                                <label class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500 mr-1 sm:mr-2">Dari</label>
+                                <input type="date" id="realisasiDateFrom" onchange="renderRealisasiTable()" class="text-xs sm:text-sm font-semibold bg-transparent outline-none text-slate-700 cursor-pointer w-full">
                             </div>
-                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 shadow-sm">
-                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mr-2">Sampai</label>
-                                <input type="date" id="realisasiDateTo" onchange="renderRealisasiTable()" class="text-sm font-semibold bg-transparent outline-none text-slate-700 cursor-pointer">
+                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl px-2 py-1.5 sm:px-3 sm:py-2 shadow-sm flex-1 sm:flex-none">
+                                <label class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500 mr-1 sm:mr-2">S/D</label>
+                                <input type="date" id="realisasiDateTo" onchange="renderRealisasiTable()" class="text-xs sm:text-sm font-semibold bg-transparent outline-none text-slate-700 cursor-pointer w-full">
                             </div>
                             
-                            <div class="relative flex-grow sm:flex-grow-0 min-w-[200px]">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-search"></i></div>
-                                <input type="text" id="searchRealisasi" placeholder="Cari material..." onkeyup="renderRealisasiTable()" class="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/50 shadow-sm transition-all">
+                            <div class="relative w-full sm:flex-grow-0 sm:min-w-[200px]">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-search text-xs sm:text-sm"></i></div>
+                                <input type="text" id="searchRealisasi" placeholder="Cari material..." onkeyup="renderRealisasiTable()" class="w-full pl-8 pr-3 py-2 sm:pl-9 sm:pr-4 sm:py-2.5 bg-white border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/50 shadow-sm transition-all">
                             </div>
-                            <button onclick="exportToExcel()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 transform hover:-translate-y-0.5">
-                                <i class="fa-solid fa-file-excel"></i> <span class="hidden sm:inline">Export CSV</span>
+                            <button onclick="exportToExcel()" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-emerald-500/20 transition-all flex justify-center items-center gap-2">
+                                <i class="fa-solid fa-file-excel"></i> CSV
                             </button>
                         </div>
                     </div>
                     
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div class="border border-slate-100 rounded-[1.5rem] flex flex-col overflow-hidden shadow-sm bg-white">
-                            <div class="bg-slate-50/80 p-5 border-b border-slate-100 flex items-center">
-                                <div class="w-2 h-2 rounded-full bg-brand-500 mr-2"></div>
-                                <h3 class="font-extrabold text-slate-700 text-sm uppercase tracking-widest">Realisasi P-1112</h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                        <div class="border border-slate-100 rounded-xl sm:rounded-[1.5rem] flex flex-col overflow-hidden shadow-sm bg-white">
+                            <div class="bg-slate-50/80 p-3 sm:p-5 border-b border-slate-100 flex items-center">
+                                <div class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-brand-500 mr-2"></div>
+                                <h3 class="font-extrabold text-slate-700 text-xs sm:text-sm uppercase tracking-widest">Realisasi P-1112</h3>
                             </div>
-                            <div class="overflow-x-auto custom-scrollbar flex-grow min-h-[400px]">
-                                <table class="w-full text-left text-xs whitespace-nowrap">
-                                    <thead class="bg-white text-slate-400 font-bold uppercase tracking-wider text-[10px] sticky top-0 border-b border-slate-100">
+                            <div class="overflow-x-auto custom-scrollbar flex-grow min-h-[250px] sm:min-h-[400px]">
+                                <table class="w-full text-left text-[10px] sm:text-xs whitespace-nowrap">
+                                    <thead class="bg-white text-slate-400 font-bold uppercase tracking-wider text-[9px] sm:text-[10px] sticky top-0 border-b border-slate-100">
                                         <tr>
-                                            <th class="p-4">Tgl</th><th class="p-4">Shift</th><th class="p-4">Material</th><th class="p-4 text-right">Qty (Kg)</th><th class="p-4">Catatan</th>
+                                            <th class="px-2 py-3 sm:p-4">Tgl</th><th class="px-2 py-3 sm:p-4">Shift</th><th class="px-2 py-3 sm:p-4">Material</th><th class="px-2 py-3 sm:p-4 text-right">Qty (Kg)</th><th class="px-2 py-3 sm:p-4">Catatan</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tableRealisasi1112Body" class="divide-y divide-slate-50 font-medium"></tbody>
@@ -664,16 +663,16 @@
                             </div>
                         </div>
 
-                        <div class="border border-slate-100 rounded-[1.5rem] flex flex-col overflow-hidden shadow-sm bg-white">
-                            <div class="bg-slate-50/80 p-5 border-b border-slate-100 flex items-center">
-                                <div class="w-2 h-2 rounded-full bg-indigo-500 mr-2"></div>
-                                <h3 class="font-extrabold text-slate-700 text-sm uppercase tracking-widest">Realisasi P-1113</h3>
+                        <div class="border border-slate-100 rounded-xl sm:rounded-[1.5rem] flex flex-col overflow-hidden shadow-sm bg-white">
+                            <div class="bg-slate-50/80 p-3 sm:p-5 border-b border-slate-100 flex items-center">
+                                <div class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-indigo-500 mr-2"></div>
+                                <h3 class="font-extrabold text-slate-700 text-xs sm:text-sm uppercase tracking-widest">Realisasi P-1113</h3>
                             </div>
-                            <div class="overflow-x-auto custom-scrollbar flex-grow min-h-[400px]">
-                                <table class="w-full text-left text-xs whitespace-nowrap">
-                                    <thead class="bg-white text-slate-400 font-bold uppercase tracking-wider text-[10px] sticky top-0 border-b border-slate-100">
+                            <div class="overflow-x-auto custom-scrollbar flex-grow min-h-[250px] sm:min-h-[400px]">
+                                <table class="w-full text-left text-[10px] sm:text-xs whitespace-nowrap">
+                                    <thead class="bg-white text-slate-400 font-bold uppercase tracking-wider text-[9px] sm:text-[10px] sticky top-0 border-b border-slate-100">
                                         <tr>
-                                            <th class="p-4">Tgl</th><th class="p-4">Shift</th><th class="p-4">Material</th><th class="p-4 text-right">Qty (Kg)</th><th class="p-4">Catatan</th>
+                                            <th class="px-2 py-3 sm:p-4">Tgl</th><th class="px-2 py-3 sm:p-4">Shift</th><th class="px-2 py-3 sm:p-4">Material</th><th class="px-2 py-3 sm:p-4 text-right">Qty (Kg)</th><th class="px-2 py-3 sm:p-4">Catatan</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tableRealisasi1113Body" class="divide-y divide-slate-50 font-medium"></tbody>
@@ -682,59 +681,61 @@
                         </div>
                     </div>
                     
-                    <div class="mt-6 flex justify-end">
-                        <div class="text-xs text-slate-500 font-semibold bg-slate-50 px-4 py-2 rounded-xl border border-slate-100">
+                    <div class="mt-4 sm:mt-6 flex justify-end">
+                        <div class="text-[10px] sm:text-xs text-slate-500 font-semibold bg-slate-50 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl border border-slate-100">
                             Menampilkan <span id="realisasiCount" class="font-bold text-slate-800 mx-1">0</span> data
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section id="section-rekapan" class="hidden space-y-6 fade-in">
-                <div class="bg-white rounded-[2rem] shadow-card border border-slate-100 p-6 sm:p-8">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-5">
+            <section id="section-rekapan" class="hidden space-y-4 sm:space-y-6 fade-in">
+                <div class="bg-white rounded-2xl sm:rounded-[2rem] shadow-card border border-slate-100 p-4 sm:p-8">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-8 gap-3 sm:gap-5">
                         <div>
-                            <h2 class="text-2xl font-extrabold text-slate-800 tracking-tight">Rekapan Plan vs Realisasi</h2>
-                            <p class="text-sm text-slate-500 mt-1 font-medium">Ringkasan akumulasi berdasarkan rentang waktu.</p>
+                            <h2 class="text-lg sm:text-2xl font-extrabold text-slate-800 tracking-tight">Rekapan</h2>
+                            <p class="text-[10px] sm:text-sm text-slate-500 mt-0.5 sm:mt-1 font-medium">Plan vs Realisasi.</p>
                         </div>
-                        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 shadow-sm">
-                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mr-2">Dari</label>
-                                <input type="date" id="rekapanDateFrom" class="text-sm font-semibold bg-transparent outline-none text-slate-700 cursor-pointer">
+                        <div class="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl px-2 py-1.5 sm:px-3 sm:py-2 shadow-sm flex-1 sm:flex-none">
+                                <label class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500 mr-1 sm:mr-2">Dari</label>
+                                <input type="date" id="rekapanDateFrom" class="text-xs sm:text-sm font-semibold bg-transparent outline-none text-slate-700 cursor-pointer w-full">
                             </div>
-                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 shadow-sm">
-                                <label class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mr-2">Sampai</label>
-                                <input type="date" id="rekapanDateTo" class="text-sm font-semibold bg-transparent outline-none text-slate-700 cursor-pointer">
+                            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl px-2 py-1.5 sm:px-3 sm:py-2 shadow-sm flex-1 sm:flex-none">
+                                <label class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500 mr-1 sm:mr-2">S/D</label>
+                                <input type="date" id="rekapanDateTo" class="text-xs sm:text-sm font-semibold bg-transparent outline-none text-slate-700 cursor-pointer w-full">
                             </div>
-                            <button onclick="renderRekapan()" class="bg-slate-800 hover:bg-slate-900 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md transition-all">
-                                Terapkan Filter
-                            </button>
-                            <!-- Tombol Share WA Ditambahkan Di Sini -->
-                            <button onclick="shareWhatsApp()" class="bg-[#25D366] hover:bg-[#1ebd5b] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-[#25D366]/30 transition-all flex items-center gap-2 transform hover:-translate-y-0.5">
-                                <i class="fa-brands fa-whatsapp text-lg"></i> <span class="hidden sm:inline">Bagikan WA</span>
-                            </button>
-                            <button onclick="exportRekapanToExcel()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2 transform hover:-translate-y-0.5">
-                                <i class="fa-solid fa-file-excel"></i> <span class="hidden sm:inline">Export</span>
-                            </button>
+                            
+                            <div class="flex gap-2 w-full sm:w-auto">
+                                <button onclick="renderRekapan()" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-900 text-white px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold shadow-md transition-all">
+                                    Filter
+                                </button>
+                                <button onclick="shareWhatsApp()" class="flex-1 sm:flex-none justify-center bg-[#25D366] hover:bg-[#1ebd5b] text-white px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-[#25D366]/30 transition-all flex items-center gap-1.5 sm:gap-2">
+                                    <i class="fa-brands fa-whatsapp text-sm sm:text-lg"></i> <span class="hidden xs:inline">WA</span>
+                                </button>
+                                <button onclick="exportRekapanToExcel()" class="flex-1 sm:flex-none justify-center bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-2 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-1.5 sm:gap-2">
+                                    <i class="fa-solid fa-file-excel text-sm"></i> <span class="hidden xs:inline">Export</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 gap-6">
+                    <div class="grid grid-cols-1 gap-4 sm:gap-6">
                         <!-- Rekapan 1112 -->
-                        <div class="border border-slate-100 rounded-[1.5rem] flex flex-col overflow-hidden shadow-sm">
-                            <div class="bg-slate-800 p-5 flex items-center text-white">
-                                <div class="w-2 h-2 rounded-full bg-brand-400 mr-3"></div>
-                                <h3 class="font-extrabold text-sm tracking-widest uppercase">Total Akumulasi P-1112</h3>
+                        <div class="border border-slate-100 rounded-xl sm:rounded-[1.5rem] flex flex-col overflow-hidden shadow-sm">
+                            <div class="bg-slate-800 p-3 sm:p-5 flex items-center text-white">
+                                <div class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-brand-400 mr-2 sm:mr-3"></div>
+                                <h3 class="font-extrabold text-xs sm:text-sm tracking-widest uppercase">Akumulasi P-1112</h3>
                             </div>
                             <div class="overflow-x-auto custom-scrollbar bg-white">
-                                <table class="w-full text-left text-xs whitespace-nowrap">
-                                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider text-[10px] border-b border-slate-100">
+                                <table class="w-full text-left text-[10px] sm:text-xs whitespace-nowrap">
+                                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider text-[9px] sm:text-[10px] border-b border-slate-100">
                                         <tr>
-                                            <th class="p-4">Material</th>
-                                            <th class="p-4 text-right">Total Plan (Kg)</th>
-                                            <th class="p-4 text-right">Total Real (Kg)</th>
-                                            <th class="p-4 text-center">Selisih</th>
-                                            <th class="p-4 w-1/3">Catatan</th>
+                                            <th class="px-2 py-3 sm:p-4">Material</th>
+                                            <th class="px-2 py-3 sm:p-4 text-right">Plan</th>
+                                            <th class="px-2 py-3 sm:p-4 text-right">Real</th>
+                                            <th class="px-2 py-3 sm:p-4 text-center">Selisih</th>
+                                            <th class="px-2 py-3 sm:p-4 w-1/3">Catatan</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tableRekapan1112Body" class="divide-y divide-slate-50 font-medium"></tbody>
@@ -743,20 +744,20 @@
                         </div>
 
                         <!-- Rekapan 1113 -->
-                        <div class="border border-slate-100 rounded-[1.5rem] flex flex-col overflow-hidden shadow-sm">
-                            <div class="bg-slate-800 p-5 flex items-center text-white">
-                                <div class="w-2 h-2 rounded-full bg-indigo-400 mr-3"></div>
-                                <h3 class="font-extrabold text-sm tracking-widest uppercase">Total Akumulasi P-1113</h3>
+                        <div class="border border-slate-100 rounded-xl sm:rounded-[1.5rem] flex flex-col overflow-hidden shadow-sm">
+                            <div class="bg-slate-800 p-3 sm:p-5 flex items-center text-white">
+                                <div class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-indigo-400 mr-2 sm:mr-3"></div>
+                                <h3 class="font-extrabold text-xs sm:text-sm tracking-widest uppercase">Akumulasi P-1113</h3>
                             </div>
                             <div class="overflow-x-auto custom-scrollbar bg-white">
-                                <table class="w-full text-left text-xs whitespace-nowrap">
-                                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider text-[10px] border-b border-slate-100">
+                                <table class="w-full text-left text-[10px] sm:text-xs whitespace-nowrap">
+                                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider text-[9px] sm:text-[10px] border-b border-slate-100">
                                         <tr>
-                                            <th class="p-4">Material</th>
-                                            <th class="p-4 text-right">Total Plan (Kg)</th>
-                                            <th class="p-4 text-right">Total Real (Kg)</th>
-                                            <th class="p-4 text-center">Selisih</th>
-                                            <th class="p-4 w-1/3">Catatan</th>
+                                            <th class="px-2 py-3 sm:p-4">Material</th>
+                                            <th class="px-2 py-3 sm:p-4 text-right">Plan</th>
+                                            <th class="px-2 py-3 sm:p-4 text-right">Real</th>
+                                            <th class="px-2 py-3 sm:p-4 text-center">Selisih</th>
+                                            <th class="px-2 py-3 sm:p-4 w-1/3">Catatan</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tableRekapan1113Body" class="divide-y divide-slate-50 font-medium"></tbody>
@@ -767,76 +768,75 @@
                 </div>
             </section>
 
-            <section id="section-master" class="hidden space-y-6 fade-in">
-                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                    <div class="xl:col-span-1 bg-white rounded-[2rem] border border-slate-100 shadow-card overflow-hidden h-fit">
-                        <div class="p-6 border-b border-slate-100 flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center"><i class="fa-solid fa-database"></i></div>
+            <section id="section-master" class="hidden space-y-4 sm:space-y-6 fade-in">
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
+                    <div class="xl:col-span-1 bg-white rounded-2xl sm:rounded-[2rem] border border-slate-100 shadow-card overflow-hidden h-fit">
+                        <div class="p-4 sm:p-6 border-b border-slate-100 flex items-center gap-2 sm:gap-3">
+                            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center"><i class="fa-solid fa-database text-sm sm:text-base"></i></div>
                             <div>
-                                <h2 class="text-lg font-extrabold text-slate-800">Data Master</h2>
-                                <p class="text-xs text-slate-500 font-medium">Tambah material baru</p>
+                                <h2 class="text-base sm:text-lg font-extrabold text-slate-800">Data Master</h2>
+                                <p class="text-[10px] sm:text-xs text-slate-500 font-medium">Tambah material baru</p>
                             </div>
                         </div>
-                        <form id="masterForm" onsubmit="handleMasterSubmit(event)" class="p-6 space-y-5 bg-white">
+                        <form id="masterForm" onsubmit="handleMasterSubmit(event)" class="p-4 sm:p-6 space-y-4 sm:space-y-5 bg-white">
                             <div>
-                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Kode Material</label>
-                                <input type="text" id="masterKode" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none uppercase transition-all font-mono">
+                                <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Kode Material</label>
+                                <input type="text" id="masterKode" required class="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none uppercase transition-all font-mono">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Nama Material</label>
-                                <input type="text" id="masterNama" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all">
+                                <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Nama Material</label>
+                                <input type="text" id="masterNama" required class="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all">
                             </div>
                             
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Kemasan (Kg)</label>
-                                    <input type="number" id="masterKemasan" step="0.01" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all">
+                                    <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Kemasan (Kg)</label>
+                                    <input type="number" id="masterKemasan" step="0.01" required class="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider ml-1">Kategori</label>
-                                    <select id="masterKategori" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all cursor-pointer">
+                                    <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1.5 sm:mb-2 uppercase tracking-wider ml-1">Kategori</label>
+                                    <select id="masterKategori" class="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all cursor-pointer">
                                         <option value="Utama">Utama</option>
                                         <option value="Pewarna">Pewarna</option>
                                         <option value="Aditif">Aditif</option>
                                         <option value="Pembantu">Pembantu</option>
                                     </select>
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-500 mb-1 uppercase tracking-wider ml-1" title="Pisahkan koma">Opsi Tara</label>
-                                    <input type="text" id="masterTara" placeholder="Cth: 0.1, 0.2" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all">
-                                    <p class="text-[9px] text-slate-400 mt-1 ml-1 font-medium">Pisahkan koma (,)</p>
+                                <div class="col-span-2 sm:col-span-1">
+                                    <label class="block text-[10px] sm:text-xs font-bold text-slate-500 mb-1 uppercase tracking-wider ml-1" title="Pisahkan koma">Opsi Tara</label>
+                                    <input type="text" id="masterTara" placeholder="Cth: 0.1, 0.2" class="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all">
                                 </div>
                             </div>
                             
-                            <div class="flex items-center gap-3 pt-2 p-4 bg-slate-50 rounded-xl border border-slate-100 mt-2">
-                                <input type="checkbox" id="masterStatus" checked class="w-5 h-5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer">
-                                <label class="text-sm font-bold text-slate-700 cursor-pointer select-none" for="masterStatus">Status Aktif</label>
+                            <div class="flex items-center gap-2 sm:gap-3 pt-1 p-3 sm:p-4 bg-slate-50 rounded-lg sm:rounded-xl border border-slate-100 mt-1 sm:mt-2">
+                                <input type="checkbox" id="masterStatus" checked class="w-4 h-4 sm:w-5 sm:h-5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer">
+                                <label class="text-xs sm:text-sm font-bold text-slate-700 cursor-pointer select-none" for="masterStatus">Status Aktif</label>
                             </div>
-                            <button type="submit" class="w-full py-4 mt-4 bg-slate-800 hover:bg-slate-900 text-white rounded-xl font-bold text-sm shadow-lg shadow-slate-800/20 transition-all flex justify-center items-center">
+                            <button type="submit" class="w-full py-3 sm:py-4 mt-2 sm:mt-4 bg-slate-800 hover:bg-slate-900 text-white rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm shadow-lg shadow-slate-800/20 transition-all flex justify-center items-center">
                                 Simpan Material
                             </button>
                         </form>
                     </div>
 
-                    <div class="xl:col-span-2 bg-white rounded-[2rem] border border-slate-100 shadow-card p-6 flex flex-col min-h-[600px]">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-                            <h2 class="text-lg font-extrabold text-slate-800 tracking-tight">Database Material</h2>
+                    <div class="xl:col-span-2 bg-white rounded-2xl sm:rounded-[2rem] border border-slate-100 shadow-card p-4 sm:p-6 flex flex-col min-h-[400px] sm:min-h-[600px]">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3 sm:gap-4">
+                            <h2 class="text-base sm:text-lg font-extrabold text-slate-800 tracking-tight">Database Material</h2>
                             <div class="relative w-full sm:w-64">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-search"></i></div>
-                                <input type="text" id="searchMaster" placeholder="Cari kode/nama..." onkeyup="renderMasterTable()" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all">
+                                <div class="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-search text-xs sm:text-sm"></i></div>
+                                <input type="text" id="searchMaster" placeholder="Cari kode/nama..." onkeyup="renderMasterTable()" class="w-full pl-9 pr-3 py-2 sm:pl-10 sm:pr-4 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 outline-none transition-all">
                             </div>
                         </div>
-                        <div class="overflow-x-auto custom-scrollbar border border-slate-100 rounded-2xl flex-grow relative shadow-sm">
-                            <table class="w-full text-left text-xs whitespace-nowrap">
-                                <thead class="bg-slate-50 text-slate-400 font-bold uppercase tracking-wider text-[10px] sticky top-0 z-10 border-b border-slate-100">
+                        <div class="overflow-x-auto custom-scrollbar border border-slate-100 rounded-xl sm:rounded-2xl flex-grow relative shadow-sm">
+                            <table class="w-full text-left text-[10px] sm:text-xs whitespace-nowrap">
+                                <thead class="bg-slate-50 text-slate-400 font-bold uppercase tracking-wider text-[9px] sm:text-[10px] sticky top-0 z-10 border-b border-slate-100">
                                     <tr>
-                                        <th class="p-4">Kode</th>
-                                        <th class="p-4">Nama Material</th>
-                                        <th class="p-4 text-right">Kemasan</th>
-                                        <th class="p-4">Kategori</th>
-                                        <th class="p-4">Opsi Tara (Kg)</th>
-                                        <th class="p-4 text-center">Status</th>
-                                        <th class="p-4 text-center">Aksi</th>
+                                        <th class="px-2 py-3 sm:p-4">Kode</th>
+                                        <th class="px-2 py-3 sm:p-4">Nama Material</th>
+                                        <th class="px-2 py-3 sm:p-4 text-right">Kemasan</th>
+                                        <th class="px-2 py-3 sm:p-4">Kategori</th>
+                                        <th class="px-2 py-3 sm:p-4">Tara (Kg)</th>
+                                        <th class="px-2 py-3 sm:p-4 text-center">Status</th>
+                                        <th class="px-2 py-3 sm:p-4 text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableMasterBody" class="divide-y divide-slate-50 font-medium bg-white"></tbody>
@@ -945,8 +945,8 @@
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer'); const toast = document.createElement('div');
             const colorClass = type === 'success' ? 'bg-emerald-500' : (type === 'error' ? 'bg-red-500' : 'bg-slate-800');
-            toast.className = `${colorClass} text-white px-5 py-3.5 rounded-2xl shadow-xl shadow-slate-900/10 text-sm font-bold flex items-center gap-3 toast-enter border border-white/20`;
-            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check text-lg' : 'fa-circle-exclamation text-lg'}"></i> <span>${message}</span>`;
+            toast.className = `${colorClass} text-white px-4 py-3 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl shadow-xl shadow-slate-900/10 text-xs sm:text-sm font-bold flex items-center gap-2 sm:gap-3 toast-enter border border-white/20 w-max max-w-[90vw]`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check text-base sm:text-lg' : 'fa-circle-exclamation text-base sm:text-lg'}"></i> <span>${message}</span>`;
             container.appendChild(toast);
             setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(10px)'; setTimeout(() => toast.remove(), 300); }, 3000);
         }
@@ -971,7 +971,7 @@
                 if(user === 'admin' && pass === 'admin123') {
                     appState.currentUser = { username: user, nama: 'Administrator', role: 'Super Admin' };
                     sessionStorage.setItem('matRecordUser', JSON.stringify(appState.currentUser));
-                    showToast("Login berhasil (Mode Offline)", 'success'); completeLoginUI();
+                    showToast("Login berhasil (Offline)", 'success'); completeLoginUI();
                 } else showToast("Gunakan admin / admin123", 'error');
             } else {
                 if(res.success) {
@@ -1048,7 +1048,7 @@
 
             const newKode = document.getElementById('editKode').value.toUpperCase();
             if (newKode !== activeEditKode && appState.materials.some(m => m['Kode Material'] === newKode)) {
-                showToast("Kode Material yang baru dimasukkan sudah ada!", "error"); return;
+                showToast("Kode Material sudah ada!", "error"); return;
             }
 
             const data = { 
@@ -1071,7 +1071,7 @@
                         appState.plannings.forEach(p => { if (p['Kode Material'] === activeEditKode || p['Nama Material'] === oldNama) { if (p['Kode Material']) p['Kode Material'] = data.kode; p['Nama Material'] = data.nama; }});
                         appState.realizations.forEach(r => { if (r['Kode Material'] === activeEditKode || r['Nama Material'] === oldNama) { if (r['Kode Material']) r['Kode Material'] = data.kode; r['Nama Material'] = data.nama; }});
                     }
-                    showToast("Material berhasil diupdate", "success");
+                    showToast("Material diupdate", "success");
                     renderMasterTable(); renderPlanningTable(); renderRealisasiTable(); renderDashboard(); renderRekapan();
                 }
                 closeEditModal();
@@ -1103,7 +1103,7 @@
         async function handleMasterSubmit(e) {
             e.preventDefault();
             const kode = document.getElementById('masterKode').value.toUpperCase();
-            if (appState.materials.some(m => m['Kode Material'] === kode)) { showToast("Kode Material sudah terdaftar!", "error"); return; }
+            if (appState.materials.some(m => m['Kode Material'] === kode)) { showToast("Kode sudah terdaftar!", "error"); return; }
 
             const data = { 
                 kode: kode, nama: document.getElementById('masterNama').value, stdKemasan: document.getElementById('masterKemasan').value, 
@@ -1116,18 +1116,18 @@
             showLoading(false);
 
             if(res.isMock) {
-                showToast("Data Master Disimpan", 'success'); 
+                showToast("Data Disimpan", 'success'); 
                 appState.materials.unshift({ 'Kode Material': data.kode, 'Nama Material': data.nama, 'Standar Kemasan (Kg)': data.stdKemasan, 'Kategori': data.kategori, 'Tara': data.tara, 'Status': data.status }); 
                 renderMasterTable(); document.getElementById('masterForm').reset();
             } else {
-                if(res.success) { showToast("Master Cloud Tersimpan"); document.getElementById('masterForm').reset(); refreshAllData(); } else showToast(res.message, 'error');
+                if(res.success) { showToast("Cloud Tersimpan"); document.getElementById('masterForm').reset(); refreshAllData(); } else showToast(res.message, 'error');
             }
         }
 
         async function handlePlanSubmit(e) {
             e.preventDefault();
             const namaMat = document.getElementById('planSelectedNama').value;
-            if(!namaMat) { showToast("Pilih material dari rekomendasi pencarian!", "error"); return; }
+            if(!namaMat) { showToast("Pilih material dari list!", "error"); return; }
             
             const data = {
                 tanggal: document.getElementById('planTanggal').value, plant: document.querySelector('input[name="planPlant"]:checked').value,
@@ -1147,7 +1147,7 @@
                 renderPlanningTable(); renderDashboard(); renderRekapan();
             } else {
                 if(res.success) { 
-                    showToast("Planning Cloud Tersimpan"); document.getElementById('planningForm').reset(); 
+                    showToast("Cloud Tersimpan"); document.getElementById('planningForm').reset(); 
                     document.getElementById('planTanggal').valueAsDate = new Date(); clearPlanMaterial(); refreshAllData(); 
                 } else showToast(res.message, 'error');
             }
@@ -1158,8 +1158,8 @@
             const namaMat = document.getElementById('selectedNamaMaterial').value;
             const totalKg = parseFloat(document.getElementById('inputNetto').value);
             
-            if(!namaMat) { showToast("Pilih material dari rekomendasi pencarian!", "error"); return; }
-            if(isNaN(totalKg) || totalKg <= 0) { showToast("Netto tidak valid atau kosong!", "error"); return; }
+            if(!namaMat) { showToast("Pilih material dari list!", "error"); return; }
+            if(isNaN(totalKg) || totalKg <= 0) { showToast("Netto tidak valid!", "error"); return; }
             
             const formData = {
                 tanggal: document.getElementById('inputTanggal').value, plant: document.querySelector('input[name="plant"]:checked').value,
@@ -1178,7 +1178,7 @@
                 renderRealisasiTable(); renderDashboard(); renderRekapan();
             } else {
                 if(res.success) {
-                    showToast("Realisasi Cloud Tersimpan"); document.getElementById('materialInputForm').reset();
+                    showToast("Cloud Tersimpan"); document.getElementById('materialInputForm').reset();
                     document.getElementById('inputTanggal').valueAsDate = new Date(); clearRealisasiMaterial(); refreshAllData();
                 } else showToast(res.message, 'error');
             }
@@ -1201,12 +1201,12 @@
                 return n.includes(query) || k.includes(query);
             });
             
-            if(filtered.length === 0) { dropdown.innerHTML = '<div class="p-4 text-slate-400 text-center text-xs italic">Tidak ditemukan</div>'; return; }
+            if(filtered.length === 0) { dropdown.innerHTML = '<div class="p-3 text-slate-400 text-center text-[10px] sm:text-xs italic">Tidak ditemukan</div>'; return; }
             
             filtered.forEach(m => {
                 const div = document.createElement('div');
-                div.className = 'p-3 hover:bg-slate-50 cursor-pointer flex justify-between items-center transition-colors border-b border-slate-50 last:border-0';
-                div.innerHTML = `<div><div class="font-bold text-slate-700">${m['Nama Material']}</div><div class="text-[10px] text-slate-400 font-mono mt-0.5">${m['Kode Material']}</div></div>`;
+                div.className = 'p-2 sm:p-3 hover:bg-slate-50 cursor-pointer flex justify-between items-center transition-colors border-b border-slate-50 last:border-0';
+                div.innerHTML = `<div><div class="font-bold text-slate-700 text-xs sm:text-sm">${m['Nama Material']}</div><div class="text-[9px] sm:text-[10px] text-slate-400 font-mono mt-0.5">${m['Kode Material']}</div></div>`;
                 div.onclick = () => {
                     document.getElementById('planMaterialSearch').value = m['Nama Material']; document.getElementById('planSelectedNama').value = m['Nama Material']; document.getElementById('planSelectedKode').value = m['Kode Material'];
                     document.getElementById('clearPlanBtn').classList.remove('hidden'); hidePlanMatDropdown();
@@ -1237,12 +1237,12 @@
                 return n.includes(query) || k.includes(query);
             });
             
-            if(filtered.length === 0) { dropdown.innerHTML = '<div class="p-4 text-slate-400 text-center text-xs italic">Tidak ditemukan</div>'; return; }
+            if(filtered.length === 0) { dropdown.innerHTML = '<div class="p-3 text-slate-400 text-center text-[10px] sm:text-xs italic">Tidak ditemukan</div>'; return; }
 
             filtered.forEach(m => {
                 const div = document.createElement('div');
-                div.className = 'p-4 hover:bg-slate-50 cursor-pointer flex justify-between items-center transition-colors border-b border-slate-50 last:border-0';
-                div.innerHTML = `<div><div class="font-bold text-slate-800">${m['Nama Material']}</div><div class="text-[10px] text-slate-400 font-mono mt-0.5">${m['Kode Material']}</div></div><div class="text-[10px] text-brand-600 font-bold bg-brand-50 px-2.5 py-1 rounded-md border border-brand-100">${m['Standar Kemasan (Kg)']} Kg</div>`;
+                div.className = 'p-3 sm:p-4 hover:bg-slate-50 cursor-pointer flex justify-between items-center transition-colors border-b border-slate-50 last:border-0';
+                div.innerHTML = `<div><div class="font-bold text-slate-800 text-xs sm:text-sm">${m['Nama Material']}</div><div class="text-[9px] sm:text-[10px] text-slate-400 font-mono mt-0.5">${m['Kode Material']}</div></div><div class="text-[9px] sm:text-[10px] text-brand-600 font-bold bg-brand-50 px-2 py-1 sm:px-2.5 sm:py-1 rounded-md border border-brand-100">${m['Standar Kemasan (Kg)']} Kg</div>`;
                 div.onclick = () => {
                     document.getElementById('materialSearchInput').value = m['Nama Material']; document.getElementById('selectedNamaMaterial').value = m['Nama Material']; document.getElementById('selectedKodeMaterial').value = m['Kode Material'];
                     document.getElementById('displaySelectedMat').innerText = m['Nama Material']; document.getElementById('displaySelectedCode').innerText = m['Kode Material']; document.getElementById('displayStdPack').innerText = m['Standar Kemasan (Kg)'];
@@ -1290,17 +1290,17 @@
             filteredPlannings.forEach(p => {
                 const tr = `
                     <tr class="hover:bg-slate-50/50 transition-colors border-b border-slate-50 last:border-0">
-                        <td class="p-4"><div class="font-bold text-slate-600">${p['Shift'] || '-'}</div></td>
-                        <td class="p-4 font-extrabold text-slate-800 whitespace-normal min-w-[120px]">${p['Nama Material']}</td>
-                        <td class="p-4 text-right font-black text-slate-900">${parseFloat(p['Rencana (Kg)']).toLocaleString('id-ID')}</td>
-                        <td class="p-4 text-slate-500 text-[11px] whitespace-normal min-w-[100px] italic">${p['Catatan'] && p['Catatan'].trim() !== '' ? p['Catatan'] : '-'}</td>
+                        <td class="px-2 py-3 sm:p-4"><div class="font-bold text-slate-600">${p['Shift'] || '-'}</div></td>
+                        <td class="px-2 py-3 sm:p-4 font-extrabold text-slate-800 whitespace-normal min-w-[100px]">${p['Nama Material']}</td>
+                        <td class="px-2 py-3 sm:p-4 text-right font-black text-slate-900">${parseFloat(p['Rencana (Kg)']).toLocaleString('id-ID')}</td>
+                        <td class="px-2 py-3 sm:p-4 text-slate-500 text-[9px] sm:text-[11px] whitespace-normal min-w-[80px] italic">${p['Catatan'] && p['Catatan'].trim() !== '' ? p['Catatan'] : '-'}</td>
                     </tr>
                 `;
                 if(p.Plant && p.Plant.includes('1112')) { tbody1112.innerHTML += tr; count1112++; } else if (p.Plant && p.Plant.includes('1113')) { tbody1113.innerHTML += tr; count1113++; }
             });
 
-            if(count1112 === 0) tbody1112.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400 italic text-xs">Kosong</td></tr>`;
-            if(count1113 === 0) tbody1113.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400 italic text-xs">Kosong</td></tr>`;
+            if(count1112 === 0) tbody1112.innerHTML = `<tr><td colspan="4" class="p-4 sm:p-8 text-center text-slate-400 italic text-[10px] sm:text-xs">Kosong</td></tr>`;
+            if(count1113 === 0) tbody1113.innerHTML = `<tr><td colspan="4" class="p-4 sm:p-8 text-center text-slate-400 italic text-[10px] sm:text-xs">Kosong</td></tr>`;
         }
 
         function renderRealisasiTable() {
@@ -1322,20 +1322,21 @@
 
             let count1112 = 0, count1113 = 0;
             filtered.forEach(r => { 
+                const dateShort = r.Tanggal ? r.Tanggal.substring(5) : '-'; // MM-DD
                 const tr = `
                     <tr class="hover:bg-slate-50/50 transition-colors border-b border-slate-50 last:border-0">
-                        <td class="p-4 text-slate-500 font-semibold">${r.Tanggal}</td>
-                        <td class="p-4"><span class="px-3 py-1 rounded-md text-[10px] font-bold bg-slate-100 text-slate-600 uppercase tracking-wider">${r.Shift}</span></td>
-                        <td class="p-4 font-extrabold text-slate-800 truncate max-w-[150px]" title="${r['Nama Material']}">${r['Nama Material']}</td>
-                        <td class="p-4 text-right font-black text-slate-900">${parseFloat(r['Jumlah (Kg)']).toLocaleString('id-ID')}</td>
-                        <td class="p-4 text-slate-500 text-[11px] whitespace-normal min-w-[120px] italic">${r.Keterangan || '-'}</td>
+                        <td class="px-2 py-3 sm:p-4 text-slate-500 font-semibold" title="${r.Tanggal}">${dateShort}</td>
+                        <td class="px-2 py-3 sm:p-4"><span class="px-2 py-1 sm:px-3 sm:py-1 rounded-md text-[9px] sm:text-[10px] font-bold bg-slate-100 text-slate-600 uppercase tracking-wider">${r.Shift}</span></td>
+                        <td class="px-2 py-3 sm:p-4 font-extrabold text-slate-800 truncate max-w-[100px] sm:max-w-[150px]" title="${r['Nama Material']}">${r['Nama Material']}</td>
+                        <td class="px-2 py-3 sm:p-4 text-right font-black text-slate-900">${parseFloat(r['Jumlah (Kg)']).toLocaleString('id-ID')}</td>
+                        <td class="px-2 py-3 sm:p-4 text-slate-500 text-[9px] sm:text-[11px] whitespace-normal min-w-[100px] italic">${r.Keterangan || '-'}</td>
                     </tr>
                 `;
                 if (r.Plant && r.Plant.includes('1112')) { tbody1112.innerHTML += tr; count1112++; } else if (r.Plant && r.Plant.includes('1113')) { tbody1113.innerHTML += tr; count1113++; }
             });
 
-            if(count1112 === 0) tbody1112.innerHTML = '<tr><td colspan="5" class="p-8 text-center text-slate-400 text-xs italic">Kosong</td></tr>';
-            if(count1113 === 0) tbody1113.innerHTML = '<tr><td colspan="5" class="p-8 text-center text-slate-400 text-xs italic">Kosong</td></tr>';
+            if(count1112 === 0) tbody1112.innerHTML = '<tr><td colspan="5" class="p-4 sm:p-8 text-center text-slate-400 text-[10px] sm:text-xs italic">Kosong</td></tr>';
+            if(count1113 === 0) tbody1113.innerHTML = '<tr><td colspan="5" class="p-4 sm:p-8 text-center text-slate-400 text-[10px] sm:text-xs italic">Kosong</td></tr>';
             document.getElementById('realisasiCount').innerText = filtered.length;
         }
 
@@ -1343,7 +1344,7 @@
 
         function renderRekapan() {
             const fromDate = document.getElementById('rekapanDateFrom').value; const toDate = document.getElementById('rekapanDateTo').value;
-            if(!fromDate || !toDate || fromDate > toDate) { showToast("Rentang tanggal tidak valid", "error"); return; }
+            if(!fromDate || !toDate || fromDate > toDate) { showToast("Tanggal tidak valid", "error"); return; }
 
             let agg1112 = {}; let agg1113 = {};
             const getEntry = (map, mat) => { if (!map[mat]) map[mat] = { material: mat, plan: 0, real: 0, notes: new Set() }; return map[mat]; };
@@ -1370,25 +1371,25 @@
 
             const buildTable = (dataArr, tbodyId) => {
                 const tbody = document.getElementById(tbodyId); tbody.innerHTML = '';
-                if (dataArr.length === 0) { tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-400 italic text-xs">Kosong</td></tr>`; return; }
+                if (dataArr.length === 0) { tbody.innerHTML = `<tr><td colspan="5" class="p-4 sm:p-8 text-center text-slate-400 italic text-[10px] sm:text-xs">Kosong</td></tr>`; return; }
 
                 dataArr.forEach(item => {
                     const diff = item.real - item.plan; let diffBadge = '';
-                    if (item.plan === 0 && item.real > 0) diffBadge = `<span class="text-[10px] bg-slate-100 text-slate-600 px-3 py-1 rounded-md font-bold uppercase tracking-wider">Tanpa Plan</span>`;
-                    else if (diff > 0) diffBadge = `<span class="text-[10px] bg-emerald-100 text-emerald-700 px-3 py-1 rounded-md font-bold border border-emerald-200">+ ${diff.toLocaleString('id-ID')}</span>`;
-                    else if (diff < 0) diffBadge = `<span class="text-[10px] bg-red-50 text-red-600 px-3 py-1 rounded-md font-bold border border-red-100">- ${Math.abs(diff).toLocaleString('id-ID')}</span>`;
-                    else diffBadge = `<span class="text-[10px] bg-slate-100 text-slate-500 px-3 py-1 rounded-md font-bold uppercase tracking-wider">Sesuai (0)</span>`;
+                    if (item.plan === 0 && item.real > 0) diffBadge = `<span class="text-[9px] sm:text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded-md font-bold uppercase tracking-wider whitespace-nowrap">Tanpa Plan</span>`;
+                    else if (diff > 0) diffBadge = `<span class="text-[9px] sm:text-[10px] bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md font-bold border border-emerald-200 whitespace-nowrap">+ ${diff.toLocaleString('id-ID')}</span>`;
+                    else if (diff < 0) diffBadge = `<span class="text-[9px] sm:text-[10px] bg-red-50 text-red-600 px-2 py-1 rounded-md font-bold border border-red-100 whitespace-nowrap">- ${Math.abs(diff).toLocaleString('id-ID')}</span>`;
+                    else diffBadge = `<span class="text-[9px] sm:text-[10px] bg-slate-100 text-slate-500 px-2 py-1 rounded-md font-bold uppercase tracking-wider whitespace-nowrap">Sesuai (0)</span>`;
 
                     const notesArr = Array.from(item.notes);
-                    const notesHtml = notesArr.length > 0 ? `<ul class="list-disc pl-4 space-y-1">${notesArr.map(n => `<li>${n}</li>`).join('')}</ul>` : `<span class="text-slate-400 italic">Tidak ada</span>`;
+                    const notesHtml = notesArr.length > 0 ? `<ul class="list-disc pl-3 sm:pl-4 space-y-1">${notesArr.map(n => `<li>${n}</li>`).join('')}</ul>` : `<span class="text-slate-400 italic">Tidak ada</span>`;
 
                     tbody.innerHTML += `
                         <tr class="hover:bg-slate-50/50 border-b border-slate-50 last:border-0 transition-colors">
-                            <td class="p-4 font-extrabold text-slate-800">${item.material}</td>
-                            <td class="p-4 text-right text-slate-500 font-bold">${item.plan > 0 ? item.plan.toLocaleString('id-ID') : '-'}</td>
-                            <td class="p-4 text-right text-slate-900 font-black">${item.real > 0 ? item.real.toLocaleString('id-ID') : '-'}</td>
-                            <td class="p-4 text-center">${diffBadge}</td>
-                            <td class="p-4 text-[11px] text-slate-500 whitespace-normal min-w-[200px] leading-relaxed">${notesHtml}</td>
+                            <td class="px-2 py-3 sm:p-4 font-extrabold text-slate-800">${item.material}</td>
+                            <td class="px-2 py-3 sm:p-4 text-right text-slate-500 font-bold">${item.plan > 0 ? item.plan.toLocaleString('id-ID') : '-'}</td>
+                            <td class="px-2 py-3 sm:p-4 text-right text-slate-900 font-black">${item.real > 0 ? item.real.toLocaleString('id-ID') : '-'}</td>
+                            <td class="px-2 py-3 sm:p-4 text-center">${diffBadge}</td>
+                            <td class="px-2 py-3 sm:p-4 text-[9px] sm:text-[11px] text-slate-500 whitespace-normal min-w-[150px] leading-relaxed">${notesHtml}</td>
                         </tr>
                     `;
                 });
@@ -1422,7 +1423,7 @@
 
             const populateTable = (map, tbody, is1112) => {
                 const keys = Object.keys(map).sort();
-                if(keys.length === 0) { tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-xs text-slate-400 italic">Belum ada aktivitas</td></tr>`; return; }
+                if(keys.length === 0) { tbody.innerHTML = `<tr><td colspan="5" class="p-4 sm:p-8 text-center text-[10px] sm:text-xs text-slate-400 italic">Belum ada aktivitas</td></tr>`; return; }
                 
                 keys.forEach(key => {
                     let data = map[key]; let statusBadge = ''; let diff = data.real - data.plan; let shortfall = data.plan - data.real; 
@@ -1434,20 +1435,20 @@
                     
                     let diffFormatted = diff > 0 ? `+${diff.toLocaleString('id-ID')}` : diff.toLocaleString('id-ID');
                     let diffColor = diff > 0 ? 'text-emerald-700 bg-emerald-50 border-emerald-100' : (diff < 0 ? 'text-red-600 bg-red-50 border-red-100' : 'text-slate-600 bg-slate-100 border-slate-200');
-                    let selisihInfo = `<span class="px-3 py-1 rounded-md text-[10px] font-bold border ${diffColor} whitespace-nowrap">${diffFormatted} Kg</span>`;
+                    let selisihInfo = `<span class="px-2 py-1 rounded-md text-[9px] sm:text-[10px] font-bold border ${diffColor} whitespace-nowrap">${diffFormatted} Kg</span>`;
 
-                    if (data.plan === 0 && data.real > 0) statusBadge = `<span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-md text-[10px] font-bold whitespace-nowrap"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Extra</span>`; 
-                    else if (data.real >= data.plan) statusBadge = `<span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-md text-[10px] font-bold whitespace-nowrap"><i class="fa-solid fa-check mr-1"></i>Selesai</span>`; 
-                    else if (shortfall > 0 && shortfall <= 10) statusBadge = `<span class="bg-emerald-50 text-emerald-600 border border-emerald-100 px-3 py-1 rounded-md text-[10px] font-bold whitespace-nowrap"><i class="fa-solid fa-check-double mr-1"></i>Selesai (Tol.)</span>`; 
-                    else statusBadge = `<span class="bg-red-50 text-red-600 px-3 py-1 rounded-md text-[10px] font-bold whitespace-nowrap"><i class="fa-solid fa-clock-rotate-left mr-1 opacity-70"></i>Kurang</span>`; 
+                    if (data.plan === 0 && data.real > 0) statusBadge = `<span class="bg-amber-100 text-amber-700 px-2 py-1 rounded-md text-[9px] sm:text-[10px] font-bold whitespace-nowrap"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Extra</span>`; 
+                    else if (data.real >= data.plan) statusBadge = `<span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md text-[9px] sm:text-[10px] font-bold whitespace-nowrap"><i class="fa-solid fa-check mr-1"></i>Selesai</span>`; 
+                    else if (shortfall > 0 && shortfall <= 10) statusBadge = `<span class="bg-emerald-50 text-emerald-600 border border-emerald-100 px-2 py-1 rounded-md text-[9px] sm:text-[10px] font-bold whitespace-nowrap"><i class="fa-solid fa-check-double mr-1"></i>Selesai (Tol.)</span>`; 
+                    else statusBadge = `<span class="bg-red-50 text-red-600 px-2 py-1 rounded-md text-[9px] sm:text-[10px] font-bold whitespace-nowrap"><i class="fa-solid fa-clock-rotate-left mr-1 opacity-70"></i>Kurang</span>`; 
 
                     tbody.innerHTML += `
                         <tr class="hover:bg-slate-50/50 border-b border-slate-50 last:border-0 transition-colors">
-                            <td class="p-4 font-extrabold text-slate-800 text-xs whitespace-normal min-w-[120px]">${data.mat}</td>
-                            <td class="p-4 text-right text-slate-500 font-bold">${data.plan.toLocaleString('id-ID')}</td>
-                            <td class="p-4 text-right text-slate-900 font-black">${data.real.toLocaleString('id-ID')}</td>
-                            <td class="p-4 text-center align-middle">${statusBadge}</td>
-                            <td class="p-4 text-center align-middle">${selisihInfo}</td>
+                            <td class="px-2 py-3 sm:p-4 font-extrabold text-slate-800 text-[10px] sm:text-xs whitespace-normal min-w-[90px] sm:min-w-[120px]">${data.mat}</td>
+                            <td class="px-2 py-3 sm:p-4 text-right text-slate-500 font-bold">${data.plan.toLocaleString('id-ID')}</td>
+                            <td class="px-2 py-3 sm:p-4 text-right text-slate-900 font-black">${data.real.toLocaleString('id-ID')}</td>
+                            <td class="px-2 py-3 sm:p-4 text-center align-middle">${statusBadge}</td>
+                            <td class="px-2 py-3 sm:p-4 text-center align-middle">${selisihInfo}</td>
                         </tr>
                     `;
                 });
@@ -1472,22 +1473,22 @@
                 return nama.includes(query) || kode.includes(query);
             });
             
-            if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="7" class="p-8 text-center text-slate-400 text-xs italic">Data material tidak ditemukan</td></tr>'; return; }
+            if(filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="7" class="p-4 sm:p-8 text-center text-slate-400 text-[10px] sm:text-xs italic">Data material tidak ditemukan</td></tr>'; return; }
 
             filtered.forEach(m => {
                 const isAktif = m.Status === 'Aktif';
                 tbody.innerHTML += `
                 <tr class="hover:bg-slate-50/50 transition-colors border-b border-slate-50">
-                    <td class="p-4 text-xs text-slate-500 font-mono font-medium">${m['Kode Material']}</td>
-                    <td class="p-4 font-extrabold text-slate-800">${m['Nama Material']}</td>
-                    <td class="p-4 text-slate-800 font-bold text-right">${m['Standar Kemasan (Kg)']} <span class="text-[10px] text-slate-400 font-normal">Kg</span></td>
-                    <td class="p-4"><span class="px-3 py-1.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-bold">${m.Kategori}</span></td>
-                    <td class="p-4 text-xs font-mono text-slate-500 font-medium">${m.Tara || '-'}</td>
-                    <td class="p-4 text-center"><span class="px-3 py-1 rounded-md text-[10px] font-bold ${isAktif ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-slate-100 text-slate-400'}">${m.Status}</span></td>
-                    <td class="p-4 text-center">
-                        <div class="flex items-center justify-center gap-2">
-                            <button onclick="openEditModal('${m['Kode Material']}')" class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-500 hover:text-white flex items-center justify-center transition-colors shadow-sm"><i class="fa-solid fa-pen-to-square text-xs"></i></button>
-                            <button onclick="openDeleteModal('${m['Kode Material']}')" class="w-8 h-8 rounded-lg bg-red-50 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors shadow-sm"><i class="fa-solid fa-trash text-xs"></i></button>
+                    <td class="px-2 py-3 sm:p-4 text-[10px] sm:text-xs text-slate-500 font-mono font-medium">${m['Kode Material']}</td>
+                    <td class="px-2 py-3 sm:p-4 font-extrabold text-slate-800">${m['Nama Material']}</td>
+                    <td class="px-2 py-3 sm:p-4 text-slate-800 font-bold text-right">${m['Standar Kemasan (Kg)']} <span class="text-[9px] sm:text-[10px] text-slate-400 font-normal">Kg</span></td>
+                    <td class="px-2 py-3 sm:p-4"><span class="px-2 py-1 sm:px-3 sm:py-1.5 rounded-md bg-slate-100 text-slate-600 text-[9px] sm:text-[10px] font-bold">${m.Kategori}</span></td>
+                    <td class="px-2 py-3 sm:p-4 text-[10px] sm:text-xs font-mono text-slate-500 font-medium">${m.Tara || '-'}</td>
+                    <td class="px-2 py-3 sm:p-4 text-center"><span class="px-2 py-1 sm:px-3 sm:py-1 rounded-md text-[9px] sm:text-[10px] font-bold ${isAktif ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-slate-100 text-slate-400'}">${m.Status}</span></td>
+                    <td class="px-2 py-3 sm:p-4 text-center">
+                        <div class="flex items-center justify-center gap-1 sm:gap-2">
+                            <button onclick="openEditModal('${m['Kode Material']}')" class="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-500 hover:text-white flex items-center justify-center transition-colors shadow-sm"><i class="fa-solid fa-pen-to-square text-[10px] sm:text-xs"></i></button>
+                            <button onclick="openDeleteModal('${m['Kode Material']}')" class="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-lg bg-red-50 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors shadow-sm"><i class="fa-solid fa-trash text-[10px] sm:text-xs"></i></button>
                         </div>
                     </td>
                 </tr>`;
@@ -1545,7 +1546,7 @@
 
         function shareWhatsApp() {
             if (aggregatedData1112.length === 0 && aggregatedData1113.length === 0) {
-                showToast("Tidak ada data rekapan untuk dibagikan", "error");
+                showToast("Tidak ada data", "error");
                 return;
             }
             
